@@ -57,7 +57,8 @@
         }
 
         .quest-display {
-            visibility: hidden; /* Initially set the visibility to hidden */
+            opacity: 0; /* Initially make the element invisible */
+            height: 0; /* Set height to 0 so it doesn't take up space */
             margin-top: 40px;
             font-size: 1.5rem;
             color: #ffcc00; /* Gold for quest text */
@@ -70,6 +71,7 @@
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
+            transition: opacity 0.5s ease, height 0.5s ease; /* Smooth transition for opacity and height */
         }
 
         .quest-display p {
@@ -118,10 +120,11 @@
             const randomIndex = Math.floor(Math.random() * quests.length);
             const randomQuest = quests[randomIndex];
 
-            // Display the quest and make the div visible
+            // Display the quest and make the div visible by transitioning opacity and height
             const questDisplay = document.getElementById("questDisplay");
             questDisplay.innerHTML = `<p>${randomQuest}</p>`;
-            questDisplay.style.visibility = "visible"; // Make the quest display visible
+            questDisplay.style.opacity = "1";  // Make the quest display visible
+            questDisplay.style.height = "auto";  // Set the height back to auto to reveal the content
         }
 
         // Load the CSV when the page is loaded
