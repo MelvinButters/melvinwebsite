@@ -16,36 +16,5 @@
         <li><a href="https://melvinbutters.github.io/melvinwebsite/jerome.html" target="_blank">Jerome</a></li>
     </ul>
 
-    <h2>Choose a Song to Play</h2>
-    <!-- Buttons to play music -->
-    <button onclick="playSong('bones')">Bones</button>
-    <button onclick="playSong('flipper')">Flipper</button>
-
-    <h2>Now Playing:</h2>
-    <!-- Audio Player -->
-    <audio id="audioPlayer" controls>
-        <source id="audioSource" src="" type="audio/mp3">
-        Your browser does not support the audio element.
-    </audio>
-
-    <script>
-        function playSong(song) {
-            var audioPlayer = document.getElementById('audioPlayer');
-            var audioSource = document.getElementById('audioSource');
-
-            if (song === 'bones') {
-                // Set the 'src' attribute to the 'bones vs.mp3' file
-                audioSource.src = '/music/bones.mp3';  // URL-encoded space as '%20'
-                audioPlayer.load();  // Load the new song
-                audioPlayer.play();  // Play the song
-            } else if (song === 'flipper') {
-                // Set the 'src' attribute to the 'flipper.mp3' file
-                audioSource.src = '/music/flipper.mp3';
-                audioPlayer.load();  // Load the new song
-                audioPlayer.play();  // Play the song
-            }
-        }
-    </script>
-
 </body>
 </html>
