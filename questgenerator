@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quest Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .quest-display {
+            margin-top: 30px;
+            font-size: 20px;
+            color: #555;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Random D&D Quest Generator</h1>
+    <p>Click the button below to get a random quest idea!</p>
+
+    <button onclick="loadRandomQuest()">Get Random Quest</button>
+
+    <div class="quest-display" id="questDisplay">
+        <!-- Random quest will be displayed here -->
+    </div>
+
+    <script>
+        let quests = [];
+
+        // Load the CSV file and parse it
+        function loadCSV(url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    // Split the CSV into rows and remove any extra empty rows or spaces
+                    const rows = data.split('\n').filter(row => row.trim() !== '');
+                    quests = rows;
+                })
+                .catch(error => console.error('Error loading CSV:', error));
+        }
+
+        // Function to display a random quest
+        function loadRandomQuest() {
+            if (quests.length === 0) {
+                alert("No quests loaded. Please wait for the CSV to load.");
+                return;
+            }
+
+            const randomIndex = Math.floor(Math.random() * quests.length);
+            const randomQuest = quests[randomIndex];
+            document.getElementById("questDisplay").innerText = randomQuest;
+        }
+
+        // Load the CSV when the page is loaded
+        window.onload = () => {
+            // Replace the link below with your actual raw CSV URL
+            loadCSV("https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/list/quests.csv");
+        };
+    </script>
+
+</body>
+</html>
