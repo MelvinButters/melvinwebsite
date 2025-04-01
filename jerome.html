@@ -1,68 +1,140 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Jerome the Hedgehog</title>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <title>Random Quest Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet"> <!-- Fantasy font for page title -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Readable font for quest text -->
     <style>
-      /* Global reset */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+        body {
+            font-family: 'MedievalSharp', cursive; /* Fantasy-style font */
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #3b1f1f, #483d8b); /* Dark, moody gradient background */
+            color: #f4f4f4; /* Light text for readability */
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-size: cover;
+        }
 
-      body {
-        background-color: #121212; /* Dark background for a sleek feel */
-        color: #fff;
-        font-family: Arial, sans-serif;
-        text-align: center;
-        padding: 20px;
-      }
+        h1 {
+            font-size: 3.5rem;
+            color: #ffcc00; /* Gold color for title */
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8); /* Magical glowing text shadow */
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
 
-      h1 {
-        font-size: 3rem;
-        color: #ff5c8d; /* Soft pink/red similar to Pornhub's color scheme */
-        margin-bottom: 30px;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-      }
+        p {
+            font-size: 1.5rem;
+            color: #dcdcdc;
+            font-weight: normal;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow for clarity */
+        }
 
-      p {
-        font-size: 1.25rem;
-        color: #ddd;
-        margin-bottom: 20px;
-        line-height: 1.6;
-      }
+        button {
+            background-color: #2e8b57; /* Dark forest green for button */
+            color: white;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+        }
 
-      img {
-        max-width: 100%;
-        height: auto;
-        border-radius: 15px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6); /* Subtle shadow for a sleek look */
-        transition: transform 0.3s ease-in-out;
-      }
+        button:hover {
+            background-color: #3cb371; /* Lighter green when hovered */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.8); /* Stronger shadow on hover */
+        }
 
-      img:hover {
-        transform: scale(1.05); /* Slight zoom effect on hover */
-      }
+        .quest-display {
+            margin-top: 40px;
+            font-size: 1.8rem; /* Slightly larger font size for readability */
+            color: #ffcc00; /* Gold for quest text */
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.6); /* Semi-transparent background for contrast */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); /* Glowing effect */
+            text-align: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            visibility: visible;  /* Keeps the element visible in layout */
+            opacity: 0;           /* Initially invisible */
+            transition: opacity 1s ease-in-out; /* Smooth fade-in transition */
+            line-height: 1.6; /* Increase line height for better readability */
+            font-family: 'Roboto', sans-serif; /* Change the font of the quest text */
+        }
 
-      .container {
-        max-width: 900px;
-        margin: 0 auto;
-      }
+        .quest-display p {
+            margin: 0;
+            padding: 0;
+            font-style: italic;
+        }
+
     </style>
-  </head>
-  <body>
+</head>
+<body>
 
-    <div class="container">
-      <h1>Jerome the Hedgehog</h1>
-      <p>Jerome is my best friend at work. I drew this for Jerome! <3</p>
+    <h1>Random D&D Quest Generator</h1>
+    <p>Unleash the magic! Click the button below to get a random quest idea!</p>
 
-      <img src="https://pm1.aminoapps.com/7748/015ebb1d404e6f45ecf8473efeef5cf5499b4273r1-730-712v2_uhq.jpg" alt="Jerome the Hedgehog">
+    <button onclick="loadRandomQuest()">Get Random Quest</button>
+
+    <div class="quest-display" id="questDisplay">
+        <!-- Random quest will be displayed here -->
     </div>
 
-  </body>
+    <script>
+        let quests = [];
+
+        // Load the CSV file and parse it
+        function loadCSV(url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    // Split the CSV into rows and remove any extra empty rows or spaces
+                    const rows = data.split('\n').filter(row => row.trim() !== '');
+                    
+                    // Split each row by comma and store them in the quests array
+                    quests = rows.map(row => row.trim());  // Remove extra spaces and store each quest as an element
+                })
+                .catch(error => console.error('Error loading CSV:', error));
+        }
+
+        // Function to display a random quest
+        function loadRandomQuest() {
+            if (quests.length === 0) {
+                alert("No quests loaded. Please wait for the CSV to load.");
+                return;
+            }
+
+            const randomIndex = Math.floor(Math.random() * quests.length);
+            const randomQuest = quests[randomIndex];
+            
+            // Set the quest text and make it visible with a smooth fade-in
+            const questDisplay = document.getElementById("questDisplay");
+            questDisplay.innerHTML = `<p>${randomQuest}</p>`;
+            questDisplay.style.opacity = 1;  // Make it visible
+        }
+
+        // Load the CSV when the page is loaded
+        window.onload = () => {
+            // Replace the link below with your actual raw CSV URL
+            loadCSV("https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/list/quests.csv");
+        };
+    </script>
+
+</body>
 </html>
