@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Quest Generator</title>
-    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet"> <!-- Fantasy font for page title -->
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet"> <!-- Fantasy font -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Readable font for quest text -->
     <style>
         body {
@@ -14,28 +14,22 @@
             background: linear-gradient(135deg, #3b1f1f, #483d8b); /* Dark, moody gradient background */
             color: #f4f4f4; /* Light text for readability */
             text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            height: 100vh;
             background-size: cover;
+            padding-top: 50px; /* Give some space to the top of the screen */
         }
 
         h1 {
             font-size: 3.5rem;
             color: #ffcc00; /* Gold color for title */
             text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8); /* Magical glowing text shadow */
-            margin-top: 30px;
-            margin-bottom: 10px;
             letter-spacing: 2px;
+            margin-bottom: 10px;
         }
 
         p {
             font-size: 1.5rem;
             color: #dcdcdc;
-            font-weight: normal;
-            margin-bottom: 40px;
+            margin-top: 10px;
             text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow for clarity */
         }
 
@@ -51,7 +45,7 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-            margin-bottom: 40px; /* Add some space between button and quest box */
+            margin-top: 20px;
         }
 
         button:hover {
@@ -60,26 +54,21 @@
         }
 
         .quest-display {
-            font-size: 1.8rem; /* Slightly larger font size for readability */
+            margin-top: 30px;
+            font-size: 1.5rem;
             color: #ffcc00; /* Gold for quest text */
             font-weight: bold;
             background: rgba(0, 0, 0, 0.6); /* Semi-transparent background for contrast */
-            padding: 30px;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); /* Glowing effect */
             text-align: center;
             max-width: 600px;
-            width: 100%;
+            margin-left: auto;
+            margin-right: auto;
             visibility: visible;  /* Keeps the element visible in layout */
             opacity: 0;           /* Initially invisible */
             transition: opacity 1s ease-in-out; /* Smooth fade-in transition */
-            line-height: 1.6; /* Increase line height for better readability */
-            font-family: 'Roboto', sans-serif; /* Change the font of the quest text */
-            margin-top: 40px; /* Space the quest box below the button */
-            margin-left: auto;
-            margin-right: auto;
-            max-height: 70%; /* Limit height so it doesn't overflow the screen */
-            overflow-y: auto; /* Allow scrolling if the quest text is too long */
         }
 
         .quest-display p {
