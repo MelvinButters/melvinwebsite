@@ -54,7 +54,7 @@
                 .then(data => {
                     // Split the CSV into rows and remove any extra empty rows or spaces
                     const rows = data.split('\n').filter(row => row.trim() !== '');
-
+                    
                     // Split each row by comma and store them in the quests array
                     quests = rows.map(row => row.trim());  // Remove extra spaces and store each quest as an element
                 })
