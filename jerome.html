@@ -4,12 +4,95 @@
     <title>Jerome the Hedgehog</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+      /* Global reset */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #121212; /* Dark background for a sleek feel */
+        color: #fff;
+        font-family: Arial, sans-serif;
+        text-align: center;
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 3rem;
+        color: #ff5c8d; /* Soft pink/red similar to Pornhub's color scheme */
+        margin-bottom: 30px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      p {
+        font-size: 1.25rem;
+        color: #ddd;
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6); /* Subtle shadow for a sleek look */
+        transition: transform 0.3s ease-in-out;
+      }
+
+      img:hover {
+        transform: scale(1.05); /* Slight zoom effect on hover */
+      }
+
+      .container {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      /* Button styled like a modern website call to action */
+      .cta-button {
+        background-color: #ff5c8d; /* Pinkish-red color similar to Pornhub */
+        color: white;
+        padding: 15px 25px;
+        font-size: 1.2rem;
+        border: none;
+        border-radius: 30px;
+        cursor: pointer;
+        text-transform: uppercase;
+        margin-top: 30px;
+        transition: background-color 0.3s;
+      }
+
+      .cta-button:hover {
+        background-color: #ff4777; /* Slightly darker shade of pink */
+      }
+
+      .footer {
+        color: #888;
+        font-size: 0.9rem;
+        margin-top: 50px;
+      }
+    </style>
   </head>
   <body>
-    <p>Jerome is my best friend at work. I drew this for Jerome! <3 </p>
 
-    <!-- Adding the image below the content -->
-    <img src="https://pm1.aminoapps.com/7748/015ebb1d404e6f45ecf8473efeef5cf5499b4273r1-730-712v2_uhq.jpg" alt="Image description" width="500">
-    
+    <div class="container">
+      <h1>Jerome the Hedgehog</h1>
+      <p>Jerome is my best friend at work. I drew this for Jerome! <3</p>
+
+      <img src="https://pm1.aminoapps.com/7748/015ebb1d404e6f45ecf8473efeef5cf5499b4273r1-730-712v2_uhq.jpg" alt="Jerome the Hedgehog">
+
+      <button class="cta-button" onclick="alert('More content coming soon!')">Explore More</button>
+
+      <div class="footer">
+        <p>Created with passion by your friendly developer!</p>
+      </div>
+    </div>
+
   </body>
 </html>
