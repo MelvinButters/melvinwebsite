@@ -20,6 +20,7 @@
             align-items: center;
             flex-direction: column;
             background-size: cover;
+            position: relative; /* Make sure quest box is positioned relative to the body */
         }
 
         h1 {
@@ -58,7 +59,6 @@
         }
 
         .quest-display {
-            margin-top: 40px;
             font-size: 1.8rem; /* Slightly larger font size for readability */
             color: #ffcc00; /* Gold for quest text */
             font-weight: bold;
@@ -68,13 +68,18 @@
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); /* Glowing effect */
             text-align: center;
             max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
+            position: absolute; /* Absolute position so it doesn't affect other layout */
+            top: 50%; /* Center the quest box vertically */
+            transform: translateY(-50%); /* Offset the box by 50% of its own height */
             visibility: visible;  /* Keeps the element visible in layout */
             opacity: 0;           /* Initially invisible */
             transition: opacity 1s ease-in-out; /* Smooth fade-in transition */
             line-height: 1.6; /* Increase line height for better readability */
             font-family: 'Roboto', sans-serif; /* Change the font of the quest text */
+            width: 100%; /* Ensure it doesn't overflow */
+            max-height: 70%; /* Limit height so it doesn't overflow the screen */
+            overflow-y: auto; /* Allow scrolling if the quest text is too long */
+            margin-top: 40px; /* Add some spacing between the quest and the button */
         }
 
         .quest-display p {
