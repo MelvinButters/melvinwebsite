@@ -4,39 +4,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Quest Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet"> <!-- Fantasy font -->
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
+            font-family: 'MedievalSharp', cursive; /* Fantasy-style font */
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #3b1f1f, #483d8b); /* Dark, moody gradient background */
+            color: #f4f4f4; /* Light text for readability */
             text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-size: cover;
         }
+
         h1 {
-            color: #333;
+            font-size: 3.5rem;
+            color: #ffcc00; /* Gold color for title */
+            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8); /* Magical glowing text shadow */
+            margin-bottom: 30px;
+            letter-spacing: 2px;
         }
+
+        p {
+            font-size: 1.5rem;
+            color: #dcdcdc;
+            font-weight: normal;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow for clarity */
+        }
+
         button {
-            background-color: #4CAF50;
+            background-color: #2e8b57; /* Dark forest green for button */
             color: white;
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 15px 30px;
+            font-size: 1.2rem;
             border: none;
+            border-radius: 10px;
             cursor: pointer;
-            margin-top: 20px;
+            transition: background-color 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
         }
+
         button:hover {
-            background-color: #45a049;
+            background-color: #3cb371; /* Lighter green when hovered */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.8); /* Stronger shadow on hover */
         }
+
         .quest-display {
-            margin-top: 30px;
-            font-size: 20px;
-            color: #555;
+            margin-top: 40px;
+            font-size: 1.5rem;
+            color: #ffcc00; /* Gold for quest text */
             font-weight: bold;
+            background: rgba(0, 0, 0, 0.6); /* Semi-transparent background for contrast */
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); /* Glowing effect */
+            text-align: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
+
+        .quest-display p {
+            margin: 0;
+            padding: 0;
+            font-style: italic;
+        }
+
     </style>
 </head>
 <body>
 
     <h1>Random D&D Quest Generator</h1>
-    <p>Click the button below to get a random quest idea!</p>
+    <p>Unleash the magic! Click the button below to get a random quest idea!</p>
 
     <button onclick="loadRandomQuest()">Get Random Quest</button>
 
@@ -70,7 +116,7 @@
 
             const randomIndex = Math.floor(Math.random() * quests.length);
             const randomQuest = quests[randomIndex];
-            document.getElementById("questDisplay").innerText = randomQuest;
+            document.getElementById("questDisplay").innerHTML = `<p>${randomQuest}</p>`;
         }
 
         // Load the CSV when the page is loaded
