@@ -5,31 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Melvin Butters Website</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: orange;
-            color: white;
+        /* Reset some basic styling */
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            /* Set the uploaded GIF as background */
+            background: url('assets/images/background.gif') no-repeat center center fixed;
+            background-size: cover; /* Ensures it covers the whole screen */
+            font-family: 'Arial', sans-serif;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            animation: fadeIn 2s ease-out;
+        }
+
+        /* Animations for smooth background */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
 
         h1 {
-            text-align: center;
-            padding: 20px;
-            font-size: 36px;
-            color: #333;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 20px;
         }
 
         p {
-            text-align: center;
-            font-size: 18px;
+            font-size: 1.5em;
             margin-bottom: 20px;
         }
 
+        /* Nyan Cat GIF */
         .nyan-gif {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .nyan-gif img {
@@ -38,27 +59,23 @@
         }
 
         ul {
-            list-style-type: none;
-            padding: 0;
-            text-align: center;
+            list-style: none;
         }
 
-        ul li {
-            margin: 10px 0;
+        li {
+            margin: 10px;
+            font-size: 1.3em;
         }
 
         a {
-            color: white;
+            color: #fff;
             text-decoration: none;
-            font-size: 20px;
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            font-weight: bold;
+            transition: color 0.3s ease;
         }
 
         a:hover {
-            background-color: #45a049;
+            color: #FFD700; /* Golden color when hovered */
         }
     </style>
 </head>
