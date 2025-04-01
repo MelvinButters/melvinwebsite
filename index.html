@@ -14,10 +14,10 @@
             box-sizing: border-box;
         }
 
-        /* Background with an orange theme */
+        /* Background with a futuristic theme */
         body {
-            background: linear-gradient(135deg, #FFA500, #FF6347); /* Orange gradient */
-            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e); /* Futuristic gradient */
+            font-family: 'Roboto', sans-serif;
             color: #fff;
             height: 100vh;
             display: flex;
@@ -26,12 +26,27 @@
             flex-direction: column;
             text-align: center;
             overflow: hidden; /* Prevents overflow from flashy effects */
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+        }
+
+        /* Animation for the background gradient */
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         h1 {
-            font-size: 4rem;
-            color: #fff;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7); /* Strong shadow effect */
+            font-size: 5rem;
+            color: #00f1ff;
+            text-shadow: 0 0 30px rgba(0, 243, 255, 0.7), 0 0 60px rgba(0, 243, 255, 0.5), 0 0 90px rgba(0, 243, 255, 0.3);
             animation: textAnimation 3s ease-in-out infinite, glowing 1.5s ease-in-out infinite; /* Added glowing animation */
             margin-bottom: 20px;
         }
@@ -43,7 +58,7 @@
                 opacity: 0.8;
             }
             50% {
-                transform: scale(1.1);
+                transform: scale(1.2);
                 opacity: 1;
             }
             100% {
@@ -55,42 +70,21 @@
         /* Glowing effect on text */
         @keyframes glowing {
             0% {
-                text-shadow: 0 0 5px #FFA500, 0 0 10px #FF6347, 0 0 15px #FF4500, 0 0 20px #FF0000;
+                text-shadow: 0 0 20px #00f1ff, 0 0 40px #00f1ff, 0 0 60px #00f1ff;
             }
             50% {
-                text-shadow: 0 0 5px #FF6347, 0 0 10px #FFA500, 0 0 15px #FF4500, 0 0 20px #FF0000;
+                text-shadow: 0 0 20px #ff00a1, 0 0 40px #ff00a1, 0 0 60px #ff00a1;
             }
             100% {
-                text-shadow: 0 0 5px #FF4500, 0 0 10px #FF6347, 0 0 15px #FFA500, 0 0 20px #FF0000;
+                text-shadow: 0 0 20px #00f1ff, 0 0 40px #00f1ff, 0 0 60px #00f1ff;
             }
         }
 
         p {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin: 10px 0;
-            color: #f4f4f4;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Nyan Cat GIF */
-        .nyan-gif {
-            margin: 30px 0;
-        }
-
-        .nyan-gif img {
-            width: 200px;  /* Adjust width of the GIF */
-            height: auto;
-            animation: bounce 1s ease-in-out infinite; /* Added bounce animation to the GIF */
-        }
-
-        /* Bounce effect for the GIF */
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
+            color: #b0b0b0;
+            text-shadow: 1px 1px 10px rgba(0, 0, 0, 0.4);
         }
 
         ul {
@@ -100,26 +94,27 @@
         }
 
         li {
-            margin: 25px 0; /* Increased space between links */
-            font-size: 1.3rem;
+            margin: 25px 0;
+            font-size: 1.5rem;
         }
 
         a {
             text-decoration: none;
-            color: #f3e6ff;
-            padding: 10px 20px;
-            border: 2px solid #fff;
-            border-radius: 30px;
+            color: #00f1ff;
+            padding: 15px 30px;
+            border: 2px solid #00f1ff;
+            border-radius: 50px;
             transition: all 0.3s ease;
             font-weight: bold;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         a:hover {
-            background: #fff;
+            background: #00f1ff;
             color: #000;
             transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+            box-shadow: 0 0 25px rgba(0, 243, 255, 0.8);
             animation: pulse 0.6s ease-in-out infinite; /* Added pulse effect on hover */
         }
 
@@ -146,16 +141,11 @@
     <h1>Welcome to Melvin Butters' World of Wonders!</h1>
     <p>Your journey begins here! Choose a path and explore:</p>
 
-    <!-- Nyan Cat GIF -->
-    <div class="nyan-gif">
-        <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/4961bccacfb0b600f3bb6cb7e9e7cf1a9a8d9933/images/nyan.gif" alt="Nyan Cat GIF">
-    </div>
-
     <ul>
         <li><a href="https://www.reddit.com/r/asx_bets" target="_blank">🚀 Brainchip</a></li>
         <li><a href="https://foundry.melvinbutters.com" target="_blank">⚙️ Foundry</a></li>
         <li><a href="https://melvinbutters.github.io/melvinwebsite/jerome.html" target="_blank">🔥 Jerome</a></li>
-        <li><a href="https://melvinbutters.github.io/melvinwebsite/questgenerator.html" target="_blank">🎲 Quest Generator</a></li> <!-- Dice emoji for Quest Generator -->
+        <li><a href="https://melvinbutters.github.io/melvinwebsite/questgenerator.html" target="_blank">🎲 Quest Generator</a></li>
     </ul>
 
 </body>
