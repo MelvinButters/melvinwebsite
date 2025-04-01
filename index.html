@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Welcome to Melvin Butters Website</title>
+    <link rel="icon" href="/images/luigi.png" type="image/png"> <!-- Corrected favicon link -->
+
     <style>
         /* Reset some basic styling */
         * {
@@ -11,8 +13,6 @@
             padding: 0;
             box-sizing: border-box;
         }
-
-        <link rel="icon" href="/images/luigi.png" type="image/png">
 
         /* Background with an orange theme */
         body {
@@ -58,3 +58,105 @@
                 text-shadow: 0 0 5px #FFA500, 0 0 10px #FF6347, 0 0 15px #FF4500, 0 0 20px #FF0000;
             }
             50% {
+                text-shadow: 0 0 5px #FF6347, 0 0 10px #FFA500, 0 0 15px #FF4500, 0 0 20px #FF0000;
+            }
+            100% {
+                text-shadow: 0 0 5px #FF4500, 0 0 10px #FF6347, 0 0 15px #FFA500, 0 0 20px #FF0000;
+            }
+        }
+
+        p {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            color: #f4f4f4;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Nyan Cat GIF */
+        .nyan-gif {
+            margin: 30px 0;
+        }
+
+        .nyan-gif img {
+            width: 200px;  /* Adjust width of the GIF */
+            height: auto;
+            animation: bounce 1s ease-in-out infinite; /* Added bounce animation to the GIF */
+        }
+
+        /* Bounce effect for the GIF */
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+
+        li {
+            margin: 25px 0; /* Increased space between links */
+            font-size: 1.3rem;
+        }
+
+        a {
+            text-decoration: none;
+            color: #f3e6ff;
+            padding: 10px 20px;
+            border: 2px solid #fff;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        a:hover {
+            background: #fff;
+            color: #000;
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+            animation: pulse 0.6s ease-in-out infinite; /* Added pulse effect on hover */
+        }
+
+        a:active {
+            transform: scale(1.05);
+        }
+
+        /* Pulse animation on hover */
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome to Melvin Butters' World of Wonders!</h1>
+    <p>Your journey begins here! Choose a path and explore:</p>
+
+    <!-- Nyan Cat GIF -->
+    <div class="nyan-gif">
+        <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/4961bccacfb0b600f3bb6cb7e9e7cf1a9a8d9933/images/nyan.gif" alt="Nyan Cat GIF">
+    </div>
+
+    <ul>
+        <li><a href="https://www.reddit.com/r/asx_bets" target="_blank">🚀 Brainchip</a></li>
+        <li><a href="https://foundry.melvinbutters.com" target="_blank">⚙️ Foundry</a></li>
+        <li><a href="https://melvinbutters.github.io/melvinwebsite/jerome.html" target="_blank">🔥 Jerome</a></li>
+        <li><a href="https://melvinbutters.github.io/melvinwebsite/questgenerator.html" target="_blank">🎲 Quest Generator</a></li> <!-- Dice emoji for Quest Generator -->
+    </ul>
+
+</body>
+</html>
