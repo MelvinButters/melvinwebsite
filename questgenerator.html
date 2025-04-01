@@ -17,17 +17,17 @@
             height: 100vh;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* Align content to the top */
             flex-direction: column;
             background-size: cover;
-            position: relative; /* Make sure quest box is positioned relative to the body */
         }
 
         h1 {
             font-size: 3.5rem;
             color: #ffcc00; /* Gold color for title */
             text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8); /* Magical glowing text shadow */
-            margin-bottom: 30px;
+            margin-top: 30px;
+            margin-bottom: 10px;
             letter-spacing: 2px;
         }
 
@@ -51,6 +51,7 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+            margin-bottom: 40px; /* Add some space between button and quest box */
         }
 
         button:hover {
@@ -68,18 +69,17 @@
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); /* Glowing effect */
             text-align: center;
             max-width: 600px;
-            position: absolute; /* Absolute position so it doesn't affect other layout */
-            top: 50%; /* Center the quest box vertically */
-            transform: translateY(-50%); /* Offset the box by 50% of its own height */
+            width: 100%;
             visibility: visible;  /* Keeps the element visible in layout */
             opacity: 0;           /* Initially invisible */
             transition: opacity 1s ease-in-out; /* Smooth fade-in transition */
             line-height: 1.6; /* Increase line height for better readability */
             font-family: 'Roboto', sans-serif; /* Change the font of the quest text */
-            width: 100%; /* Ensure it doesn't overflow */
+            margin-top: 40px; /* Space the quest box below the button */
+            margin-left: auto;
+            margin-right: auto;
             max-height: 70%; /* Limit height so it doesn't overflow the screen */
             overflow-y: auto; /* Allow scrolling if the quest text is too long */
-            margin-top: 40px; /* Add some spacing between the quest and the button */
         }
 
         .quest-display p {
