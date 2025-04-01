@@ -57,7 +57,7 @@
         }
 
         .quest-display {
-            display: none; /* Initially hide the quest display */
+            visibility: hidden; /* Initially set the visibility to hidden */
             margin-top: 40px;
             font-size: 1.5rem;
             color: #ffcc00; /* Gold for quest text */
@@ -121,7 +121,7 @@
             // Display the quest and make the div visible
             const questDisplay = document.getElementById("questDisplay");
             questDisplay.innerHTML = `<p>${randomQuest}</p>`;
-            questDisplay.style.display = "block"; // Show the quest display
+            questDisplay.style.visibility = "visible"; // Make the quest display visible
         }
 
         // Load the CSV when the page is loaded
