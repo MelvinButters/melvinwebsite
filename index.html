@@ -13,7 +13,8 @@
         }
         
         body {
-            background: linear-gradient(135deg, #ff7e5f, #feb47b); /* Add a gradient background */
+            background: url('assets/images/background.gif') no-repeat center center fixed; 
+            background-size: cover; /* Ensures it covers the whole screen */
             font-family: 'Arial', sans-serif;
             color: #fff;
             height: 100vh;
@@ -22,87 +23,76 @@
             align-items: center;
             flex-direction: column;
             text-align: center;
+            animation: fadeIn 2s ease-out;
+        }
+
+        /* Animations for smooth background */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
 
         h1 {
-            font-size: 4rem;
-            color: #fff;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Adding shadow for dramatic effect */
-            animation: textAnimation 3s ease-in-out infinite;
+            font-size: 3em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
             margin-bottom: 20px;
         }
 
-        /* Animation for the title */
-        @keyframes textAnimation {
-            0% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-            50% {
-                transform: scale(1.1);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 0.8;
-            }
-        }
-
         p {
-            font-size: 1.5rem;
-            margin: 10px 0;
-            color: #f4f4f4;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+            font-size: 1.5em;
+            margin-bottom: 20px;
         }
 
         ul {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 30px;
+            list-style: none;
         }
 
         li {
-            margin: 15px 0;
-            font-size: 1.3rem;
+            margin: 10px;
+            font-size: 1.3em;
         }
 
         a {
+            color: #fff;
             text-decoration: none;
-            color: #f3e6ff;
-            padding: 10px 20px;
-            border: 2px solid #fff;
-            border-radius: 30px;
-            transition: all 0.3s ease;
             font-weight: bold;
-            letter-spacing: 1px;
+            transition: color 0.3s ease;
         }
 
         a:hover {
-            background: #fff;
-            color: #000;
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.7);
+            color: #FFD700; /* Golden color when hovered */
         }
 
-        a:active {
-            transform: scale(1.05);
+        /* Style for the Nyan Cat GIF */
+        .nyan-gif {
+            margin-top: 30px;
+            max-width: 500px; /* Adjust size if needed */
+            border: 5px solid #FFD700; /* Add a golden border around the GIF */
+            border-radius: 15px;
         }
-
     </style>
-    <!-- Add Font Awesome CDN link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
-    <h1>Welcome to Melvin Butters' World of Wonders!</h1>
-    <p>Your journey begins here! Choose a path and explore:</p>
+    <h1>Welcome to Melvin Butters Website</h1>
+    <p>Please select from the following options:</p>
     
     <ul>
-        <li><a href="https://www.reddit.com/r/asx_bets" target="_blank"><i class="fas fa-rocket"></i> Brainchip</a></li>
-        <li><a href="https://foundry.melvinbutters.com" target="_blank"><i class="fas fa-cogs"></i> Foundry</a></li>
-        <li><a href="https://melvinbutters.github.io/melvinwebsite/jerome.html" target="_blank"><i class="fas fa-fire"></i> Jerome</a></li>
-        <li><a href="https://melvinbutters.github.io/melvinwebsite/questgenerator.html" target="_blank"><i class="fas fa-dice-d20"></i> Quest Generator</a></li> <!-- Dice icon for Quest Generator -->
+        <li><a href="https://www.reddit.com/r/asx_bets" target="_blank">Brainchip</a></li>
+        <li><a href="https://foundry.melvinbutters.com" target="_blank">Foundry</a></li>
+        <li><a href="https://melvinbutters.github.io/melvinwebsite/jerome.html" target="_blank">Jerome</a></li>
+        <li><a href="https://melvinbutters.github.io/melvinwebsite/questgenerator.html" target="_blank">Quest Generator</a></li> <!-- Updated link to Quest Generator -->
     </ul>
+
+    <!-- Nyan Cat GIF Placeholder -->
+    <div class="nyan-gif">
+        <img src="/images/nyan.gif" alt="Nyan Cat GIF">
+        <!-- Replace **UPDATE_THIS_PATH/nyan.gif** with the correct image path -->
+    </div>
 
 </body>
 </html>
