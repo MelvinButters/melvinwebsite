@@ -19,14 +19,14 @@
             background: #1e1e1e; /* Dark background for sleek look */
             font-family: 'Arial', sans-serif;
             color: #f4f4f4; /* Light grey text for contrast */
-            height: 100vh;
+            height: 100%; /* Full height for scrolling */
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             text-align: center;
-            overflow: hidden;
             padding: 20px;
+            overflow: auto; /* Allow scrolling */
         }
 
         /* Title styling */
@@ -103,6 +103,40 @@
             animation: fadeIn 1s ease-out;
         }
 
+        /* Media Queries for Mobile Devices */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem; /* Smaller title on mobile */
+            }
+
+            p {
+                font-size: 1rem; /* Smaller paragraph text */
+            }
+
+            a {
+                padding: 10px 20px; /* Smaller button padding */
+                font-size: 1rem; /* Adjust font size */
+            }
+
+            ul {
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem; /* Even smaller title for smaller screens */
+            }
+
+            p {
+                font-size: 0.9rem; /* Even smaller text for smaller screens */
+            }
+
+            a {
+                padding: 8px 18px; /* Smaller buttons for very small screens */
+                font-size: 0.9rem;
+            }
+        }
     </style>
 </head>
 <body>
