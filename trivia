@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dungeons & Dragons Trivia</title>
+    <style>
+        body {
+            background-color: #1e1e1e;
+            color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 20px;
+            overflow-y: scroll;
+            height: 100vh;
+        }
+        h1 {
+            color: #ffcc00;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .trivia-container {
+            background-color: #333;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+        .trivia {
+            font-size: 1.3rem;
+            color: #f4f4f4;
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #ffcc00;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff9900;
+        }
+        .answer {
+            display: none;
+            margin-top: 10px;
+            color: #00ff00;
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Dungeons & Dragons Trivia</h1>
+    
+    <div id="triviaList"></div>
+
+    <script>
+        const triviaData = [
+            { question: "What year was Dungeons & Dragons first released?", answer: "1974" },
+            { question: "What is the name of the main creator of Dungeons & Dragons?", answer: "Gary Gygax" },
+            { question: "Which D&D monster is known for its ability to petrify players?", answer: "Medusa" },
+            { question: "What is the primary class that uses magic in Dungeons & Dragons?", answer: "Wizard" },
+            { question: "Which D&D creature is known as the 'King of the Monsters'?", answer: "Tiamat" },
+            { question: "What is the name of the fictional continent where many D&D campaigns take place?", answer: "Faerûn" },
+            { question: "Which D&D class uses healing magic?", answer: "Cleric" },
+            { question: "What is the name of the D&D deity of war?", answer: "Tempus" },
+            { question: "What is the standard starting level for D&D characters?", answer: "Level 1" },
+            { question: "Which monster is the ultimate form of a lich in D&D?", answer: "Demilich" },
+            { question: "What is the dragon's breath weapon in D&D?", answer: "A cone or line of elemental energy" },
+            { question: "What is the largest dragon type in D&D?", answer: "Ancient Dragon" },
+            { question: "What is the name of the D&D world where the game originated?", answer: "Greyhawk" },
+            { question: "Which alignment is represented by a character who is always lawful and good?", answer: "Lawful Good" },
+            { question: "Which D&D creature has a petrifying gaze?", answer: "Medusa" },
+            { question: "What is the name of the magic item that allows the user to teleport?", answer: "Teleportation Circle" },
+            { question: "What D&D class is known for being a 'jack of all trades'?", answer: "Bard" },
+            { question: "What is the most iconic D&D monster with a skeletal body and a blue flame in its eyes?", answer: "Wraith" },
+            { question: "Which D&D monster is a shape-shifting trickster that loves causing chaos?", answer: "Doppelganger" },
+            { question: "What is the name of the evil god of death in D&D?", answer: "Bane" },
+            { question: "Which D&D monster can regenerate its health every round?", answer: "Troll" },
+            { question: "What is the name of the famous D&D wizard who guides heroes and fights against the forces of evil?", answer: "Elminster" },
+            { question: "What is the smallest playable race in D&D?", answer: "Halfling" },
+            { question: "What race is known for their deep connection to magic in D&D?", answer: "Elf" },
+            { question: "What type of creature is a Beholder?", answer: "Aberration" },
+            { question: "What is the primary material used to craft magical items in D&D?", answer: "Adamantine" },
+            { question: "Which magical item allows the player to become invisible?", answer: "Cloak of Invisibility" },
+            { question: "What is the name of the demonic ruler of the Abyss in D&D?", answer: "Demogorgon" },
+            { question: "What race is the most common for adventurers in D&D?", answer: "Human" },
+            { question: "What is the most common language spoken in D&D?", answer: "Common" },
+            { question: "What is the name of the great city in D&D known for its magical academy?", answer: "Waterdeep" },
+            { question: "What creature is known for its ability to fly and breathe fire?", answer: "Dragon" },
+            { question: "What is the name of the treasure-hunting group in the D&D adventure 'Tomb of Horrors'?", answer: "The Adventurers" },
+            { question: "Which D&D class focuses on the use of magic to control the elements?", answer: "Sorcerer" },
+            { question: "Which class is most likely to have a pet or familiar?", answer: "Wizard" },
+            { question: "What D&D race is known for their ability to see in the dark?", answer: "Dwarves" },
+            { question: "Which monster is often found guarding treasure and hoarding wealth?", answer: "Dragon" },
+            { question: "What is the name of the D&D magical item that lets the user fly?", answer: "Wings of Flying" },
+            { question: "What race does the character Drizzt Do'Urden belong to?", answer: "Drow" },
+            { question: "What type of weapon does the Barbarian class often wield?", answer: "Great Axe" },
+            { question: "What is the name of the D&D realm where many adventures take place?", answer: "The Forgotten Realms" },
+            { question: "What is the name of the infamous D&D dungeon that's nearly impossible to escape?", answer: "The Tomb of Horrors" },
+            { question: "What is the alignment of a character who seeks to avoid rules and chaos?", answer: "True Neutral" },
+            { question: "Which monster has a gaze that turns its victims to stone?", answer: "Medusa" },
+            { question: "What is the name of the undead wizard who commands legions of skeletons?", answer: "Lich" },
+            { question: "What is the term for a large battle involving many forces?", answer: "Siege" },
+            { question: "What is the name of the D&D deity of the moon?", answer: "Selûne" },
+            { question: "Which monster is famous for eating adventurers and attacking from underground?", answer: "Beholder" },
+            { question: "What is the strongest class when it comes to physical combat?", answer: "Barbarian" },
+            { question: "What is the D&D name for the spell that revives the dead?", answer: "Raise Dead" },
+            { question: "What type of magic is most commonly associated with the Wizard class?", answer: "Arcane" },
+            { question: "Which class can choose to become a rogue-like character specializing in traps?", answer: "Ranger" },
+            { question: "Which class is most associated with wielding large two-handed weapons?", answer: "Fighter" },
+            { question: "What monster is known for living underwater and attacking ships?", answer: "Kraken" },
+            { question: "What type of monster are the feared 'Vampires' in D&D?", answer: "Undead" },
+            { question: "What is the primary function of the 'Healing Potion' in D&D?", answer: "Restores health" },
+            { question: "Which race is typically associated with being deep-dwellers and having dark vision?", answer: "Dwarves" },
+            { question: "What is the term for a large magical explosion in D&D?", answer: "Fireball" },
+            { question: "What is the name of the most common type of dungeon found in D&D?", answer: "Cave" },
+            { question: "What deity is worshipped by the followers of good aligned paladins?", answer: "Pelor" },
+            { question: "What is the term for a group of adventurers in D&D?", answer: "Party" },
+            { question: "Which spell makes creatures around you grow in size?", answer: "Enlarge/Reduce" },
+            { question: "What is the most common weapon in D&D?", answer: "Sword" },
+            { question: "What is the name of the most powerful and feared monster in D&D?", answer: "Tiamat" },
+            { question: "What is the type of monster that is a cross between a man and a beast?", answer: "Lycanthrope" },
+            { question: "What class is known for its ability to heal wounds and defend others?", answer: "Cleric" },
+            { question: "What spell makes a character invisible in D&D?", answer: "Invisibility" },
+            { question: "What is the name of the dragon that is most commonly encountered?", answer: "Red Dragon" },
+            { question: "What class is known for being experts in combat tactics?", answer: "Fighter" },
+            { question: "What is the largest amount of health points you can have in D&D?", answer: "Depends on class, race, and level" },
+            { question: "Which alignment is described as chaotic good?", answer: "Chaotic Good" },
+            { question: "What is the name of the wizard’s apprentice who appears in the 'Forgotten Realms' setting?", answer: "Azuth" },
+            { question: "What is the name of the elven god of love?", answer: "Sune" },
+            { question: "Which monster is often associated with chaos and destruction?", answer: "Ogre" },
+            { question: "What magical object allows a character to regenerate health?", answer: "Ring of Regeneration" },
+            { question: "What type of creature is a Troll?", answer: "Regenerating Humanoid" },
+            { question: "What magic item allows a player to teleport to a new location?", answer: "Teleportation Scroll" },
+            { question: "Which magical creature is often associated with granting wishes?", answer: "Genie" },
+            { question: "What spell creates a field of protection around the caster?", answer: "Shield" },
+            { question: "What is the name of the war god in D&D?", answer: "Tempus" },
+            { question: "What monster is known for its ability to drain life energy from others?", answer: "Vampire" },
+            { question: "What is the name of the god of chaos in D&D?", answer: "Cyric" },
+            { question: "What type of creature is a Rakshasa?", answer: "Fiend" }
+        ];
+
+        function createTrivia() {
+            const triviaListDiv = document.getElementById("triviaList");
+            triviaData.forEach((trivia, index) => {
+                const triviaDiv = document.createElement("div");
+                triviaDiv.classList.add("trivia-container");
+
+                const questionDiv = document.createElement("p");
+                questionDiv.classList.add("trivia");
+                questionDiv.innerHTML = `${index + 1}. ${trivia.question}`;
+
+                const answerDiv = document.createElement("p");
+                answerDiv.classList.add("answer");
+                answerDiv.innerHTML = `<strong>Answer:</strong> ${trivia.answer}`;
+
+                const answerButton = document.createElement("button");
+                answerButton.innerHTML = "Show Answer";
+                answerButton.onclick = () => {
+                    answerDiv.style.display = answerDiv.style.display === "none" ? "block" : "none";
+                    answerButton.innerHTML = answerDiv.style.display === "none" ? "Show Answer" : "Hide Answer";
+                };
+
+                triviaDiv.appendChild(questionDiv);
+                triviaDiv.appendChild(answerButton);
+                triviaDiv.appendChild(answerDiv);
+
+                triviaListDiv.appendChild(triviaDiv);
+            });
+        }
+
+        // Initialize the trivia list
+        createTrivia();
+    </script>
+
+</body>
+</html>
