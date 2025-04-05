@@ -3,161 +3,168 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Melvin Butters Website</title>
-    <link rel="icon" href="/images/luigi.png" type="image/png">
-
+    <title>Welcome to Our D&D World</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Ghibli_Logo.svg/2880px-Ghibli_Logo.svg.png" type="image/png">
     <style>
-        /* Reset basic styling */
+        /* Basic reset and font imports */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Ensure full height and scrollable content */
         html, body {
-            height: 100%; /* Full height for the viewport */
-            overflow-x: hidden; /* Prevent horizontal scrolling */
-            overflow-y: auto; /* Allow vertical scrolling */
-        }
-
-        /* Body styling with a clean black, white, and grey color palette */
-        body {
-            background: #1e1e1e; /* Dark background for sleek look */
-            font-family: 'Arial', sans-serif;
-            color: #f4f4f4; /* Light grey text for contrast */
+            height: 100%;
+            overflow-x: hidden;
+            font-family: 'Verdana', sans-serif;
+            background-color: #F4E1D2; /* Soft, earthy background like a Ghibli film */
+            color: #5B4E40;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            flex-direction: column;
-            text-align: center;
             padding: 20px;
-            max-width: 100%; /* Ensure body doesn't exceed width */
-            overflow: auto; /* Allow scrolling */
         }
 
-        /* Title styling */
+        /* Title Styling */
         h1 {
-            font-size: 3.5rem; /* Slightly smaller title */
-            color: #ffffff; /* Pure white color */
-            font-weight: 600;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Soft shadow for text depth */
-            margin-bottom: 30px;
-            letter-spacing: 1px;
+            font-size: 4rem;
+            color: #7E5A3C;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            font-family: 'Georgia', serif;
         }
 
-        p {
-            font-size: 1.3rem;
-            color: #dcdcdc; /* Light grey text */
-            margin: 20px 0;
-            font-weight: normal;
-            max-width: 600px;
-            line-height: 1.6;
-        }
-
-        /* Styling for links */
-        ul {
-            list-style-type: none;
-            padding: 0;
-            margin-top: 30px;
+        /* Main Links Container */
+        .links-container {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            gap: 40px;
+            justify-content: center;
+            margin-top: 50px;
         }
 
-        li {
-            margin: 25px 0; /* Space between links */
-        }
-
-        a {
+        .links-container a {
             text-decoration: none;
-            color: #ffffff; /* White text */
-            padding: 12px 30px;
-            border: 2px solid #ffffff; /* White border */
+            font-size: 1.3rem;
+            color: #FFF;
+            background-color: #6A4F4B;
+            padding: 15px 30px;
             border-radius: 25px;
-            font-size: 1.1rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            background-color: transparent;
-            transition: background 0.3s ease, color 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
         }
 
-        a:hover {
-            background-color: #ffffff; /* White background on hover */
-            color: #333333; /* Dark grey text on hover */
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.6); /* Light glow effect */
+        .links-container a:hover {
+            background-color: #E27D60;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
             transform: scale(1.05);
         }
 
-        a:active {
-            transform: scale(1);
+        /* Dropdown Styling for Locations and NPCs */
+        .dropdown {
+            margin-top: 20px;
+            font-size: 1.2rem;
         }
 
-        /* Smooth fade-in effect for text */
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .dropdown select {
+            padding: 10px;
+            background-color: #B8C1B4;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: background 0.3s ease;
         }
 
-        /* Apply fade-in effect on page load */
-        h1, p, ul {
-            animation: fadeIn 1s ease-out;
+        .dropdown select:hover {
+            background-color: #6A4F4B;
+            color: #FFF;
         }
 
-        /* Media Queries for Mobile Devices */
+        /* Styling for each section */
+        .section-content {
+            background: #FFF;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 30px;
+            max-width: 800px;
+            width: 100%;
+            margin-top: 30px;
+        }
+
+        .section-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .section-content p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .section-content img {
+            max-width: 100%;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+
+        /* Styling for mobile responsiveness */
         @media (max-width: 768px) {
             h1 {
-                font-size: 2.5rem; /* Smaller title on mobile */
+                font-size: 2.8rem;
             }
 
-            p {
-                font-size: 1rem; /* Smaller paragraph text */
+            .links-container {
+                flex-direction: column;
+                align-items: center;
             }
 
-            a {
-                padding: 10px 20px; /* Smaller button padding */
-                font-size: 1rem; /* Adjust font size */
-            }
-
-            ul {
-                padding: 10px;
+            .section-content {
+                padding: 20px;
             }
         }
 
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2rem; /* Even smaller title for smaller screens */
-            }
-
-            p {
-                font-size: 0.9rem; /* Even smaller text for smaller screens */
-            }
-
-            a {
-                padding: 8px 18px; /* Smaller buttons for very small screens */
-                font-size: 0.9rem;
-            }
-        }
     </style>
 </head>
 <body>
 
-    <h1>Welcome to Melvin Butters' World of Wonders!</h1>
-    <p>Step into a world of endless possibilities. Your next adventure awaits with every click.</p>
+    <h1>Welcome to Our D&D Adventure</h1>
+    
+    <div class="links-container">
+        <a href="#locations">🌍 Locations</a>
+        <a href="#npcs">👥 NPCs</a>
+    </div>
 
-    <ul>
-        <li><a href="https://www.reddit.com/r/asx_bets" target="_blank">🌟 Brainchip</a></li>
-        <li><a href="https://melvinbutters.github.io/melvinwebsite/jerome.html" target="_blank">🔥 Jerome</a></li>
-        <li><a href="https://melvinbutters.github.io/melvinwebsite/trivia.html" target="_blank">❓ Trivia</a></li>
-        <li><a href="https://melvinbutters.github.io/melvinwebsite/backstory.html" target="_blank">⚙️ Backstory</a></li>
-        <li><a href="https://melvinbutters.github.io/melvinwebsite/questgenerator.html" target="_blank">🎲 Quest Generator</a></li>
-    </ul>
+    <!-- Locations Section -->
+    <div id="locations" class="section-content">
+        <h2>Explore Locations</h2>
+        <div class="dropdown">
+            <select>
+                <option value="forest">🌲 Enchanted Forest</option>
+                <option value="village">🏘️ Quiet Village</option>
+                <option value="mountain">🏔️ Misty Mountains</option>
+                <option value="castle">🏰 Ancient Castle</option>
+            </select>
+        </div>
+        <p>Each location offers unique challenges and surprises for adventurers to uncover. Click on the dropdown to learn more about each location.</p>
+        <img src="https://yourimageurl.com/locationimage.jpg" alt="Location Image">
+    </div>
+
+    <!-- NPCs Section -->
+    <div id="npcs" class="section-content">
+        <h2>Meet the NPCs</h2>
+        <div class="dropdown">
+            <select>
+                <option value="wizard">🧙‍♂️ Gandalf the Wizard</option>
+                <option value="blacksmith">⚒️ Grug the Blacksmith</option>
+                <option value="merchant">💰 Alina the Merchant</option>
+                <option value="healer">💉 Elira the Healer</option>
+            </select>
+        </div>
+        <p>Click on an NPC to reveal their story, quest details, and personality. They might just be the key to your next adventure!</p>
+        <img src="https://yourimageurl.com/npcimage.jpg" alt="NPC Image">
+    </div>
 
 </body>
 </html>
