@@ -16,15 +16,15 @@
         html, body {
             height: 100%;
             overflow-x: hidden;
-            font-family: 'Verdana', sans-serif;
-            background-color: #F4E1D2; /* Soft, earthy background like a Ghibli film */
+            font-family: 'Georgia', serif; /* A more vintage and elegant font */
+            background-color: #F4E1D2; /* Soft, earthy background */
             color: #5B4E40;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             padding: 0;
-            background-image: url('https://raw.githubusercontent.com/MelvinButters/melvinwebsite/main/images/GhibliWallpaper.png'); /* Placeholder background image */
+            background-image: url('https://raw.githubusercontent.com/MelvinButters/melvinwebsite/main/images/GhibliWallpaper.png'); /* Custom background image */
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -36,48 +36,43 @@
             color: #7E5A3C;
             text-align: center;
             margin-bottom: 40px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
             font-family: 'Georgia', serif;
-        }
-
-        /* Campaign Intro */
-        .intro {
-            font-size: 1.3rem;
-            color: #5B4E40;
-            text-align: center;
-            max-width: 800px;
-            margin-bottom: 40px;
-            line-height: 1.6;
-            padding: 20px;
-            background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background for readability */
-            border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
         /* Main Links Container */
         .links-container {
             display: flex;
-            gap: 40px;
+            gap: 30px;
             justify-content: center;
             margin-top: 50px;
             flex-wrap: wrap;
+            background-color: rgba(255, 255, 255, 0.7); /* Soft pastel background for the links */
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
         }
 
         .links-container a {
             text-decoration: none;
-            font-size: 1.3rem;
-            color: #FFF;
-            background-color: #6A4F4B;
-            padding: 15px 30px;
+            font-size: 1.5rem;
+            color: #5B4E40;
+            background-color: #F7D6A1; /* Pastel yellow for links */
+            padding: 12px 30px;
             border-radius: 25px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
             transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: capitalize;
         }
 
         .links-container a:hover {
-            background-color: #E27D60;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+            background-color: #E27D60; /* Soft coral color on hover */
+            box-shadow: 0 6px 14px rgba(0,0,0,0.3);
             transform: scale(1.05);
+            color: #FFF;
         }
 
         /* Styling for mobile responsiveness */
@@ -91,22 +86,16 @@
                 align-items: center;
             }
 
-            .intro {
-                font-size: 1.1rem;
+            .links-container a {
+                font-size: 1.2rem;
+                padding: 10px 20px;
             }
         }
-
     </style>
 </head>
 <body>
 
-    <h1>Welcome to Our D&D Adventure</h1>
-    
-    <!-- Campaign Intro Section -->
-    <div class="intro">
-        <p>Welcome, brave adventurer! The land of Eldoria is filled with magic, mystery, and danger. Only those with the courage to face its many challenges will uncover its deepest secrets. Your journey begins now...</p>
-        <p>Prepare to explore ancient forests, face formidable enemies, and meet colorful characters as you embark on a grand adventure that will test your wit, strength, and heart.</p>
-    </div>
+    <h1>Worlds Beyond Number Campaign 2</h1>
 
     <!-- Links to Other Pages -->
     <div class="links-container">
