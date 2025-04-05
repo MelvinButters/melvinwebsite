@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NPCs - Worlds Beyond Number Campaign 2</title>
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Ghibli_Logo.svg/2880px-Ghibli_Logo.svg.png" type="image/png">
+    <style>
+        /* Basic reset and font imports */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow-x: hidden;
+            font-family: 'Georgia', serif;
+            background-color: #F4E1D2;
+            color: #5B4E40;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            background-image: url('https://raw.githubusercontent.com/MelvinButters/melvinwebsite/main/images/GhibliWallpaper.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Title Styling */
+        h1 {
+            font-size: 4rem;
+            color: #7E5A3C;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.6);
+            font-family: 'Georgia', serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* NPC Container Styling */
+        .npc-list {
+            width: 80%;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .npc-item {
+            background-color: rgba(255, 255, 255, 0.7);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .npc-item h2 {
+            font-size: 2rem;
+            color: #5B4E40;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        /* NPC Details (hidden by default) */
+        .npc-details {
+            display: none;
+            text-align: center;
+            font-size: 1.2rem;
+            color: #5B4E40;
+            margin-top: 20px;
+        }
+
+        .npc-details img {
+            width: 200px;
+            height: auto;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+
+        /* Hover Effect */
+        .npc-item:hover {
+            background-color: #E27D60;
+            cursor: pointer;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+
+            .npc-item h2 {
+                font-size: 1.5rem;
+            }
+
+            .npc-details {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h1>NPCs - Worlds Beyond Number Campaign 2</h1>
+
+    <div class="npc-list">
+        <!-- NPC 1 -->
+        <div class="npc-item">
+            <h2 onclick="toggleNPCDetails('npc1')">🧙‍♂️ Zorath the Wise</h2>
+            <div class="npc-details" id="npc1">
+                <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/main/images/placeholder1.png" alt="Zorath the Wise">
+                <p>Zorath is an old and wise wizard, known for his deep knowledge of ancient magic. He is a mentor to many adventurers and a keeper of forbidden secrets.</p>
+            </div>
+        </div>
+
+        <!-- NPC 2 -->
+        <div class="npc-item">
+            <h2 onclick="toggleNPCDetails('npc2')">🗡️ Elara Swiftfoot</h2>
+            <div class="npc-details" id="npc2">
+                <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/main/images/placeholder2.png" alt="Elara Swiftfoot">
+                <p>Elara is a master thief and skilled assassin, known for her agility and stealth. She can often be found in the shadows, working for the highest bidder.</p>
+            </div>
+        </div>
+
+        <!-- NPC 3 -->
+        <div class="npc-item">
+            <h2 onclick="toggleNPCDetails('npc3')">👑 King Aldric</h2>
+            <div class="npc-details" id="npc3">
+                <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/main/images/placeholder3.png" alt="King Aldric">
+                <p>King Aldric rules with a just and steady hand. His kingdom is a place of peace, but dark forces seek to challenge his reign. He is always looking for brave souls to protect his land.</p>
+            </div>
+        </div>
+
+        <!-- NPC 4 -->
+        <div class="npc-item">
+            <h2 onclick="toggleNPCDetails('npc4')">🐉 Thalgor the Dragonborn</h2>
+            <div class="npc-details" id="npc4">
+                <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/main/images/placeholder4.png" alt="Thalgor the Dragonborn">
+                <p>Thalgor is a mighty warrior and a proud Dragonborn. His strength and ferocity in battle are unmatched. He seeks to avenge the destruction of his clan.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to toggle NPC details visibility
+        function toggleNPCDetails(npcId) {
+            var npcDetails = document.getElementById(npcId);
+            if (npcDetails.style.display === "block") {
+                npcDetails.style.display = "none";
+            } else {
+                npcDetails.style.display = "block";
+            }
+        }
+    </script>
+
+</body>
+</html>
