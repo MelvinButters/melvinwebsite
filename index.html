@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Our D&D World</title>
+    <title>Welcome to Our D&D Adventure</title>
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Ghibli_Logo.svg/2880px-Ghibli_Logo.svg.png" type="image/png">
     <style>
         /* Basic reset and font imports */
@@ -36,12 +36,27 @@
             font-family: 'Georgia', serif;
         }
 
+        /* Campaign Intro */
+        .intro {
+            font-size: 1.3rem;
+            color: #5B4E40;
+            text-align: center;
+            max-width: 800px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #FFF;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
         /* Main Links Container */
         .links-container {
             display: flex;
             gap: 40px;
             justify-content: center;
             margin-top: 50px;
+            flex-wrap: wrap;
         }
 
         .links-container a {
@@ -61,54 +76,6 @@
             transform: scale(1.05);
         }
 
-        /* Dropdown Styling for Locations and NPCs */
-        .dropdown {
-            margin-top: 20px;
-            font-size: 1.2rem;
-        }
-
-        .dropdown select {
-            padding: 10px;
-            background-color: #B8C1B4;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: background 0.3s ease;
-        }
-
-        .dropdown select:hover {
-            background-color: #6A4F4B;
-            color: #FFF;
-        }
-
-        /* Styling for each section */
-        .section-content {
-            background: #FFF;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            padding: 30px;
-            max-width: 800px;
-            width: 100%;
-            margin-top: 30px;
-        }
-
-        .section-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-
-        .section-content p {
-            font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 20px;
-        }
-
-        .section-content img {
-            max-width: 100%;
-            border-radius: 12px;
-            margin-top: 20px;
-        }
-
         /* Styling for mobile responsiveness */
         @media (max-width: 768px) {
             h1 {
@@ -120,8 +87,8 @@
                 align-items: center;
             }
 
-            .section-content {
-                padding: 20px;
+            .intro {
+                font-size: 1.1rem;
             }
         }
 
@@ -131,39 +98,18 @@
 
     <h1>Welcome to Our D&D Adventure</h1>
     
+    <!-- Campaign Intro Section -->
+    <div class="intro">
+        <p>Welcome, brave adventurer! The land of Eldoria is filled with magic, mystery, and danger. Only those with the courage to face its many challenges will uncover its deepest secrets. Your journey begins now...</p>
+        <p>Prepare to explore ancient forests, face formidable enemies, and meet colorful characters as you embark on a grand adventure that will test your wit, strength, and heart.</p>
+    </div>
+
+    <!-- Links to Other Pages -->
     <div class="links-container">
-        <a href="#locations">🌍 Locations</a>
-        <a href="#npcs">👥 NPCs</a>
-    </div>
-
-    <!-- Locations Section -->
-    <div id="locations" class="section-content">
-        <h2>Explore Locations</h2>
-        <div class="dropdown">
-            <select>
-                <option value="forest">🌲 Enchanted Forest</option>
-                <option value="village">🏘️ Quiet Village</option>
-                <option value="mountain">🏔️ Misty Mountains</option>
-                <option value="castle">🏰 Ancient Castle</option>
-            </select>
-        </div>
-        <p>Each location offers unique challenges and surprises for adventurers to uncover. Click on the dropdown to learn more about each location.</p>
-        <img src="https://yourimageurl.com/locationimage.jpg" alt="Location Image">
-    </div>
-
-    <!-- NPCs Section -->
-    <div id="npcs" class="section-content">
-        <h2>Meet the NPCs</h2>
-        <div class="dropdown">
-            <select>
-                <option value="wizard">🧙‍♂️ Gandalf the Wizard</option>
-                <option value="blacksmith">⚒️ Grug the Blacksmith</option>
-                <option value="merchant">💰 Alina the Merchant</option>
-                <option value="healer">💉 Elira the Healer</option>
-            </select>
-        </div>
-        <p>Click on an NPC to reveal their story, quest details, and personality. They might just be the key to your next adventure!</p>
-        <img src="https://yourimageurl.com/npcimage.jpg" alt="NPC Image">
+        <a href="locations.html">🌍 Locations</a>
+        <a href="npcs.html">👥 NPCs</a>
+        <a href="story.html">📜 Story</a>
+        <a href="quests.html">🎲 Quests</a>
     </div>
 
 </body>
