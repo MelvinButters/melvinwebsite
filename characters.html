@@ -51,7 +51,7 @@
 
         .character-section {
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Stack the elements vertically */
             justify-content: center;
             align-items: center;
             margin-bottom: 40px;
@@ -63,7 +63,7 @@
         .character-description {
             font-size: 1.2rem;
             color: white;
-            text-align: center;
+            text-align: left;
             padding: 15px;
             background-color: rgba(0, 0, 0, 0.6);
             border-radius: 10px;
@@ -84,12 +84,17 @@
             margin-bottom: 15px;  /* Adds space between the image and text */
         }
 
+        .character-description h2 {
+            font-size: 2rem;
+            color: white;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
         /* Mobile styles */
         @media (max-width: 768px) {
             .character-section {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
+                flex-direction: column; /* Ensure stacking on small screens */
             }
 
             .character-description img {
@@ -100,14 +105,9 @@
 
         @media (min-width: 769px) {
             .character-section {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: flex-start;
-                gap: 40px;
-            }
-
-            .character-description {
-                width: 60%;
+                flex-direction: column; /* Force the items to be stacked vertically */
+                justify-content: center;
+                align-items: center;
             }
 
             .character-description img {
@@ -124,31 +124,28 @@
 
     <!-- Keket's Section -->
     <div class="character-section">
-        <h2 class="character-heading">Keket</h2>
-        <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/images/pc/Keket.jpg" alt="Keket's Image">
         <div class="character-description">
-            <p>"Keket is known to always carry an air of mystery wherever they go. Their keen intellect and strange habits often leave others wondering what they're truly thinking."</p>
-            <p>"A master of strategy and manipulation, Keket has a knack for always being one step ahead. However, beneath the calculated exterior lies a surprising soft spot for the underdog."</p>
+            <h2>Keket</h2>
+            <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/images/pc/Keket.jpg" alt="Keket's Image">
+            <p>Here you can add some character flavor text. Feel free to elaborate on their personality, backstory, or anything else you'd like to share.</p>
         </div>
     </div>
 
     <!-- Auta's Section -->
     <div class="character-section">
-        <h2 class="character-heading">Auta</h2>
-        <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/images/pc/Auta.png" alt="Auta's Image">
         <div class="character-description">
-            <p>"Auta's bright eyes hide a restless soul. Always in motion, they never seem to stay in one place for too long, driven by an insatiable curiosity of the world."</p>
-            <p>"Though often appearing carefree and jovial, Auta harbors a deep passion for uncovering the truths that others overlook. Their wanderlust is both a gift and a curse."</p>
+            <h2>Auta</h2>
+            <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/images/pc/Auta.png" alt="Auta's Image">
+            <p>Here you can add some character flavor text. Feel free to elaborate on their personality, backstory, or anything else you'd like to share.</p>
         </div>
     </div>
 
     <!-- Sleeves' Section -->
     <div class="character-section">
-        <h2 class="character-heading">Sleeves</h2>
-        <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/images/pc/Sleeves.png" alt="Sleeves' Image">
         <div class="character-description">
-            <p>"Sleeves is a paradox. Quiet and unassuming, yet there's something undeniably captivating about their presence. When they speak, it's as though every word carries weight."</p>
-            <p>"While others may overlook Sleeves, those who take the time to truly listen will discover a well of wisdom and compassion hidden behind their enigmatic demeanor."</p>
+            <h2>Sleeves</h2>
+            <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/images/pc/Sleeves.png" alt="Sleeves' Image">
+            <p>Here you can add some character flavor text. Feel free to elaborate on their personality, backstory, or anything else you'd like to share.</p>
         </div>
     </div>
 
