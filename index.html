@@ -51,7 +51,7 @@
         /* Links container with two across layout */
         .links-container {
             display: flex;
-            flex-wrap: wrap;  /* Wrap links into two rows */
+            flex-wrap: wrap;  /* Wrap links into rows */
             gap: 30px;
             justify-content: center;
             margin-top: 40px;
@@ -75,9 +75,11 @@
             transform: scale(1.1); /* Slightly enlarge the link */
         }
 
+        /* Mobile responsiveness */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.8rem;
+                margin-top: 100px;  /* Adjust the title spacing on smaller screens */
             }
 
             .links-container {
@@ -86,8 +88,9 @@
             }
 
             .links-container a {
-                font-size: 1.5rem;
-                padding: 15px 30px;
+                font-size: 1.8rem;  /* Increase font size slightly for readability */
+                padding: 15px 25px;  /* Increase padding for easier tap on mobile */
+                width: 80%;  /* Allow links to take up 80% of screen width */
             }
         }
     </style>
