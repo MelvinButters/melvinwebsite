@@ -29,6 +29,7 @@
             background-color: #333333; /* Dark grey static background */
             overflow-x: hidden; /* Prevent horizontal scroll */
             overflow-y: auto; /* Allows vertical scrolling only when necessary */
+            margin-bottom: 50px; /* Adds 50px of space at the very bottom of the page */
         }
 
         /* Hide the scrollbar on desktop */
@@ -40,7 +41,7 @@
             font-size: 3.5rem; /* Default font size for larger screens */
             color: white;
             text-align: center;
-            margin-top: 80px;
+            margin-top: 80px; /* Restored the original margin-top */
             margin-bottom: 25px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8),
                          -2px -2px 4px rgba(0, 0, 0, 0.8),
@@ -58,11 +59,6 @@
             h1 {
                 font-size: 2rem; /* Smaller font size for mobile devices */
                 margin-top: 50px; /* Adjust margin for smaller screens */
-                margin-bottom: 85px; /* Increased bottom margin for mobile */
-            }
-
-            body {
-                margin-bottom: 80px; /* Additional space at the bottom */
             }
         }
 
