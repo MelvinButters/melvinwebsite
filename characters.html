@@ -7,7 +7,6 @@
     <title>Worlds Beyond Number Campaign 2 - Characters</title>
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Ghibli_Logo.svg/2880px-Ghibli_Logo.svg.png" type="image/png">
 
-    <!-- Import Google Fonts (Merriweather font in this case) -->
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
@@ -37,22 +36,6 @@
             overflow: hidden;
         }
 
-        /* Title Styling */
-        h1 {
-            font-size: 3.5rem;
-            color: white;
-            text-align: center;
-            margin-top: 150px;
-            margin-bottom: 25px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8),
-                         -2px -2px 4px rgba(0, 0, 0, 0.8),
-                         2px -2px 4px rgba(0, 0, 0, 0.8),
-                         -2px 2px 4px rgba(0, 0, 0, 0.8);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* Character Section Styling */
         .character-section {
             display: flex;
             flex-direction: column;
@@ -64,19 +47,6 @@
             padding: 0 10px;
         }
 
-        /* Character Heading Styling */
-        .character-heading {
-            font-size: 2rem;
-            color: white;
-            text-align: center;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8),
-                         -2px -2px 4px rgba(0, 0, 0, 0.8),
-                         2px -2px 4px rgba(0, 0, 0, 0.8),
-                         -2px 2px 4px rgba(0, 0, 0, 0.8);
-            font-weight: bold;
-        }
-
-        /* Character Description Styling */
         .character-description {
             font-size: 1.2rem;
             color: white;
@@ -89,81 +59,29 @@
             margin-top: 10px;
         }
 
-        /* Character Image Styling */
         .character-image {
             width: 250px;
-            height: 375px;
-            margin-top: 10px;
+            height: 250px;
+            object-fit: cover;
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
-        }
-
-        /* Links container */
-        .links-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            justify-content: center;
-            width: 100%;
-            padding: 0 10px;
-            align-items: center;
-            margin-top: 25px;
-        }
-
-        .links-container a {
-            text-decoration: none;
-            font-size: 1.8rem;
-            color: white;
-            padding: 10px 20px;
-            font-weight: bold;
-            text-align: center;
-            transition: color 0.3s ease;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 
-                         -2px -2px 4px rgba(0, 0, 0, 0.8), 
-                         2px -2px 4px rgba(0, 0, 0, 0.8), 
-                         -2px 2px 4px rgba(0, 0, 0, 0.8);
-            width: 90%;
-        }
-
-        .links-container a:hover {
-            color: #E27D60;
-            transform: scale(1.1);
+            margin-top: 10px;
         }
 
         /* Mobile styles */
         @media (max-width: 768px) {
-            html, body {
-                background-color: black; /* Ensure background is black on mobile */
-                background-image: none; /* Remove default background image on mobile */
-            }
-
             .character-section {
                 flex-direction: column;
                 align-items: center;
                 gap: 20px;
             }
 
-            .character-heading {
-                font-size: 1.8rem;
-                margin-top: 10px;
-            }
-
-            .character-description {
-                font-size: 1rem;
-                width: 90%;
-                max-width: none;
-                padding: 10px;
-            }
-
             .character-image {
                 width: 200px;
-                height: 300px;
-                margin-top: 10px;
-                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.7);
+                height: 200px;
             }
         }
 
-        /* Desktop styles */
         @media (min-width: 769px) {
             .character-section {
                 flex-direction: row;
@@ -174,15 +92,6 @@
 
             .character-description {
                 width: 60%;
-            }
-
-            .character-image {
-                width: 250px;
-                height: 375px;
-            }
-
-            .links-container {
-                gap: 25px;
             }
         }
 
@@ -208,50 +117,7 @@
             <p><strong>Wisdom:</strong> [Insert Wisdom]</p>
             <p><strong>Charisma:</strong> [Insert Charisma]</p>
         </div>
-        <img class="character-image" src="[Insert Keket's Image URL]" alt="Keket's Image">
-    </div>
-
-    <!-- Auta's Section -->
-    <div class="character-section">
-        <div class="character-description">
-            <h2 class="character-heading">Auta</h2>
-            <p><strong>Race:</strong> [Insert Race]</p>
-            <p><strong>Class:</strong> [Insert Class]</p>
-            <p><strong>Level:</strong> [Insert Level]</p>
-            <p><strong>Alignment:</strong> [Insert Alignment]</p>
-            <p><strong>Strength:</strong> [Insert Strength]</p>
-            <p><strong>Dexterity:</strong> [Insert Dexterity]</p>
-            <p><strong>Constitution:</strong> [Insert Constitution]</p>
-            <p><strong>Intelligence:</strong> [Insert Intelligence]</p>
-            <p><strong>Wisdom:</strong> [Insert Wisdom]</p>
-            <p><strong>Charisma:</strong> [Insert Charisma]</p>
-        </div>
-        <img class="character-image" src="[Insert Auta's Image URL]" alt="Auta's Image">
-    </div>
-
-    <!-- Sleeves' Section -->
-    <div class="character-section">
-        <div class="character-description">
-            <h2 class="character-heading">Sleeves</h2>
-            <p><strong>Race:</strong> [Insert Race]</p>
-            <p><strong>Class:</strong> [Insert Class]</p>
-            <p><strong>Level:</strong> [Insert Level]</p>
-            <p><strong>Alignment:</strong> [Insert Alignment]</p>
-            <p><strong>Strength:</strong> [Insert Strength]</p>
-            <p><strong>Dexterity:</strong> [Insert Dexterity]</p>
-            <p><strong>Constitution:</strong> [Insert Constitution]</p>
-            <p><strong>Intelligence:</strong> [Insert Intelligence]</p>
-            <p><strong>Wisdom:</strong> [Insert Wisdom]</p>
-            <p><strong>Charisma:</strong> [Insert Charisma]</p>
-        </div>
-        <img class="character-image" src="[Insert Sleeves' Image URL]" alt="Sleeves' Image">
-    </div>
-
-    <!-- Links container -->
-    <div class="links-container">
-        <a href="story.html">📜 The Story So Far</a>
-        <a href="locations.html">🌍 Locations</a>
-        <a href="NPCs.html">👥 NPCs</a>
+        <img class="character-image" src="https://raw.githubusercontent.com/username/repository/main/images/character1.jpg" alt="Keket's Image">
     </div>
 
 </body>
