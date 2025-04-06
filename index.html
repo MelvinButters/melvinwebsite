@@ -16,8 +16,8 @@
 
         html, body {
             height: 100%;
-            min-height: 100vh;  /* Ensure the body always takes up at least the viewport height */
-            overflow-x: hidden;  /* Prevent horizontal scrolling */
+            min-height: 100vh;
+            overflow-x: hidden;
             font-family: 'Georgia', serif;
             color: #5B4E40;
             display: flex;
@@ -27,20 +27,20 @@
             padding: 0;
             background-color: #F4E1D2;
             background-image: url('https://raw.githubusercontent.com/MelvinButters/melvinwebsite/main/images/GhibliWallpaper.png');
-            background-size: cover;  /* Ensure the background always covers the entire screen */
+            background-size: cover;
             background-position: center;
-            background-repeat: no-repeat;  /* Prevent repeating the image */
-            background-attachment: fixed;  /* Keep background fixed on desktop */
-            overflow: hidden;  /* Prevent overflow */
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            overflow: hidden;
         }
 
         /* Title Styling */
         h1 {
-            font-size: 3.5rem;  /* Slightly smaller title font */
+            font-size: 3.5rem;
             color: white;
             text-align: center;
             margin-top: 150px;
-            margin-bottom: 50px;  /* Add 50px spacing below title */
+            margin-bottom: 20px;  /* Decreased margin-bottom to reduce space between title and links */
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8),
                          -2px -2px 4px rgba(0, 0, 0, 0.8),
                          2px -2px 4px rgba(0, 0, 0, 0.8),
@@ -50,56 +50,57 @@
             text-transform: uppercase;
         }
 
-        /* Links container - now vertically aligned */
+        /* Links container */
         .links-container {
             display: flex;
-            flex-direction: column;  /* Stack the links vertically */
-            gap: 20px;  /* Reduce the gap between the links */
+            flex-direction: column;
+            gap: 20px;
             justify-content: center;
-            margin-top: 0;
-            width: 100%;  /* Ensure container takes up full width */
-            padding: 0 10px;  /* Add some padding to avoid links sticking to edges */
-            align-items: center;  /* Center the links horizontally */
-            flex-grow: 1; /* Ensure the links container takes up any remaining space */
+            width: 100%;
+            padding: 0 10px;
+            align-items: center;
+            flex-grow: 1;
+            margin-top: 0; /* Reduced margin-top here */
         }
 
         .links-container a {
             text-decoration: none;
-            font-size: 1.8rem;  /* Slightly smaller font for compactness */
-            color: white; /* White text */
-            padding: 10px 20px;  /* Smaller padding for compactness */
+            font-size: 1.8rem;
+            color: white;
+            padding: 10px 20px;
             font-weight: bold;
-            text-align: center; /* Center the text */
+            text-align: center;
             transition: color 0.3s ease;
-            text-shadow: 1px 1px 2px black, -1px -1px 2px black; /* Black outline */
-            width: 90%; /* Each link takes up 90% of the screen width */
+            text-shadow: 1px 1px 2px black, -1px -1px 2px black;
+            width: 90%;
         }
 
         .links-container a:hover {
-            color: #E27D60; /* Soft coral color on hover */
-            transform: scale(1.1); /* Slightly enlarge the link */
+            color: #E27D60;
+            transform: scale(1.1);
         }
 
         /* Mobile responsiveness */
         @media (max-width: 768px) {
             html, body {
-                background-attachment: scroll; /* Disable fixed background on mobile */
+                background-attachment: scroll;
             }
 
             h1 {
                 font-size: 2.8rem;
-                margin-top: 100px;  /* Adjust the title spacing on smaller screens */
+                margin-top: 100px;
             }
 
             .links-container {
-                gap: 15px;  /* Reduce gap on mobile */
+                gap: 15px;
+                margin-top: 0; /* Decreased margin-top for mobile */
             }
 
             .links-container a {
-                font-size: 1.6rem;  /* Further reduce font size for mobile */
-                padding: 10px 15px;  /* Slightly smaller padding */
-                width: 90%;  /* Links still take up most of the screen */
-                margin-bottom: 10px; /* Add space between links on mobile */
+                font-size: 1.6rem;
+                padding: 10px 15px;
+                width: 90%;
+                margin-bottom: 10px;
             }
         }
     </style>
@@ -109,7 +110,6 @@
 
     <h1>Worlds Beyond Number Campaign 2</h1>
 
-    <!-- Links to Other Pages -->
     <div class="links-container">
         <a href="characters.html">🧑‍🤝‍🧑 Characters</a>
         <a href="story.html">📜 The Story So Far</a>
