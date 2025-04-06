@@ -21,10 +21,6 @@
             min-height: 100vh; /* Ensure body stretches to full viewport height */
             font-family: 'Merriweather', serif;
             color: #F4E1D2;
-            display: flex;
-            flex-direction: column; /* Ensure content flows vertically */
-            justify-content: flex-start;
-            align-items: center; /* Align content to the center */
             padding: 0;
             background-color: #333333; /* Dark grey static background */
             overflow-x: hidden; /* Prevent horizontal scroll */
@@ -56,53 +52,16 @@
 
         /* Media query for mobile screens */
         @media (max-width: 768px) {
+            html, body {
+                display: flex;
+                flex-direction: column; /* Ensure content flows vertically */
+                justify-content: flex-start;
+                align-items: center; /* Align content to the center */
+            }
+
             h1 {
                 font-size: 2rem; /* Smaller font size for mobile devices */
                 margin-top: 50px; /* Adjust margin for smaller screens */
-            }
-        }
-
-        .character-section {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center; /* Center the character content */
-            margin-bottom: 40px;
-            gap: 20px;
-            width: 100%;
-            padding: 0 10px;
-        }
-
-        .character-description {
-            font-size: 1.2rem;
-            color: white;
-            text-align: center; /* Center the text */
-            padding: 15px;
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            width: 100%;
-            max-width: 800px; /* Center the content and ensure it doesn’t stretch too far */
-            margin-top: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .character-description img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            border: 5px solid black;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
-            margin-bottom: 15px;  /* Adds space between the image and text */
-            loading: lazy; /* Enable lazy loading */
-        }
-
-        /* Mobile styles */
-        @media (max-width: 768px) {
-            html, body {
-                overflow: auto; /* Ensure scrolling is enabled on mobile */
-                max-width: 100%; /* Prevent horizontal overflow */
             }
 
             .character-section {
@@ -121,7 +80,12 @@
             }
         }
 
+        /* For desktop and larger screens (default behavior) */
         @media (min-width: 769px) {
+            html, body {
+                display: block; /* Normal block layout for desktop */
+            }
+
             .character-section {
                 flex-direction: row;
                 justify-content: center; /* Ensure character sections are centered */
@@ -159,7 +123,7 @@
         <div class="character-description">
             <h2 class="character-heading">Auta</h2>
             <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/images/pc/Auta.png" alt="Auta's Image">
-            <p>The Warforged Palain. Looking for the person responsible for the death her their creator.</p>
+            <p>The Warforged Paladin. Looking for the person responsible for the death of their creator.</p>
         </div>
     </div>
 
