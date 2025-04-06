@@ -60,16 +60,16 @@
         }
 
         .links-container a {
-            flex: 0 1 calc(50% - 30px);  /* Make each link 50% width minus the gap */
-            box-sizing: border-box;
             text-decoration: none;
             font-size: 2rem;
             color: white; /* White text */
-            padding: 10px;
+            padding: 15px;
             font-weight: bold;
             text-align: center; /* Center the text */
             transition: color 0.3s ease;
             text-shadow: 1px 1px 2px black, -1px -1px 2px black; /* Black outline */
+            width: 45%; /* Each link takes up 45% width */
+            box-sizing: border-box;
         }
 
         .links-container a:hover {
@@ -92,7 +92,8 @@
             .links-container a {
                 font-size: 1.8rem;  /* Increase font size slightly for readability */
                 padding: 15px 25px;  /* Increase padding for easier tap on mobile */
-                width: 100%;  /* Ensure each link takes up the full width */
+                width: 90%;  /* Ensure each link takes up 90% of the screen width */
+                margin-bottom: 10px; /* Add some space between stacked links */
             }
         }
     </style>
