@@ -32,9 +32,10 @@
             background-attachment: fixed; /* Keeps the background fixed */
             overflow: hidden; /* Hides the main scrollbar */
             overflow-y: scroll; /* Allows vertical scrolling */
+            min-height: 100vh; /* Ensures the body height is always at least the height of the screen */
         }
 
-        /* Body that handles scrolling without showing scrollbars */
+        /* Prevent scrollbars from showing */
         body {
             -ms-overflow-style: none; /* Hides scrollbar in IE */
             scrollbar-width: none; /* Hides scrollbar in Firefox */
