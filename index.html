@@ -72,7 +72,7 @@
             letter-spacing: 1px;
             text-transform: capitalize;
             font-weight: bold;
-            position: relative;
+            position: relative; /* Make sure the text and pseudo-element align properly */
         }
 
         /* Adding text outline (black outline on white text) */
@@ -86,14 +86,22 @@
             -webkit-background-clip: text;
             background-clip: text;
             filter: blur(1px);
+            /* Ensure it doesn’t move or get distorted during hover */
+            transition: none; /* Disable transition for the pseudo-element */
         }
 
         /* On hover change the background and make the text pop */
         .links-container a:hover {
             background-color: #E27D60; /* Soft coral color on hover */
             box-shadow: 0 6px 14px rgba(0,0,0,0.3);
-            transform: scale(1.05);
+            transform: scale(1.05); /* Slightly enlarge the link */
             color: #FFF;
+        }
+
+        /* On hover, we prevent the pseudo-element from shifting */
+        .links-container a:hover::before {
+            /* The text outline will stay in place without moving or scaling */
+            filter: none; /* Remove the blur on hover if you want a sharp outline */
         }
 
         /* Styling for mobile responsiveness */
