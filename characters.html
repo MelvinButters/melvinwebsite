@@ -26,6 +26,10 @@
             overflow-x: hidden; /* Prevent horizontal scroll */
             overflow-y: auto; /* Allows vertical scrolling only when necessary */
             margin-bottom: 50px; /* Adds 50px of space at the very bottom of the page */
+            display: flex;
+            flex-direction: column; /* Ensure content flows vertically */
+            justify-content: flex-start;
+            align-items: center; /* Align content to the center */
         }
 
         /* Hide the scrollbar on desktop */
@@ -52,13 +56,6 @@
 
         /* Media query for mobile screens */
         @media (max-width: 768px) {
-            html, body {
-                display: flex;
-                flex-direction: column; /* Ensure content flows vertically */
-                justify-content: flex-start;
-                align-items: center; /* Align content to the center */
-            }
-
             h1 {
                 font-size: 2rem; /* Smaller font size for mobile devices */
                 margin-top: 50px; /* Adjust margin for smaller screens */
@@ -82,10 +79,6 @@
 
         /* For desktop and larger screens (default behavior) */
         @media (min-width: 769px) {
-            html, body {
-                display: block; /* Normal block layout for desktop */
-            }
-
             .character-section {
                 flex-direction: row;
                 justify-content: center; /* Ensure character sections are centered */
