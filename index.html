@@ -87,8 +87,9 @@
             color: black;
             -webkit-background-clip: text;
             background-clip: text;
-            filter: blur(1px);
-            transition: filter 0.3s ease; /* Smooth transition for blur */
+            filter: blur(0); /* Keep the text sharp */
+            transition: none; /* Disable transition for the pseudo-element */
+            transform: translate(-2px, -2px); /* Adjust text outline position */
         }
 
         /* On hover change the background and make the text pop */
@@ -99,9 +100,10 @@
             color: #FFF;
         }
 
-        /* On hover, we prevent the pseudo-element from shifting and sharpen the text outline */
+        /* Ensure the text outline stays in place and doesn't shift on hover */
         .links-container a:hover::before {
-            filter: blur(0); /* Remove the blur on hover, keeping it sharp */
+            filter: blur(0); /* Keep the outline sharp */
+            transform: translate(-2px, -2px); /* Prevent shifting */
         }
 
         /* Styling for mobile responsiveness */
