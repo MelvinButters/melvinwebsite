@@ -55,6 +55,8 @@
             gap: 30px;
             justify-content: center;
             margin-top: 40px;
+            width: 100%; /* Ensure container takes up full width */
+            padding: 0 10px; /* Add some padding to avoid links sticking to edges */
         }
 
         .links-container a {
@@ -83,14 +85,14 @@
             }
 
             .links-container {
-                flex-direction: column;
-                align-items: center;
+                flex-direction: column; /* Stack links vertically on small screens */
+                align-items: center; /* Center links horizontally */
             }
 
             .links-container a {
                 font-size: 1.8rem;  /* Increase font size slightly for readability */
                 padding: 15px 25px;  /* Increase padding for easier tap on mobile */
-                width: 80%;  /* Allow links to take up 80% of screen width */
+                width: 100%;  /* Ensure each link takes up the full width */
             }
         }
     </style>
