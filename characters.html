@@ -68,7 +68,7 @@
             background-color: rgba(0, 0, 0, 0.6);
             border-radius: 10px;
             width: 100%;
-            max-width: 800px;
+            max-width: 900px;
             margin-top: 10px;
             display: flex;
             flex-direction: column;
@@ -76,7 +76,7 @@
         }
 
         .character-description img {
-            max-width: 100%;
+            width: 100%; /* Make image fill the container on smaller screens */
             height: auto;
             border-radius: 10px;
             border: 5px solid black;
@@ -93,26 +93,41 @@
 
         /* Mobile styles */
         @media (max-width: 768px) {
-            .character-section {
-                flex-direction: column; /* Ensure stacking on small screens */
+            h1 {
+                font-size: 2.5rem; /* Smaller heading for mobile screens */
+                margin-top: 50px;
+            }
+
+            .character-description {
+                font-size: 1rem; /* Slightly smaller text on mobile */
+                padding: 10px;
             }
 
             .character-description img {
-                width: 100%; /* Ensures image fills the container width */
-                height: auto;
+                width: 80%; /* Image will be smaller on mobile, adjust as needed */
+            }
+
+            .character-section {
+                padding: 10px;
+                gap: 15px; /* Reduce gap for smaller screens */
             }
         }
 
+        /* Desktop styles */
         @media (min-width: 769px) {
             .character-section {
-                flex-direction: column; /* Force the items to be stacked vertically */
-                justify-content: center;
+                flex-direction: column; /* Keep stacked layout even on larger screens */
+                justify-content: flex-start;
                 align-items: center;
+                max-width: 1200px;
             }
 
             .character-description img {
-                width: 200px; /* Set the image size here */
-                height: auto;
+                width: 300px; /* Larger image on desktops */
+            }
+
+            h1 {
+                font-size: 3.5rem; /* Larger heading for desktops */
             }
         }
     </style>
