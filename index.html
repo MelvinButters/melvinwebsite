@@ -39,9 +39,9 @@
             text-align: center;
             margin-top: 150px;
             margin-bottom: 0;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 
-                         -2px -2px 4px rgba(0, 0, 0, 0.8), 
-                         2px -2px 4px rgba(0, 0, 0, 0.8), 
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8),
+                         -2px -2px 4px rgba(0, 0, 0, 0.8),
+                         2px -2px 4px rgba(0, 0, 0, 0.8),
                          -2px 2px 4px rgba(0, 0, 0, 0.8);
             font-family: 'Georgia', serif;
             letter-spacing: 2px;
@@ -55,10 +55,6 @@
             gap: 30px;
             justify-content: center;
             margin-top: 40px;
-            background-color: rgba(50, 50, 50, 0.7);
-            padding: 30px 40px;
-            border-radius: 15px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
 
         .links-container a {
@@ -66,43 +62,17 @@
             box-sizing: border-box;
             text-decoration: none;
             font-size: 2rem;
-            color: white;
-            background-color: #B0B0B0;
-            padding: 20px 40px;
-            border-radius: 25px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            letter-spacing: 1px;
-            text-transform: capitalize;
+            color: white; /* White text */
+            padding: 10px;
             font-weight: bold;
-            position: relative;
-        }
-
-        .links-container a::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            width: 100%;
-            height: 100%;
-            background: transparent;
-            border: 2px solid lightgray;
-            border-radius: 25px;
-            filter: blur(1px);
-            transform: translate(-2px, -2px);
+            text-align: center; /* Center the text */
+            transition: color 0.3s ease;
+            text-shadow: 1px 1px 2px black, -1px -1px 2px black; /* Black outline */
         }
 
         .links-container a:hover {
-            background-color: #E27D60;
-            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
-            transform: scale(1.1);
-            color: #FFF;
-        }
-
-        .links-container a:hover::before {
-            filter: blur(0);
-            transform: translate(-2px, -2px);
+            color: #E27D60; /* Soft coral color on hover */
+            transform: scale(1.1); /* Slightly enlarge the link */
         }
 
         @media (max-width: 768px) {
