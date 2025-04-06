@@ -29,9 +29,15 @@
             background: linear-gradient(to bottom right, #3e2a47, #42244d, #0f1d36, #6b7fa3);
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
-            overflow-x: hidden; /* Prevent horizontal overflow */
-            overflow-y: auto; /* Allow vertical scrolling */
+            background-attachment: fixed; /* Keeps the background fixed */
+            overflow: hidden; /* Hides the main scrollbar */
+            overflow-y: scroll; /* Allows vertical scrolling */
+        }
+
+        /* Body that handles scrolling without showing scrollbars */
+        body {
+            -ms-overflow-style: none; /* Hides scrollbar in IE */
+            scrollbar-width: none; /* Hides scrollbar in Firefox */
         }
 
         h1 {
