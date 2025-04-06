@@ -88,11 +88,7 @@
         @media (max-width: 768px) {
             html, body {
                 background-color: black; /* Ensure background is black on mobile */
-                background-image: url('https://raw.githubusercontent.com/MelvinButters/melvinwebsite/main/images/GhibliWallpaper.png');
-                background-size: 60%; /* Shrink image size */
-                background-position: bottom; /* Position it at the bottom */
-                background-repeat: no-repeat;
-                background-attachment: scroll; /* Image should scroll with page */
+                background-image: none; /* Remove default background image on mobile */
             }
 
             /* For mobile, resize font sizes */
@@ -111,6 +107,16 @@
                 padding: 10px 15px;
                 width: 90%;
                 margin-bottom: 10px;
+            }
+
+            /* Add a new div for the image at the bottom */
+            .mobile-background {
+                width: 100%;
+                height: 300px; /* Adjust the height of the image */
+                background-image: url('https://raw.githubusercontent.com/MelvinButters/melvinwebsite/main/images/GhibliWallpaper.png');
+                background-size: contain; /* Resize the image to fit */
+                background-position: bottom;
+                background-repeat: no-repeat;
             }
         }
 
@@ -133,6 +139,9 @@
         <a href="locations.html">🌍 Locations</a>
         <a href="NPCs.html">👥 NPCs</a>
     </div>
+
+    <!-- This div will contain the image at the bottom only on mobile -->
+    <div class="mobile-background"></div>
 
 </body>
 
