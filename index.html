@@ -103,26 +103,32 @@
                 background-size: cover; /* Ensure image covers the full background */
                 background-position: center;
                 background-attachment: fixed; /* Keep background static while scrolling */
+                padding: 20px; /* Extra padding on desktop */
             }
 
             /* Title and links resizing for desktop */
             h1 {
-                font-size: 3.5rem; /* Larger title on desktop */
-                margin-top: 150px;
+                font-size: 4.5rem; /* Larger title on desktop */
+                margin-top: 5vh; /* Add some margin at the top for better spacing */
             }
 
             .links-container a {
-                font-size: 1.8rem; /* Larger links on desktop */
-                padding: 10px 20px;
+                font-size: 2rem; /* Larger links on desktop */
+                padding: 15px 25px;
                 font-weight: bold;
-                width: 80%;
+                width: 50%; /* Links will take up less width for better spacing */
             }
 
-            /* Remove mobile background image */
+            .links-container {
+                gap: 30px; /* Increase space between links on desktop */
+            }
+
+            /* Increase size of background image for desktop */
             .mobile-background {
                 display: none; /* Hide mobile background image on desktop */
             }
         }
+
     </style>
 </head>
 
