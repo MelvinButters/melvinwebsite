@@ -21,8 +21,7 @@
         html, body {
             height: 100%;
             min-height: 100vh;
-            overflow-x: hidden;
-            font-family: 'Merriweather', serif; /* Apply Merriweather font */
+            font-family: 'Merriweather', serif;
             color: #5B4E40;
             display: flex;
             flex-direction: column;
@@ -53,12 +52,23 @@
             text-transform: uppercase;
         }
 
+        /* Character Section Styling */
+        .character-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 40px;
+            gap: 20px;
+            width: 100%;
+            padding: 0 10px;
+        }
+
         /* Character Heading Styling */
         .character-heading {
-            font-size: 2.5rem;
+            font-size: 2rem;
             color: white;
             text-align: center;
-            margin-top: 50px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8),
                          -2px -2px 4px rgba(0, 0, 0, 0.8),
                          2px -2px 4px rgba(0, 0, 0, 0.8),
@@ -66,23 +76,24 @@
             font-weight: bold;
         }
 
-        /* Character Stats Styling */
-        .character-stats {
+        /* Character Description Styling */
+        .character-description {
             font-size: 1.2rem;
             color: white;
-            text-align: center;
-            margin-top: 20px;
-            padding: 10px;
+            text-align: left;
+            padding: 15px;
             background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 5px;
-            width: 60%;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 10px;
         }
 
-        /* Image Styling */
+        /* Character Image Styling */
         .character-image {
-            width: 200px;
-            height: 300px;
-            margin-top: 20px;
+            width: 250px;
+            height: 375px;
+            margin-top: 10px;
             border-radius: 10px;
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
         }
@@ -110,7 +121,7 @@
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8), 
                          -2px -2px 4px rgba(0, 0, 0, 0.8), 
                          2px -2px 4px rgba(0, 0, 0, 0.8), 
-                         -2px 2px 4px rgba(0, 0, 0, 0.8); /* Apply shadow like title */
+                         -2px 2px 4px rgba(0, 0, 0, 0.8);
             width: 90%;
         }
 
@@ -118,6 +129,63 @@
             color: #E27D60;
             transform: scale(1.1);
         }
+
+        /* Mobile styles */
+        @media (max-width: 768px) {
+            html, body {
+                background-color: black; /* Ensure background is black on mobile */
+                background-image: none; /* Remove default background image on mobile */
+            }
+
+            .character-section {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .character-heading {
+                font-size: 1.8rem;
+                margin-top: 10px;
+            }
+
+            .character-description {
+                font-size: 1rem;
+                width: 90%;
+                max-width: none;
+                padding: 10px;
+            }
+
+            .character-image {
+                width: 200px;
+                height: 300px;
+                margin-top: 10px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.7);
+            }
+        }
+
+        /* Desktop styles */
+        @media (min-width: 769px) {
+            .character-section {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 40px;
+            }
+
+            .character-description {
+                width: 60%;
+            }
+
+            .character-image {
+                width: 250px;
+                height: 375px;
+            }
+
+            .links-container {
+                gap: 25px;
+            }
+        }
+
     </style>
 </head>
 
@@ -127,8 +195,8 @@
 
     <!-- Keket's Section -->
     <div class="character-section">
-        <h2 class="character-heading">Keket</h2>
-        <div class="character-stats">
+        <div class="character-description">
+            <h2 class="character-heading">Keket</h2>
             <p><strong>Race:</strong> [Insert Race]</p>
             <p><strong>Class:</strong> [Insert Class]</p>
             <p><strong>Level:</strong> [Insert Level]</p>
@@ -145,8 +213,8 @@
 
     <!-- Auta's Section -->
     <div class="character-section">
-        <h2 class="character-heading">Auta</h2>
-        <div class="character-stats">
+        <div class="character-description">
+            <h2 class="character-heading">Auta</h2>
             <p><strong>Race:</strong> [Insert Race]</p>
             <p><strong>Class:</strong> [Insert Class]</p>
             <p><strong>Level:</strong> [Insert Level]</p>
@@ -163,8 +231,8 @@
 
     <!-- Sleeves' Section -->
     <div class="character-section">
-        <h2 class="character-heading">Sleeves</h2>
-        <div class="character-stats">
+        <div class="character-description">
+            <h2 class="character-heading">Sleeves</h2>
             <p><strong>Race:</strong> [Insert Race]</p>
             <p><strong>Class:</strong> [Insert Class]</p>
             <p><strong>Level:</strong> [Insert Level]</p>
