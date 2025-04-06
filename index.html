@@ -3,9 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Characters</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worlds Beyond Number Campaign 2</title>
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Ghibli_Logo.svg/2880px-Ghibli_Logo.svg.png" type="image/png">
+
+    <!-- Import Google Fonts (Merriweather font in this case) -->
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
     <style>
@@ -16,151 +18,133 @@
             box-sizing: border-box;
         }
 
+        /* Mobile-first base styles */
         html, body {
             height: 100%;
             min-height: 100vh;
-            font-family: 'Merriweather', serif;
-            color: #F4E1D2;
             display: flex;
-            flex-direction: column; /* Ensure content flows vertically */
+            flex-direction: column;
             justify-content: flex-start;
             align-items: center;
             padding: 0;
-            background-color: #333333; /* Dark grey static background */
-            overflow-x: hidden; /* Prevent horizontal scroll */
-            overflow-y: scroll; /* Allow vertical scrolling */
+            font-family: 'Merriweather', serif;
+            color: #5B4E40;
+            background-color: black; /* Default background color */
+            background-image: url('https://raw.githubusercontent.com/MelvinButters/melvinwebsite/main/images/GhibliWallpaper.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            overflow: hidden;
         }
 
-        /* Hide the scrollbar on desktop */
-        ::-webkit-scrollbar {
-            display: none; /* Hide scrollbar in webkit browsers (Chrome, Safari, etc.) */
-        }
-
+        /* Title Styling */
         h1 {
-            font-size: 3.5rem;
+            font-size: 8vw; /* Dynamic font size for mobile */
             color: white;
             text-align: center;
-            margin-top: 150px;
-            margin-bottom: 25px;
+            margin-top: 10vh;
+            margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8),
                          -2px -2px 4px rgba(0, 0, 0, 0.8),
                          2px -2px 4px rgba(0, 0, 0, 0.8),
                          -2px 2px 4px rgba(0, 0, 0, 0.8);
             letter-spacing: 2px;
             text-transform: uppercase;
+            width: 90%;
         }
 
-        .character-section {
+        /* Links container */
+        .links-container {
             display: flex;
             flex-direction: column;
+            gap: 15px;
             justify-content: center;
-            align-items: center;
-            margin-bottom: 40px;
-            gap: 20px;
             width: 100%;
             padding: 0 10px;
-        }
-
-        .character-description {
-            font-size: 1.2rem;
-            color: white;
-            text-align: left;
-            padding: 15px;
-            background-color: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            width: 100%;
-            max-width: 800px;
-            margin-top: 10px;
-            display: flex;
-            flex-direction: column;
             align-items: center;
+            margin-top: 10px;
         }
 
-        .character-description img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 10px;
-            border: 5px solid black;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.7);
-            margin-bottom: 15px;  /* Adds space between the image and text */
+        .links-container a {
+            text-decoration: none;
+            font-size: 6vw; /* Dynamic font size for mobile */
+            color: white;
+            padding: 8px 16px;
+            font-weight: bold;
+            text-align: center;
+            transition: color 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8),
+                         -2px -2px 4px rgba(0, 0, 0, 0.8),
+                         2px -2px 4px rgba(0, 0, 0, 0.8),
+                         -2px 2px 4px rgba(0, 0, 0, 0.8); /* Apply shadow like title */
+            width: 90%;
         }
 
-        /* Mobile styles */
-        @media (max-width: 768px) {
-            html, body {
-                overflow: auto; /* Ensure scrolling is enabled on mobile */
-                max-width: 100%; /* Prevent horizontal overflow */
-            }
-
-            .character-section {
-                flex-direction: column;
-                align-items: center;
-                gap: 20px;
-            }
-
-            .character-description img {
-                width: 100%; /* Ensures image fills the container width */
-                height: auto;
-            }
+        .links-container a:hover {
+            color: #E27D60;
+            transform: scale(1.1);
         }
 
+        /* Mobile background image */
+        .mobile-background {
+            width: 100%;
+            height: 250px;
+            background-image: url('https://raw.githubusercontent.com/MelvinButters/melvinwebsite/main/images/GhibliWallpaper.png');
+            background-size: contain;
+            background-position: bottom;
+            background-repeat: no-repeat;
+            margin-top: 20px;
+        }
+
+        /* Desktop styling */
         @media (min-width: 769px) {
-            .character-section {
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: flex-start;
-                gap: 40px;
+            html, body {
+                background-image: url('https://raw.githubusercontent.com/MelvinButters/melvinwebsite/main/images/GhibliWallpaper.png');
+                background-size: cover; /* Ensure image covers the full background */
+                background-position: center;
+                background-attachment: fixed; /* Keep background static while scrolling */
+                padding: 20px; /* Extra padding on desktop */
             }
 
-            .character-description {
-                width: 60%;
+            /* Title and links resizing for desktop */
+            h1 {
+                font-size: 4.5rem; /* Larger title on desktop */
+                margin-top: 5vh; /* Add some margin at the top for better spacing */
             }
 
-            .character-description img {
-                width: 200px; /* Set the image size here */
-                height: auto;
+            .links-container a {
+                font-size: 2rem; /* Larger links on desktop */
+                padding: 15px 25px;
+                font-weight: bold;
+                width: 50%; /* Links will take up less width for better spacing */
+            }
+
+            .links-container {
+                gap: 30px; /* Increase space between links on desktop */
+            }
+
+            /* Increase size of background image for desktop */
+            .mobile-background {
+                display: none; /* Hide mobile background image on desktop */
             }
         }
+
     </style>
 </head>
 
 <body>
 
-    <h1>Characters</h1>
+    <h1>Worlds Beyond Number Campaign 2</h1>
 
-    <!-- Keket's Section -->
-    <div class="character-section">
-        <div class="character-description">
-            <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/images/pc/Keket.jpg" alt="Keket's Image">
-            <h2 class="character-heading">Keket</h2>
-            <p>This is Keket's description. You can edit this text later with a few interesting character details.</p>
-        </div>
-    </div>
-
-    <!-- Auta's Section -->
-    <div class="character-section">
-        <div class="character-description">
-            <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/images/pc/Auta.png" alt="Auta's Image">
-            <h2 class="character-heading">Auta</h2>
-            <p>This is Auta's description. More character flavor text will go here. Feel free to edit it later.</p>
-        </div>
-    </div>
-
-    <!-- Sleeves' Section -->
-    <div class="character-section">
-        <div class="character-description">
-            <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/images/pc/Sleeves.png" alt="Sleeves' Image">
-            <h2 class="character-heading">Sleeves</h2>
-            <p>This is Sleeves' description. Add more details here about Sleeves' personality, backstory, etc.</p>
-        </div>
-    </div>
-
-    <!-- Links container -->
     <div class="links-container">
+        <a href="characters.html">🧑‍🤝‍🧑 Characters</a>
         <a href="story.html">📜 The Story So Far</a>
         <a href="locations.html">🌍 Locations</a>
         <a href="NPCs.html">👥 NPCs</a>
     </div>
+
+    <!-- This div will contain the image at the bottom only on mobile -->
+    <div class="mobile-background"></div>
 
 </body>
 
