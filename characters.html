@@ -7,7 +7,7 @@
     <title>Characters</title>
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Ghibli_Logo.svg/2880px-Ghibli_Logo.svg.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-    
+
     <style>
         /* Basic reset and font imports */
         * {
@@ -20,25 +20,17 @@
             height: 100%;
             min-height: 100vh;
             font-family: 'Merriweather', serif;
-            color: #F4E1D2;  /* Light cream color for text */
+            color: #F4E1D2;
             display: flex;
-            flex-direction: column;
+            flex-direction: column; /* Ensure content flows vertically */
             justify-content: flex-start;
             align-items: center;
             padding: 0;
-            background: linear-gradient(to bottom right, #3e2a47, #42244d, #0f1d36, #6b7fa3);
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Keeps the background fixed */
-            overflow: hidden; /* Hides the main scrollbar */
-            overflow-y: scroll; /* Allows vertical scrolling */
-            min-height: 100vh; /* Ensures the body height is always at least the height of the screen */
-        }
-
-        /* Prevent scrollbars from showing */
-        body {
-            -ms-overflow-style: none; /* Hides scrollbar in IE */
-            scrollbar-width: none; /* Hides scrollbar in Firefox */
+            background: linear-gradient(to bottom right, #3e2a47, #42244d, #0f1d36, #6b7fa3); /* Fantasy theme */
+            background-size: cover; /* Ensure background covers entire screen */
+            background-position: center; /* Keep it centered */
+            background-attachment: scroll; /* No fixed background attachment */
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
         h1 {
@@ -57,7 +49,7 @@
 
         .character-section {
             display: flex;
-            flex-direction: column; /* Stack the elements vertically */
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             margin-bottom: 40px;
@@ -74,7 +66,7 @@
             background-color: rgba(0, 0, 0, 0.6);
             border-radius: 10px;
             width: 100%;
-            max-width: 900px;
+            max-width: 800px;
             margin-top: 10px;
             display: flex;
             flex-direction: column;
@@ -82,7 +74,7 @@
         }
 
         .character-description img {
-            width: 100%; /* Make image fill the container on smaller screens */
+            max-width: 100%;
             height: auto;
             border-radius: 10px;
             border: 5px solid black;
@@ -90,50 +82,35 @@
             margin-bottom: 15px;  /* Adds space between the image and text */
         }
 
-        .character-description h2 {
-            font-size: 2rem;
-            color: white;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-
         /* Mobile styles */
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem; /* Smaller heading for mobile screens */
-                margin-top: 50px;
+            .character-section {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+
+            .character-description img {
+                width: 100%; /* Ensures image fills the container width */
+                height: auto;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .character-section {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 40px;
             }
 
             .character-description {
-                font-size: 1rem; /* Slightly smaller text on mobile */
-                padding: 10px;
+                width: 60%;
             }
 
             .character-description img {
-                width: 80%; /* Image will be smaller on mobile, adjust as needed */
-            }
-
-            .character-section {
-                padding: 10px;
-                gap: 15px; /* Reduce gap for smaller screens */
-            }
-        }
-
-        /* Desktop styles */
-        @media (min-width: 769px) {
-            .character-section {
-                flex-direction: column; /* Keep stacked layout even on larger screens */
-                justify-content: flex-start;
-                align-items: center;
-                max-width: 1200px;
-            }
-
-            .character-description img {
-                width: 300px; /* Larger image on desktops */
-            }
-
-            h1 {
-                font-size: 3.5rem; /* Larger heading for desktops */
+                width: 200px; /* Set the image size here */
+                height: auto;
             }
         }
     </style>
@@ -146,27 +123,27 @@
     <!-- Keket's Section -->
     <div class="character-section">
         <div class="character-description">
-            <h2>Keket</h2>
             <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/images/pc/Keket.jpg" alt="Keket's Image">
-            <p>Here you can add some character flavor text. Feel free to elaborate on their personality, backstory, or anything else you'd like to share.</p>
+            <h2 class="character-heading">Keket</h2>
+            <p>This is Keket's description. You can edit this text later with a few interesting character details.</p>
         </div>
     </div>
 
     <!-- Auta's Section -->
     <div class="character-section">
         <div class="character-description">
-            <h2>Auta</h2>
             <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/images/pc/Auta.png" alt="Auta's Image">
-            <p>Here you can add some character flavor text. Feel free to elaborate on their personality, backstory, or anything else you'd like to share.</p>
+            <h2 class="character-heading">Auta</h2>
+            <p>This is Auta's description. More character flavor text will go here. Feel free to edit it later.</p>
         </div>
     </div>
 
     <!-- Sleeves' Section -->
     <div class="character-section">
         <div class="character-description">
-            <h2>Sleeves</h2>
             <img src="https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/images/pc/Sleeves.png" alt="Sleeves' Image">
-            <p>Here you can add some character flavor text. Feel free to elaborate on their personality, backstory, or anything else you'd like to share.</p>
+            <h2 class="character-heading">Sleeves</h2>
+            <p>This is Sleeves' description. Add more details here about Sleeves' personality, backstory, etc.</p>
         </div>
     </div>
 
