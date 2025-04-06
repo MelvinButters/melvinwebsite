@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Worlds Beyond Number Campaign 2</title>
     <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Ghibli_Logo.svg/2880px-Ghibli_Logo.svg.png" type="image/png">
-    
+
     <!-- Import Google Fonts (Merriweather font in this case) -->
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 
@@ -40,7 +40,7 @@
 
         /* Title Styling */
         h1 {
-            font-size: 5vw; /* Dynamic font size based on viewport width */
+            font-size: 3.5rem; /* Default font size for desktop */
             color: white;
             text-align: center;
             margin-top: 150px;
@@ -67,7 +67,7 @@
 
         .links-container a {
             text-decoration: none;
-            font-size: 2.5vw; /* Dynamic font size based on viewport width */
+            font-size: 1.8rem; /* Default font size for links */
             color: white;
             padding: 10px 20px;
             font-weight: bold;
@@ -87,12 +87,9 @@
 
         /* Mobile responsiveness */
         @media (max-width: 768px) {
-            html, body {
-                background-attachment: scroll;
-            }
-
+            /* For mobile, resize font sizes */
             h1 {
-                font-size: 6vw; /* Smaller size on smaller screens */
+                font-size: 6vw; /* Smaller title for mobile */
                 margin-top: 100px;
             }
 
@@ -102,7 +99,7 @@
             }
 
             .links-container a {
-                font-size: 5vw; /* Smaller font size for links on mobile */
+                font-size: 5vw; /* Smaller links for mobile */
                 padding: 10px 15px;
                 width: 90%;
                 margin-bottom: 10px;
