@@ -31,15 +31,16 @@
             background-size: cover;  /* Ensure the background always covers the entire screen */
             background-position: center;
             background-attachment: fixed;  /* Keep background fixed on larger screens */
+            background-repeat: no-repeat;  /* Prevent repeating the image */
         }
 
         /* Title Styling */
         h1 {
-            font-size: 4rem;
+            font-size: 3.5rem;  /* Slightly smaller title font */
             color: white;
             text-align: center;
             margin-top: 150px;
-            margin-bottom: 0;
+            margin-bottom: 50px;  /* Add 50px spacing below title */
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8),
                          -2px -2px 4px rgba(0, 0, 0, 0.8),
                          2px -2px 4px rgba(0, 0, 0, 0.8),
@@ -49,28 +50,28 @@
             text-transform: uppercase;
         }
 
-        /* Links container with two across layout */
+        /* Links container - now vertically aligned */
         .links-container {
             display: flex;
-            flex-wrap: wrap;  /* Wrap links into rows */
-            gap: 30px;
+            flex-direction: column;  /* Stack the links vertically */
+            gap: 20px;  /* Reduce the gap between the links */
             justify-content: center;
-            margin-top: 40px;
-            width: 100%; /* Ensure container takes up full width */
-            padding: 0 10px; /* Add some padding to avoid links sticking to edges */
+            margin-top: 0;
+            width: 100%;  /* Ensure container takes up full width */
+            padding: 0 10px;  /* Add some padding to avoid links sticking to edges */
+            align-items: center;  /* Center the links horizontally */
         }
 
         .links-container a {
             text-decoration: none;
-            font-size: 2rem;
+            font-size: 1.8rem;  /* Slightly smaller font for compactness */
             color: white; /* White text */
-            padding: 15px;
+            padding: 10px 20px;  /* Smaller padding for compactness */
             font-weight: bold;
             text-align: center; /* Center the text */
             transition: color 0.3s ease;
             text-shadow: 1px 1px 2px black, -1px -1px 2px black; /* Black outline */
-            width: 45%; /* Each link takes up 45% width */
-            box-sizing: border-box;
+            width: 90%; /* Each link takes up 90% of the screen width */
         }
 
         .links-container a:hover {
@@ -91,15 +92,14 @@
             }
 
             .links-container {
-                flex-direction: column; /* Stack links vertically on small screens */
-                align-items: center; /* Center links horizontally */
+                gap: 15px;  /* Reduce gap on mobile */
             }
 
             .links-container a {
-                font-size: 1.8rem;  /* Increase font size slightly for readability */
-                padding: 15px 25px;  /* Increase padding for easier tap on mobile */
-                width: 90%;  /* Ensure each link takes up 90% of the screen width */
-                margin-bottom: 10px; /* Add some space between stacked links */
+                font-size: 1.6rem;  /* Further reduce font size for mobile */
+                padding: 10px 15px;  /* Slightly smaller padding */
+                width: 90%;  /* Links still take up most of the screen */
+                margin-bottom: 10px; /* Add space between links on mobile */
             }
         }
     </style>
