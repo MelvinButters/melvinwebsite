@@ -19,7 +19,7 @@
             height: 100%;
             min-height: 100vh;
             overflow-x: hidden;
-            font-family: 'Georgia', serif;
+            font-family: 'Georgia', serif; /* Apply 'Georgia' font to the entire body */
             color: #5B4E40;
             display: flex;
             flex-direction: column;
@@ -41,12 +41,11 @@
             color: white;
             text-align: center;
             margin-top: 150px;
-            margin-bottom: 25px; /* Reduced margin-bottom to decrease space */
+            margin-bottom: 25px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8),
                          -2px -2px 4px rgba(0, 0, 0, 0.8),
                          2px -2px 4px rgba(0, 0, 0, 0.8),
                          -2px 2px 4px rgba(0, 0, 0, 0.8);
-            font-family: 'Georgia', serif;
             letter-spacing: 2px;
             text-transform: uppercase;
         }
@@ -66,13 +65,13 @@
         .links-container a {
             text-decoration: none;
             font-size: 1.8rem;
-            color: white; /* White text */
+            color: white;
             padding: 10px 20px;
             font-weight: bold;
             text-align: center;
             transition: color 0.3s ease;
-            -webkit-text-stroke: 2px black; /* Adds black outline to the text */
-            text-shadow: none; /* No shadow, only the outline */
+            -webkit-text-stroke: 2px black; /* Black outline */
+            text-shadow: none; /* No shadow */
             width: 90%;
         }
 
