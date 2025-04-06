@@ -87,9 +87,12 @@
         /* Mobile responsiveness */
         @media (max-width: 768px) {
             html, body {
+                background-color: black; /* Ensure background is black on mobile */
                 background-image: url('https://raw.githubusercontent.com/MelvinButters/melvinwebsite/main/images/GhibliWallpaper.png');
-                background-position: bottom; /* Move the image to the bottom */
-                background-attachment: scroll; /* Make sure the background scrolls with the page */
+                background-size: 60%; /* Shrink image size */
+                background-position: bottom; /* Position it at the bottom */
+                background-repeat: no-repeat;
+                background-attachment: scroll; /* Image should scroll with page */
             }
 
             /* For mobile, resize font sizes */
