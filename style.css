@@ -12,6 +12,10 @@ body {
     color: #333;
     text-align: center;
     padding: 20px;
+
+    /* Added for better font rendering on mobile */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 .container {
