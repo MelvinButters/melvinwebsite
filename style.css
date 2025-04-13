@@ -8,34 +8,47 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #000; /* Deep black */
-    color: #fff; /* White text for dark background */
+    background-color: #000000; /* Pure black */
+    color: #ffffff; /* White text */
     text-align: center;
     padding: 20px;
+
+    /* Ensure nothing fancy is being layered */
+    background-image: none !important;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* Remove any pseudo-element star backgrounds */
+body::before,
+body::after {
+    content: none !important;
+    display: none !important;
+}
+
 .container {
     max-width: 600px;
     margin: 0 auto;
-    background-color: #111; /* Slightly lighter black for contrast */
+    background-color: #111111; /* Slightly lighter black for contrast */
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); /* Soft white glow */
+    box-shadow: none; /* No glow or shadows */
 }
 
 h1 {
     font-size: 2.5em;
     margin-bottom: 20px;
-    color: #fff;
+    color: #ffffff;
 }
 
 p {
     font-size: 1.2em;
     margin-bottom: 20px;
-    color: #ddd;
+    color: #dddddd;
 }
 
 ul {
@@ -48,7 +61,7 @@ ul li {
 
 ul li a {
     font-size: 1.5em;
-    color: #0af; /* Bright blue for links */
+    color: #0af;
     text-decoration: none;
     border-bottom: 2px solid #0af;
     padding-bottom: 5px;
