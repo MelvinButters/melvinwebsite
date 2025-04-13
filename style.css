@@ -8,23 +8,48 @@
 body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
-    background-color: #f4f4f4;
-    color: #333;
+    background-color: #000; /* Deep black */
+    color: #fff;
     text-align: center;
     padding: 20px;
+    position: relative;
+    overflow: hidden;
 
-    /* Added for better font rendering on mobile */
+    /* Font smoothing */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* Starry background using ::before pseudo-element */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background: transparent;
+    box-shadow:
+        50px 80px white,
+        120px 200px white,
+        300px 150px white,
+        400px 300px white,
+        250px 500px white,
+        100px 450px white,
+        350px 600px white,
+        600px 400px white,
+        500px 200px white;
+    z-index: -1;
+}
+
+/* Container styling remains mostly unchanged */
 .container {
     max-width: 600px;
     margin: 0 auto;
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.85); /* Slightly transparent dark bg */
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
 }
 
 h1 {
@@ -47,13 +72,13 @@ ul li {
 
 ul li a {
     font-size: 1.5em;
-    color: #007bff;
+    color: #0af;
     text-decoration: none;
-    border-bottom: 2px solid #007bff;
+    border-bottom: 2px solid #0af;
     padding-bottom: 5px;
 }
 
 ul li a:hover {
-    color: #0056b3;
-    border-bottom: 2px solid #0056b3;
+    color: #08f;
+    border-bottom: 2px solid #08f;
 }
