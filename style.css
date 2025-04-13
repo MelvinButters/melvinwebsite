@@ -9,57 +9,33 @@ body {
     font-family: Arial, sans-serif;
     line-height: 1.6;
     background-color: #000; /* Deep black */
-    color: #fff;
+    color: #fff; /* White text for dark background */
     text-align: center;
     padding: 20px;
-    position: relative;
-    overflow: hidden;
 
-    /* Font smoothing */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Starry background using ::before pseudo-element */
-body::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 200%;
-    height: 200%;
-    background: transparent;
-    box-shadow:
-        50px 80px white,
-        120px 200px white,
-        300px 150px white,
-        400px 300px white,
-        250px 500px white,
-        100px 450px white,
-        350px 600px white,
-        600px 400px white,
-        500px 200px white;
-    z-index: -1;
-}
-
-/* Container styling remains mostly unchanged */
 .container {
     max-width: 600px;
     margin: 0 auto;
-    background-color: rgba(0, 0, 0, 0.85); /* Slightly transparent dark bg */
+    background-color: #111; /* Slightly lighter black for contrast */
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1); /* Soft white glow */
 }
 
 h1 {
     font-size: 2.5em;
     margin-bottom: 20px;
+    color: #fff;
 }
 
 p {
     font-size: 1.2em;
     margin-bottom: 20px;
+    color: #ddd;
 }
 
 ul {
@@ -72,10 +48,11 @@ ul li {
 
 ul li a {
     font-size: 1.5em;
-    color: #0af;
+    color: #0af; /* Bright blue for links */
     text-decoration: none;
     border-bottom: 2px solid #0af;
     padding-bottom: 5px;
+    transition: color 0.3s, border-color 0.3s;
 }
 
 ul li a:hover {
