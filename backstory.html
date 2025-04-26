@@ -1,225 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random D&D Backstory Generator</title>
-    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet"> <!-- Fantasy font -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Readable font for quest text -->
-    <style>
-        body {
-            font-family: 'MedievalSharp', cursive; /* Fantasy-style font */
-            margin: 0;
-            padding: 0;
-            background-color: #000000; /* Plain black background */
-            color: #f4f4f4; /* Light text for readability */
-            text-align: center;
-            padding-top: 50px; /* Give some space to the top of the screen */
-        }
+<!-- Change the button text and heading to match backstories -->
+<h1>Random Starfinder Character Backstory Generator</h1>
+<p>Create your legend! Click the button below to get a random character backstory!</p>
 
-        h1 {
-            font-size: 3.5rem;
-            color: #ffcc00; /* Gold color for title */
-            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8); /* Magical glowing text shadow */
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
+<button onclick="loadRandomBackstory()">Get Random Backstory</button>
 
-        p {
-            font-size: 1.5rem;
-            color: #dcdcdc;
-            margin-top: 10px;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow for clarity */
-        }
+<div class="quest-display" id="backstoryDisplay">
+  <!-- Random backstory will be displayed here -->
+</div>
 
-        button {
-            background-color: #2e8b57; /* Dark forest green for button */
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-            margin-top: 20px;
-        }
+<script>
+  let backstories = [];
 
-        button:hover {
-            background-color: #3cb371; /* Lighter green when hovered */
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.8); /* Stronger shadow on hover */
-        }
+  function loadCSV(url) {
+    fetch(url)
+      .then(response => response.text())
+      .then(data => {
+        const rows = data.split('\n').filter(row => row.trim() !== '');
+        backstories = rows.map(row => row.trim());
+      })
+      .catch(error => console.error('Error loading CSV:', error));
+  }
 
-        .backstory-display {
-            margin-top: 30px;
-            font-size: 1.5rem;
-            color: #ffcc00; /* Gold for backstory text */
-            font-weight: bold;
-            background: rgba(0, 0, 0, 0.6); /* Semi-transparent background for contrast */
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); /* Glowing effect */
-            text-align: center;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            visibility: visible;  /* Keeps the element visible in layout */
-            opacity: 0;           /* Initially invisible */
-            transition: opacity 1s ease-in-out; /* Smooth fade-in transition */
-        }
+  function loadRandomBackstory() {
+    if (backstories.length === 0) {
+      alert("No backstories loaded. Please wait for the CSV to load.");
+      return;
+    }
 
-        .backstory-display p {
-            margin: 0;
-            padding: 0;
-            font-style: italic;
-        }
+    const randomIndex = Math.floor(Math.random() * backstories.length);
+    const randomBackstory = backstories[randomIndex];
 
-    </style>
-</head>
-<body>
+    const backstoryDisplay = document.getElementById("backstoryDisplay");
+    backstoryDisplay.innerHTML = `<p>${randomBackstory}</p>`;
+    backstoryDisplay.style.opacity = 1;
+  }
 
-    <h1>Random D&D Backstory Generator</h1>
-    <p>Unleash your character's past! Click the button below to get a random backstory idea!</p>
-
-    <button onclick="loadRandomBackstory()">Get Random Backstory</button>
-
-    <div class="backstory-display" id="backstoryDisplay">
-        <!-- Random backstory will be displayed here -->
-    </div>
-
-    <script>
-        let backstories = [
-            "A former noble who was cast out and now seeks to reclaim their family's lost fortune.",
-            "A once-wealthy merchant whose entire family was killed in a bandit raid.",
-            "A wandering scholar who seeks to uncover lost and forbidden knowledge.",
-            "A former pirate who now sails the seas as a mercenary.",
-            "A half-orc raised by monks, who seeks inner peace and mastery over their rage.",
-            "A disgraced knight on a quest to redeem their honor.",
-            "A member of a secretive guild who was betrayed and now seeks revenge.",
-            "An elf whose family was killed by a dragon, now hunting the creature down.",
-            "A forest druid whose home was destroyed by a dark force, seeking to restore balance.",
-            "A gnome whose inventions are sought after by powerful factions for their destructive potential.",
-            "A halfling bard who used to be an entertainer in a royal court, now performing for a new audience.",
-            "A warlock whose patron is a mysterious fae creature who offers both gifts and curses.",
-            "A former assassin who has retired but can't escape their past.",
-            "A ranger who swore an oath to protect a sacred forest from those who would exploit it.",
-            "A young wizard searching for a lost magical artifact to prove their worth to their peers.",
-            "An old, retired adventurer trying to live a quiet life, but always dragged back into the fray.",
-            "A halfling rogue who was part of a notorious thieves' guild before going on the run.",
-            "A human paladin seeking to uncover the truth behind a series of ancient prophecies.",
-            "A dwarven fighter whose family was cursed and seeks to break the curse that haunts them.",
-            "A tiefling whose infernal heritage causes them to struggle with temptation and anger.",
-            "An orc who once fought for a rival clan and now seeks redemption for their past sins.",
-            "A druid who fled their homeland after it was corrupted by dark magic.",
-            "A bard who once had a thriving career but fell into obscurity and seeks to reclaim their fame.",
-            "A former gladiator who longs to retire and settle down but struggles with a violent past.",
-            "A cleric whose faith was shaken after witnessing a terrible disaster, seeking new purpose.",
-            "A wizard who made a dangerous pact with a demon and now seeks a way to undo the contract.",
-            "A monk who has taken a vow of silence to atone for their violent past.",
-            "A thief who stole something valuable from the wrong person and now has a bounty on their head.",
-            "A young dragonborn whose tribe was destroyed in a raid, now searching for a new home.",
-            "A former high-ranking official whose political career was ruined by scandal.",
-            "A soldier who deserted their army after a brutal war and now struggles with the guilt.",
-            "A healer whose sister was killed in a plague and now seeks a cure for the disease.",
-            "An outcast from a remote village who was blamed for an event they had no control over.",
-            "A character cursed with immortality and seeks to find a way to end their eternal life.",
-            "A monk who was once part of an elite order but left after discovering their teachings were flawed.",
-            "A tiefling who has learned to embrace their heritage but now seeks to help others understand them.",
-            "A former pirate who swore to never sail again after a tragic shipwreck, but the sea still calls them.",
-            "A former street urchin who now works as a spy for the kingdom.",
-            "A half-elf who has always struggled to find their place in either human or elven society.",
-            "A warlord who was overthrown and now seeks to rebuild their army and reclaim their throne.",
-            "A noble who ran away from their responsibilities and now lives a life of freedom and adventure.",
-            "A mercenary who has no allegiance to any side, only to the highest bidder.",
-            "A young orphan who was taken in by a band of thieves and taught the art of stealth.",
-            "A scholar who was once a renowned professor, now on a quest for ancient artifacts and lost knowledge.",
-            "A troubled former prince or princess who was disinherited after a family scandal.",
-            "A witch whose powers are tied to the phases of the moon, causing them to lose control during certain times.",
-            "A barbarian who was raised by a tribe of dwarves, now seeking their biological family.",
-            "A sorcerer whose bloodline is tied to a dragon, but they struggle to control their powers.",
-            "A vampire who seeks redemption by doing good deeds, in hopes of breaking their curse.",
-            "A retired soldier who now trains young recruits but is called back to battle when war looms.",
-            "A cursed bard who can never stop singing, even in their sleep, and seeks a cure.",
-            "A monk who seeks to find the perfect balance between body and mind, but is constantly tested by external forces.",
-            "A rogue who was betrayed by their former lover and now seeks to get revenge.",
-            "A druid who serves as the protector of an ancient forest, guarding it from outsiders.",
-            "A cleric who has become disillusioned with the gods after a failed prophecy and is now on a quest for their own truth.",
-            "A knight who was wrongfully accused of a crime and seeks to clear their name.",
-            "A character who was raised by wolves and is still learning the ways of civilization.",
-            "A former slave who escaped captivity and now seeks to free others like them.",
-            "A warrior who was saved by a deity and now fights in their name, spreading their faith.",
-            "A rogue who used to be a noble and is now living a life of crime to survive.",
-            "A bard who once was a member of a traveling troupe but left after an argument with the troupe leader.",
-            "A cleric who was expelled from their temple after questioning their god's motives.",
-            "A ranger who grew up in the wilderness and now helps those lost in the wild.",
-            "A gnome inventor whose inventions have caused more problems than solutions.",
-            "A paladin who is slowly losing their faith in their order and is on a personal quest to find new purpose.",
-            "A warlock whose pact with their patron is starting to unravel, and they must seek a way out.",
-            "A druid who once lived among a peaceful clan but was exiled after a disastrous event.",
-            "A young wizard seeking to prove their worth to the magical community after being underestimated.",
-            "A half-orc who was abandoned as a child and is now trying to prove their worth.",
-            "A monk who believes that true strength lies in compassion and empathy, rather than physical prowess.",
-            "A noble who lost everything in a fire and now seeks to rebuild their life from scratch.",
-            "A former thief turned hero, trying to make amends for their criminal past.",
-            "A character cursed to speak only in riddles, making communication difficult.",
-            "A soldier who fought in a losing war and now suffers from PTSD, struggling to find peace.",
-            "A young dragonborn who was abandoned by their clan and now seeks to make a name for themselves.",
-            "A halfling who was once part of a royal family but left everything behind to live a simpler life.",
-            "A former wizard who was stripped of their magic and now seeks to regain their powers.",
-            "A barbarian who once lived a life of luxury but now fights to survive in the wilds.",
-            "A character who was once an infamous criminal but has turned their life around and now fights for justice.",
-            "A half-elf who was exiled from their elven family and now searches for their true purpose.",
-            "A character whose twin sibling was killed by a rival adventurer, and they now seek revenge.",
-            "A noble who has fallen from grace and is now trying to find a way to redeem their family's name.",
-            "A character who made a pact with a demon and now seeks to break the contract.",
-            "A former gladiator who now fights for a noble cause.",
-            "A character who was once a famous bard but lost their voice after a curse.",
-            "A cleric who once lost faith in their god but has since been called back to serve.",
-            "A wizard who studies magic for the pure joy of knowledge, regardless of its consequences.",
-            "A character who is on the run from a mysterious past they cannot remember.",
-            "A paladin who was betrayed by their closest allies and now seeks to expose the truth.",
-            "A character who once served as a royal guard but left the position after a scandal.",
-            "A character who grew up in a remote village and now seeks adventure to prove they are more than just a simple farmhand.",
-            "A former mercenary who now seeks to live a peaceful life, but their past keeps dragging them back into conflict.",
-            "A noble who was born into a prestigious family but rejected their title in search of a life of adventure.",
-            "A sorcerer whose magical abilities manifest in uncontrollable bursts, and they seek a way to tame them.",
-            "A barbarian who seeks vengeance for the death of their family at the hands of a dragon.",
-            "A character who is haunted by the ghosts of their past and seeks redemption for their actions.",
-            "A halfling who once lived in the underworld but now seeks to uncover the surface world.",
-            "A character who was chosen by a god at a young age to become their champion, but is now struggling with the responsibility.",
-            "A gnome who was once part of a secret society and now seeks to expose their hidden motives.",
-            "A cleric whose power comes from a mysterious, forgotten god, and they seek to uncover the god's true nature.",
-            "A druid who is trying to restore balance to a corrupted land that was once their home.",
-            "A character who was raised by a rival faction and now seeks to undermine them from within.",
-            "A former aristocrat who was forced to flee their homeland after being framed for a crime they did not commit.",
-            "A character who once betrayed their closest allies and is now seeking forgiveness.",
-            "A character who was cursed with a great, terrible power and must use it to fight evil or be consumed by it.",
-            "A former pirate captain who is now trying to live an honest life, but the sea keeps calling them back.",
-            "A character who is searching for an ancient artifact that is said to have the power to change the world.",
-            "A bard who used to perform for kings but now sings for the common folk, spreading hope to those in need.",
-            "A character who once lived as a slave but now fights for the freedom of others.",
-            "A former gladiator who became a champion for the downtrodden and fights for justice.",
-            "A ranger whose home was destroyed by a natural disaster, and they now travel the land seeking to rebuild their life.",
-            "A druid who once protected a peaceful grove but now searches for a new place to call home.",
-            "A character whose entire family was killed in a political coup, and they now seek revenge on the conspirators.",
-            "A thief who has made a name for themselves but now seeks a more noble cause to fight for.",
-            "A character who once served as a loyal servant to a cruel ruler and now seeks to overthrow them.",
-            "A noble who was cast out of their home after a betrayal and now seeks to take back what was once theirs."
-        ];
-
-        // Function to display a random backstory
-        function loadRandomBackstory() {
-            const randomIndex = Math.floor(Math.random() * backstories.length);
-            const randomBackstory = backstories[randomIndex];
-            
-            // Set the backstory text and make it visible with a smooth fade-in
-            const backstoryDisplay = document.getElementById("backstoryDisplay");
-            backstoryDisplay.innerHTML = `<p>${randomBackstory}</p>`;
-            backstoryDisplay.style.opacity = 1;  // Make it visible
-        }
-    </script>
-
-</body>
-</html>
+  window.onload = () => {
+    loadCSV("https://raw.githubusercontent.com/MelvinButters/melvinwebsite/main/list/backstories.csv");
+  };
+</script>
