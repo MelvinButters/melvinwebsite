@@ -3,24 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Quest Generator</title>
-    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet"> <!-- Fantasy font -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Readable font for quest text -->
+    <title>Random Starfinder Adventure Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet"> <!-- Sci-fi font -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Readable font for adventure text -->
     <style>
         body {
-            font-family: 'MedievalSharp', cursive; /* Fantasy-style font */
+            font-family: 'Orbitron', sans-serif; /* Sci-fi style font */
             margin: 0;
             padding: 0;
-            background-color: #000000; /* Plain black background */
+            background-color: #000010; /* Deep space black background */
             color: #f4f4f4; /* Light text for readability */
             text-align: center;
-            padding-top: 50px; /* Give some space to the top of the screen */
+            padding-top: 50px; /* Give some space at the top */
         }
 
         h1 {
             font-size: 3.5rem;
-            color: #ffcc00; /* Gold color for title */
-            text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.8); /* Magical glowing text shadow */
+            color: #00ffff; /* Bright neon blue for title */
+            text-shadow: 3px 3px 10px rgba(0, 255, 255, 0.8); /* Futuristic glowing text shadow */
             letter-spacing: 2px;
             margin-bottom: 10px;
         }
@@ -33,7 +33,7 @@
         }
 
         button {
-            background-color: #2e8b57; /* Dark forest green for button */
+            background-color: #1e90ff; /* Deep sky blue for button */
             color: white;
             padding: 15px 30px;
             font-size: 1.2rem;
@@ -48,26 +48,26 @@
         }
 
         button:hover {
-            background-color: #3cb371; /* Lighter green when hovered */
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.8); /* Stronger shadow on hover */
+            background-color: #00bfff; /* Lighter blue when hovered */
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.8);
         }
 
         .quest-display {
             margin-top: 30px;
             font-size: 1.5rem;
-            color: #ffcc00; /* Gold for quest text */
+            color: #00ffff; /* Neon blue for adventure text */
             font-weight: bold;
-            background: rgba(0, 0, 0, 0.6); /* Semi-transparent background for contrast */
+            background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4); /* Glowing effect */
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
             text-align: center;
             max-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            visibility: visible;  /* Keeps the element visible in layout */
-            opacity: 0;           /* Initially invisible */
-            transition: opacity 1s ease-in-out; /* Smooth fade-in transition */
+            visibility: visible;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
         }
 
         .quest-display p {
@@ -80,51 +80,43 @@
 </head>
 <body>
 
-    <h1>Random D&D Quest Generator</h1>
-    <p>Unleash the magic! Click the button below to get a random quest idea!</p>
+    <h1>Random Starfinder Adventure Generator</h1>
+    <p>Launch into the stars! Click the button below to get a random adventure idea!</p>
 
-    <button onclick="loadRandomQuest()">Get Random Quest</button>
+    <button onclick="loadRandomQuest()">Get Random Adventure</button>
 
     <div class="quest-display" id="questDisplay">
-        <!-- Random quest will be displayed here -->
+        <!-- Random adventure will be displayed here -->
     </div>
 
     <script>
         let quests = [];
 
-        // Load the CSV file and parse it
         function loadCSV(url) {
             fetch(url)
                 .then(response => response.text())
                 .then(data => {
-                    // Split the CSV into rows and remove any extra empty rows or spaces
                     const rows = data.split('\n').filter(row => row.trim() !== '');
-                    
-                    // Split each row by comma and store them in the quests array
-                    quests = rows.map(row => row.trim());  // Remove extra spaces and store each quest as an element
+                    quests = rows.map(row => row.trim());
                 })
                 .catch(error => console.error('Error loading CSV:', error));
         }
 
-        // Function to display a random quest
         function loadRandomQuest() {
             if (quests.length === 0) {
-                alert("No quests loaded. Please wait for the CSV to load.");
+                alert("No adventures loaded. Please wait for the CSV to load.");
                 return;
             }
 
             const randomIndex = Math.floor(Math.random() * quests.length);
             const randomQuest = quests[randomIndex];
             
-            // Set the quest text and make it visible with a smooth fade-in
             const questDisplay = document.getElementById("questDisplay");
             questDisplay.innerHTML = `<p>${randomQuest}</p>`;
-            questDisplay.style.opacity = 1;  // Make it visible
+            questDisplay.style.opacity = 1;
         }
 
-        // Load the CSV when the page is loaded
         window.onload = () => {
-            // Replace the link below with your actual raw CSV URL
             loadCSV("https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/list/quests.csv");
         };
     </script>
