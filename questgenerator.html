@@ -1,125 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Starfinder Adventure Generator</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet"> <!-- Sci-fi font -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"> <!-- Readable font for adventure text -->
-    <style>
-        body {
-            font-family: 'Orbitron', sans-serif; /* Sci-fi style font */
-            margin: 0;
-            padding: 0;
-            background-color: #000010; /* Deep space black background */
-            color: #f4f4f4; /* Light text for readability */
-            text-align: center;
-            padding-top: 50px; /* Give some space at the top */
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Starfinder Adventure Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Orbitron', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: radial-gradient(ellipse at bottom, #000010 0%, #000000 100%);
+      color: #f4f4f4;
+      text-align: center;
+      padding-top: 50px;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        h1 {
-            font-size: 3.5rem;
-            color: #00ffff; /* Bright neon blue for title */
-            text-shadow: 3px 3px 10px rgba(0, 255, 255, 0.8); /* Futuristic glowing text shadow */
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
+    h1 {
+      font-size: 3.5rem;
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
 
-        p {
-            font-size: 1.5rem;
-            color: #dcdcdc;
-            margin-top: 10px;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3); /* Subtle shadow for clarity */
-        }
+    p {
+      font-size: 1.5rem;
+      color: #dcdcdc;
+      margin-top: 10px;
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    }
 
-        button {
-            background-color: #1e90ff; /* Deep sky blue for button */
-            color: white;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
-            margin-top: 20px;
-        }
+    button {
+      background-color: #1e90ff;
+      color: white;
+      padding: 15px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 0 10px #1e90ff;
+      margin-top: 20px;
+    }
 
-        button:hover {
-            background-color: #00bfff; /* Lighter blue when hovered */
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.8);
-        }
+    button:hover {
+      background-color: #00bfff;
+      box-shadow: 0 0 20px #00bfff;
+    }
 
-        .quest-display {
-            margin-top: 30px;
-            font-size: 1.5rem;
-            color: #00ffff; /* Neon blue for adventure text */
-            font-weight: bold;
-            background: rgba(0, 0, 0, 0.6); /* Semi-transparent background */
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-            text-align: center;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            visibility: visible;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3);
+      }
+      50% {
+        box-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.5);
+      }
+      100% {
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.3);
+      }
+    }
 
-        .quest-display p {
-            margin: 0;
-            padding: 0;
-            font-style: italic;
-        }
+    .quest-display {
+      margin-top: 30px;
+      font-size: 1.5rem;
+      color: #00ffff;
+      font-weight: bold;
+      background: rgba(0, 0, 20, 0.7);
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      visibility: visible;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      animation: pulse 4s infinite;
+    }
 
-    </style>
+    .quest-display p {
+      margin: 0;
+      padding: 0;
+      font-style: italic;
+    }
+  </style>
 </head>
 <body>
 
-    <h1>Random Starfinder Adventure Generator</h1>
-    <p>Launch into the stars! Click the button below to get a random adventure idea!</p>
+  <h1>Random Starfinder Adventure Generator</h1>
+  <p>Launch into the stars! Click the button below to get a random adventure idea!</p>
 
-    <button onclick="loadRandomQuest()">Get Random Adventure</button>
+  <button onclick="loadRandomQuest()">Get Random Adventure</button>
 
-    <div class="quest-display" id="questDisplay">
-        <!-- Random adventure will be displayed here -->
-    </div>
+  <div class="quest-display" id="questDisplay">
+    <!-- Random adventure will be displayed here -->
+  </div>
 
-    <script>
-        let quests = [];
+  <script>
+    let quests = [];
 
-        function loadCSV(url) {
-            fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    const rows = data.split('\n').filter(row => row.trim() !== '');
-                    quests = rows.map(row => row.trim());
-                })
-                .catch(error => console.error('Error loading CSV:', error));
-        }
+    function loadCSV(url) {
+      fetch(url)
+        .then(response => response.text())
+        .then(data => {
+          const rows = data.split('\n').filter(row => row.trim() !== '');
+          quests = rows.map(row => row.trim());
+        })
+        .catch(error => console.error('Error loading CSV:', error));
+    }
 
-        function loadRandomQuest() {
-            if (quests.length === 0) {
-                alert("No adventures loaded. Please wait for the CSV to load.");
-                return;
-            }
+    function loadRandomQuest() {
+      if (quests.length === 0) {
+        alert("No adventures loaded. Please wait for the CSV to load.");
+        return;
+      }
 
-            const randomIndex = Math.floor(Math.random() * quests.length);
-            const randomQuest = quests[randomIndex];
-            
-            const questDisplay = document.getElementById("questDisplay");
-            questDisplay.innerHTML = `<p>${randomQuest}</p>`;
-            questDisplay.style.opacity = 1;
-        }
+      const randomIndex = Math.floor(Math.random() * quests.length);
+      const randomQuest = quests[randomIndex];
 
-        window.onload = () => {
-            loadCSV("https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/list/quests.csv");
-        };
-    </script>
+      const questDisplay = document.getElementById("questDisplay");
+      questDisplay.innerHTML = `<p>${randomQuest}</p>`;
+      questDisplay.style.opacity = 1;
+    }
+
+    window.onload = () => {
+      loadCSV("https://raw.githubusercontent.com/MelvinButters/melvinwebsite/refs/heads/main/list/quests.csv");
+    };
+  </script>
 
 </body>
 </html>
