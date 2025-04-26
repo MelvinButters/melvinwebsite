@@ -1,74 +1,55 @@
-/* Basic Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    background-color: #000000; /* Pure black */
-    color: #ffffff; /* White text */
-    text-align: center;
-    padding: 20px;
-
-    /* Ensure nothing fancy is being layered */
-    background-image: none !important;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: 'Arial', sans-serif;
+  background-color: #000;
+  color: #fff;
+  margin: 0;
+  padding: 0;
 }
 
-/* Remove any pseudo-element star backgrounds */
-body::before,
-body::after {
-    content: none !important;
-    display: none !important;
+header {
+  text-align: center;
+  background: #111;
+  padding: 2rem;
+  width: 100%;
 }
 
-.container {
-    max-width: 600px;
-    margin: 0 auto;
-    background-color: #111111; /* Slightly lighter black for contrast */
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: none; /* No glow or shadows */
+header h1 {
+  font-size: 3rem;
+  color: #00aaff; /* Darker neon blue */
+  text-shadow: 0 0 5px #00aaff, 0 0 10px #00aaff, 0 0 15px #00aaff, 0 0 20px #00aaff;
+  margin: 0; /* Remove any default margin */
 }
 
-h1 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    color: #ffffff;
+nav {
+  background: #111;
+  box-shadow: 0 0 10px #0ff;
 }
 
-p {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-    color: #dddddd;
+nav ul {
+  display: flex;
+  justify-content: center;
+  list-style: none; /* Removes the dots */
+  margin: 0;
+  padding: 0;
 }
 
-ul {
-    list-style: none;
+nav a {
+  color: #0ff;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+  padding: 1rem;
+  text-decoration: none;
 }
 
-ul li {
-    margin: 10px 0;
+footer {
+  text-align: center;
+  background: #111;
+  padding: 1rem;
 }
 
-ul li a {
-    font-size: 1.5em;
-    color: #0af;
-    text-decoration: none;
-    border-bottom: 2px solid #0af;
-    padding-bottom: 5px;
-    transition: color 0.3s, border-color 0.3s;
+main {
+  padding: 2rem;
 }
 
-ul li a:hover {
-    color: #08f;
-    border-bottom: 2px solid #08f;
+a:hover {
+  text-decoration: underline;
 }
