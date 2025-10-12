@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CONFIDENTIAL — Simulation Notice</title>
+<style>
+  :root{
+    --paper:#fbfaf6;
+    --ink:#111;
+    --accent:#b31b1b;
+    --redact:#0b0b0b;
+    --stamp:#6b3aa0;
+  }
+  html,body{height:100%;margin:0;font-family: "Courier New", Courier, monospace;
+    background: linear-gradient(180deg,#faf7f2 0%,#f0ebe3 100%); color:var(--ink)}
+  .wrap{max-width:820px;margin:5vh auto;padding:2rem;background:var(--paper);
+       box-shadow:0 10px 30px rgba(10,10,10,0.08);border-left:6px solid rgba(0,0,0,0.07)}
+  header{display:flex;gap:1rem;align-items:center;margin-bottom:1rem}
+  .seal{width:84px;height:84px;border-radius:50%;display:grid;place-items:center;
+        color:var(--stamp);font-weight:700;border:3px dashed rgba(107,58,160,0.2);
+        transform:rotate(-4deg);font-size:0.75rem;background:linear-gradient(180deg,#fff,#fff0)}
+  h1{font-size:1.2rem;margin:0;letter-spacing:0.04em}
+  .lead{margin:0.3rem 0;color:#3b3b3b;font-style:italic}
+  .meta{display:flex;gap:0.6rem;font-size:0.9rem;color:#444;flex-wrap:wrap}
+  .meta div{background:#fff;padding:0.3rem 0.6rem;border-radius:4px;border:1px solid rgba(0,0,0,0.05)}
+  .doc{margin-top:1rem;line-height:1.7;font-size:1rem}
+  .redacted {display:inline-block;background:var(--redact);color:var(--redact);
+             padding:0 0.35rem;border-radius:3px;cursor:pointer;position:relative}
+  .hint{font-size:0.9rem;color:#555;margin:0.8rem 0;padding:0.6rem 0.8rem;background:#fff9e6;border-left:4px solid #f0c000}
+  .boxed{background:#fff;padding:1rem;border-left:4px dashed rgba(0,0,0,0.06);margin-top:0.6rem;border-radius:6px}
+  .controls{margin-top:1rem;display:flex;gap:0.6rem;flex-wrap:wrap}
+  .btn{background:var(--stamp);color:#fff;padding:0.45rem 0.8rem;border-radius:4px;border:0;cursor:pointer;
+       font-weight:700;letter-spacing:0.02em;box-shadow:0 6px 18px rgba(107,58,160,0.08)}
+  .btn.secondary{background:#444}
+  .cipher{font-family:monospace;background:#efefef;padding:0.6rem;border-radius:4px;overflow:auto;white-space:pre-wrap;margin-top:1rem}
+  footer{margin-top:1.6rem;font-size:0.85rem;color:#666;border-top:1px dashed rgba(0,0,0,0.06);padding-top:0.8rem}
+  @media (max-width:520px){.wrap{padding:1rem}.seal{width:64px;height:64px}}
+</style>
+</head>
+<body>
+  <main class="wrap" role="main" aria-labelledby="title">
+    <header>
+      <div class="seal">SIM<br/>NOTICE</div>
+      <div>
+        <h1 id="title">FIELD NOTICE — OPERATION NIGHTFALL (SIMULATION)</h1>
+        <p class="lead">For authorized participants of the staged exercise only.</p>
+        <div class="meta" aria-hidden="false">
+          <div>Type: <strong>SIMULATION</strong></div>
+          <div>Date: <strong><!-- filled by JS --></strong></div>
+          <div>Ref: <strong>#NF-04</strong></div>
+        </div>
+      </div>
+    </header>
+
+    <article class="doc" aria-label="Briefing">
+      <p class="hint">This is a fictional, clearly-labelled simulation briefing. Click any black bar to reveal the sanitized lines.</p>
+
+      <div class="boxed" id="message">
+        <p><span class="redacted" data-hidden="Hi legend,">██████</span> ,</p>
+
+        <p><span class="redacted" data-hidden="I absolutely cannot wait for the big operation tonight.">████████████████████████████████████</span></p>
+
+        <p><span class="redacted" data-hidden="Meet me in the mock sewer pit tonight — go down the designated well, cross the murky channel (you'll know it when you see it), complete the training puzzle (don’t be a liability), and enter the pit when it’s your turn.">████████████████████████████████████████████████████████████████████████████████████</span></p>
+
+        <p><span class="redacted" data-hidden="We must remain anonymous to each other for the exercise, but your participant number is #4.">████████████████████████████████████████████████████</span></p>
+
+        <p><span class="redacted" data-hidden="I’ve arranged a supervised mock engagement against practice targets; once you complete it, the referee will provide the exercise dossier and your debriefing packet.">████████████████████████████████████████████████████████████████████</span></p>
+
+        <p class="hint">Reminder: this is roleplay/training only. No real-world planning or harm is involved.</p>
+      </div>
+
+      <div class="controls" role="group" aria-label="Reveal controls">
+        <button class="btn" id="revealAll">Reveal all</button>
+        <button class="btn secondary" id="redactAll">Redact</button>
+        <button class="btn secondary" id="download">Download text</button>
+      </div>
+
+      <div>
+        <div class="cipher" id="cipherArea" aria-hidden="true" title="Base64 encoded simulated briefing"></div>
+      </div>
+
+      <footer>
+        <span style="display:inline-block;padding:0.3rem 0.6rem;border-radius:3px;border:2px solid var(--stamp);color:var(--stamp);font-weight:700">SIMULATION</span>
+        <span style="margin-left:0.8rem;color:#555">This page deliberately presents a fictional exercise. Do not use for real actions.</span>
+      </footer>
+    </article>
+  </main>
+
+<script>
+  // fill date
+  document.querySelectorAll('.meta strong')[1].textContent = (new Date()).toLocaleString();
+
+  // initialize redactions
+  const redactedEls = document.querySelectorAll('.redacted');
+  redactedEls.forEach(el=>{
+    const secret = el.getAttribute('data-hidden') || 'REDACTED';
+    el.textContent = '████████';
+    el.dataset.secret = secret;
+    el.dataset.revealed = 'false';
+    el.addEventListener('click', ()=> toggleReveal(el));
+  });
+
+  function toggleReveal(el){
+    if(el.dataset.revealed === 'true'){
+      el.textContent = '████████';
+      el.dataset.revealed = 'false';
+      el.style.background = 'var(--redact)';
+      el.style.color = 'var(--redact)';
+    } else {
+      el.textContent = el.dataset.secret;
+      el.dataset.revealed = 'true';
+      el.style.background = 'transparent';
+      el.style.color = 'var(--ink)';
+    }
+    updateCipher();
+  }
+
+  document.getElementById('revealAll').addEventListener('click', ()=>{
+    redactedEls.forEach(el=>{
+      el.textContent = el.dataset.secret;
+      el.dataset.revealed = 'true';
+      el.style.background = 'transparent';
+      el.style.color = 'var(--ink)';
+    });
+    updateCipher();
+  });
+
+  document.getElementById('redactAll').addEventListener('click', ()=>{
+    redactedEls.forEach(el=>{
+      el.textContent = '████████';
+      el.dataset.revealed = 'false';
+      el.style.background = 'var(--redact)';
+      el.style.color = 'var(--redact)';
+    });
+    updateCipher();
+  });
+
+  function buildPlain(){
+    const paras = Array.from(document.querySelectorAll('#message p')).map(p=>{
+      // show revealed text if revealed, otherwise use [REDACTED]
+      return p.querySelector('.redacted') ? p.querySelector('.redacted').dataset.secret : p.textContent;
+    }).join('\n\n');
+    return paras.replace(/████████/g,'[REDACTED]').trim();
+  }
+
+  function updateCipher(){
+    const plain = Array.from(document.querySelectorAll('#message p')).map(p=>{
+      const rd = p.querySelector('.redacted');
+      return rd && rd.dataset.revealed === 'true' ? rd.dataset.secret : '[REDACTED]';
+    }).join('\n\n');
+    try{
+      const enc = btoa(unescape(encodeURIComponent(plain)));
+      document.getElementById('cipherArea').textContent = enc;
+      document.getElementById('cipherArea').setAttribute('aria-hidden','false');
+    } catch(e){
+      document.getElementById('cipherArea').textContent = '— encoding error —';
+    }
+  }
+
+  updateCipher();
+
+  document.getElementById('download').addEventListener('click', ()=>{
+    const txt = Array.from(document.querySelectorAll('#message p')).map(p=>{
+      const rd = p.querySelector('.redacted');
+      return rd && rd.dataset.revealed === 'true' ? rd.dataset.secret : '[REDACTED]';
+    }).join('\n\n');
+    const blob = new Blob([txt],{type:'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'simulation_briefing.txt';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  });
+</script>
+</body>
+</html>
