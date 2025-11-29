@@ -100,7 +100,6 @@
     ];
 
     const entriesEl = document.getElementById('entries');
-    document.getElementById('createdDate').textContent = new Date().toLocaleDateString();
 
     function render(){
       entriesEl.innerHTML = '';
@@ -112,7 +111,12 @@
       }
     }
 
-    function escapeHtml(text){return String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
+    function escapeHtml(text){
+      return String(text).replace(/&/g,'&amp;')
+                         .replace(/</g,'&lt;')
+                         .replace(/>/g,'&gt;')
+                         .replace(/\n/g,'<br>');
+    }
 
     render();
   </script>
