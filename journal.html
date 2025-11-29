@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Journal of Elder Brogmar - Swamp Edition</title>
+  <title>Journal of Elder Brogmar, of the Farthing Woods</title>
   <style>
     :root{
       --paper-bg: #dfffe0;
@@ -87,17 +87,16 @@
 
     <div class="page-footer">
       <div>Recorded observations • Personal journal</div>
-      <div id="pageInfo">Created: <span id="createdDate"></span></div>
     </div>
   </div>
 
   <script>
     let entries = [
-      {date:'0128-03-03', title:'Excitable', body:'Used the Marsh-Lens tonight for the first time in far too long. The sky was clear, and the familiar constellations comforted my old eyes. While scanning the northern arc, I spotted an anomaly—small, oddly shaped, and not listed in any of my charts. It held steady no matter how I adjusted the focus. Strange, but exciting. I sketched it twice.'},
-      {date:'0128-28-28', title:'Anomaly Grows', body:'Checked again tonight. The anomaly has shifted slightly since Leavesfall and now covers more of the northern arc. One of the stars behind it vanished entirely. Cleaned the lens top to bottom; everything is working properly. Whatever this object is, it’s moving.'},
-      {date:'0129-14-14', title:'Something Very Bad', body:'Measured its movement. The anomaly has grown enough to hide whole constellations I’ve relied on for navigation all my life. Its outline is too stable for drifting debris, and its path is a straight line toward our system. The way it removes the light behind it is unsettling—no fade, no flicker, just absence.'},
-      {date:'0129-07-07', title:'Attempt to Escape', body:'The council agrees the escape craft must be completed. We still lack skysteel fragments, vine-wire, and glowstone sap. Every day the anomaly takes more of the northern sky, and every day we realize how little time remains.'},
-      {date:'0130-19-19', title:'Too Late', body:'The northern horizon has gone pale, stretched thin as though the light itself is being drained away. The escape craft remains grounded—unfinished. The anomaly has reached our world. The Marsh-Lens cracked the moment I tried to focus it.\n\nIf these pages survive, let them record this:\nWe saw it coming.\nWe tried to escape.\nBut the eater of light has arrived.'}
+      {date:'3rd of Leavesfall, 128 post Lillypad Flood', title:'Excitable', body:'Used the Marsh-Lens tonight for the first time in far too long. The sky was clear, and the familiar constellations comforted my old eyes. While scanning the northern arc, I spotted an anomaly—small, oddly shaped, and not listed in any of my charts. It held steady no matter how I adjusted the focus. Strange, but exciting. I sketched it twice.'},
+      {date:'28th of Frozenwater, 128 post Lillypad Flood', title:'Anomaly Grows', body:'Checked again tonight. The anomaly has shifted slightly since Leavesfall and now covers more of the northern arc. One of the stars behind it vanished entirely. Cleaned the lens top to bottom; everything is working properly. Whatever this object is, it’s moving.'},
+      {date:'14th of Greatheat, 129 post Lillypad Flood', title:'Something Very Bad', body:'Measured its movement. The anomaly has grown enough to hide whole constellations I’ve relied on for navigation all my life. Its outline is too stable for drifting debris, and its path is a straight line toward our system. The way it removes the light behind it is unsettling—no fade, no flicker, just absence.'},
+      {date:'7th of Flowertine, 129 post Lillypad Flood', title:'Attempt to Escape', body:'The council agrees the escape craft must be completed. We still lack skysteel fragments, vine-wire, and glowstone sap. Every day the anomaly takes more of the northern sky, and every day we realize how little time remains.'},
+      {date:'19th of Frozenwater, 130 post Lillypad Flood', title:'Too Late', body:'The northern horizon has gone pale, stretched thin as though the light itself is being drained away. The escape craft remains grounded—unfinished. The anomaly has reached our world. The Marsh-Lens cracked the moment I tried to focus it.\n\nIf these pages survive, let them record this:\nWe saw it coming.\nWe tried to escape.\nBut the eater of light has arrived.'}
     ];
 
     const entriesEl = document.getElementById('entries');
@@ -105,9 +104,7 @@
 
     function render(){
       entriesEl.innerHTML = '';
-      // sort oldest first
-      const sorted = entries.slice().sort((a,b)=> new Date(a.date) - new Date(b.date));
-      for(const e of sorted){
+      for(const e of entries){
         const node = document.createElement('article');
         node.className = 'entry';
         node.innerHTML = `<div class="meta"><div class="entry-title">${escapeHtml(e.title)}</div><div class="date">${escapeHtml(e.date)}</div></div><div class="content"><p>${escapeHtml(e.body)}</p></div>`;
