@@ -1,30 +1,24 @@
-<!--
-paper-journal.html
-Single-file basic HTML "paper journal" website.
-Entries updated with Journal of Elder Brogmar.
--->
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Paper Journal - Elder Brogmar</title>
+  <title>Journal of Elder Brogmar - Swamp Edition</title>
   <style>
     :root{
-      --paper-bg: #fbf9f5;
-      --paper-edge: #e6e0d8;
-      --ink: #222;
-      --accent:#7b5e3a;
+      --paper-bg: #dfffe0; /* lily pad green */
+      --paper-edge: #a3d1a2;
+      --ink: #0b2d0b;
+      --accent:#2a5e2a;
       --max-width:900px;
       --gutter:36px;
-      --ruled: rgba(0,0,0,0.06);
+      --ruled: rgba(0,0,0,0.1);
     }
     html,body{height:100%;}
     body{
       margin:0; padding:48px 24px; 
       font-family: Georgia, 'Times New Roman', serif;
-      background: linear-gradient(0deg, #f3efe8 0%, #fbf9f5 40%);
+      background: linear-gradient(0deg, #c1e1c1 0%, #dfffe0 40%);
       color:var(--ink);
       -webkit-font-smoothing:antialiased;
     }
@@ -34,11 +28,12 @@ Entries updated with Journal of Elder Brogmar.
       margin:0 auto;
       background: var(--paper-bg);
       border:1px solid var(--paper-edge);
-      box-shadow: 0 8px 30px rgba(30,30,30,0.08);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
       padding: 40px;
       position:relative;
       overflow:hidden;
-      border-radius:8px;
+      border-radius:12px;
+      background-image: radial-gradient(circle at top left, #e0ffe1 0%, #b8f0b8 100%); /* lily pad effect */
     }
 
     header.journal-header{
@@ -48,38 +43,35 @@ Entries updated with Journal of Elder Brogmar.
     }
 
     .title { font-size:34px; font-weight:700; letter-spacing:0.6px; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; color:var(--accent); }
-    .subtitle{font-size:12px; color:rgba(0,0,0,0.45);}
+    .subtitle{font-size:12px; color:rgba(0,50,0,0.7);}
 
     .entries{ margin-top:4px; }
 
     .entry{
       display:block; position:relative; padding:22px 18px; margin:18px 0;
-      background: linear-gradient(180deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.95) 100%);
-      border-radius:6px; border:1px solid rgba(0,0,0,0.03);
-      box-shadow: 0 2px 8px rgba(20,20,20,0.03);
+      background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(223,255,224,0.95) 100%);
+      border-radius:12px; border:1px solid rgba(0,50,0,0.1);
+      box-shadow: 0 2px 8px rgba(0,30,0,0.05);
     }
 
     .entry:before{
       content:''; position:absolute; left:12px; right:12px; top:0; bottom:0; pointer-events:none;
       background-image: linear-gradient(to bottom, transparent 0, transparent 23px, var(--ruled) 24px);
-      opacity:0.9; border-radius:6px;
+      opacity:0.9; border-radius:12px;
     }
 
     .entry .meta{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px}
-    .entry .date{font-size:12px; color:rgba(0,0,0,0.45);}
+    .entry .date{font-size:12px; color:rgba(0,50,0,0.6);}
     .entry .entry-title{font-size:18px; font-weight:600; color:var(--accent);}
 
     .entry p{margin:0; white-space:pre-wrap; line-height:1.55;}
 
-    .page-footer{margin-top:28px; border-top:1px dashed var(--paper-edge); padding-top:14px; font-size:13px; color:rgba(0,0,0,0.5); display:flex; justify-content:space-between}
+    .page-footer{margin-top:28px; border-top:1px dashed var(--paper-edge); padding-top:14px; font-size:13px; color:rgba(0,50,0,0.5); display:flex; justify-content:space-between}
 
     @media print{ body{background:white; padding:0} .book-wrap{box-shadow:none; border:none; margin:0; padding:18mm} header.journal-header, .page-footer{display:block} .entry{page-break-inside:avoid} }
     @media (max-width:640px){ .book-wrap{padding:20px} .title{font-size:26px} }
 
-    .empty{padding:36px; text-align:center; color:rgba(0,0,0,0.45)}
-    .controls{display:flex; gap:8px; align-items:center}
-    .btn{border:1px solid var(--paper-edge); background:transparent;padding:8px 10px;border-radius:6px;cursor:pointer;font-size:13px}
-    .btn.primary{background:var(--accent); color:white; border-color:transparent}
+    .empty{padding:36px; text-align:center; color:rgba(0,50,0,0.45)}
   </style>
 </head>
 <body>
@@ -87,7 +79,7 @@ Entries updated with Journal of Elder Brogmar.
     <header class="journal-header">
       <div>
         <div class="title">Journal of Elder Brogmar</div>
-        <div class="subtitle">Keeper of the Marsh-Lens — Collected entries in uneven pond-ink</div>
+        <div class="subtitle">Keeper of the Marsh-Lens — Frogkin swamp edition</div>
       </div>
     </header>
 
@@ -113,7 +105,8 @@ Entries updated with Journal of Elder Brogmar.
 
     function render(){
       entriesEl.innerHTML = '';
-      const sorted = entries.slice().sort((a,b)=> new Date(b.date) - new Date(a.date));
+      // reverse order to show oldest first
+      const sorted = entries.slice().sort((a,b)=> new Date(a.date) - new Date(b.date));
       for(const e of sorted){
         const node = document.createElement('article');
         node.className = 'entry';
