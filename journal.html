@@ -1,0 +1,133 @@
+<!--
+paper-journal.html
+Single-file basic HTML "paper journal" website.
+Entries updated with Journal of Elder Brogmar.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Paper Journal - Elder Brogmar</title>
+  <style>
+    :root{
+      --paper-bg: #fbf9f5;
+      --paper-edge: #e6e0d8;
+      --ink: #222;
+      --accent:#7b5e3a;
+      --max-width:900px;
+      --gutter:36px;
+      --ruled: rgba(0,0,0,0.06);
+    }
+    html,body{height:100%;}
+    body{
+      margin:0; padding:48px 24px; 
+      font-family: Georgia, 'Times New Roman', serif;
+      background: linear-gradient(0deg, #f3efe8 0%, #fbf9f5 40%);
+      color:var(--ink);
+      -webkit-font-smoothing:antialiased;
+    }
+
+    .book-wrap{
+      max-width:var(--max-width);
+      margin:0 auto;
+      background: var(--paper-bg);
+      border:1px solid var(--paper-edge);
+      box-shadow: 0 8px 30px rgba(30,30,30,0.08);
+      padding: 40px;
+      position:relative;
+      overflow:hidden;
+      border-radius:8px;
+    }
+
+    header.journal-header{
+      display:flex; align-items:baseline; justify-content:space-between;
+      border-bottom:1px solid var(--paper-edge);
+      padding-bottom:12px; margin-bottom:18px;
+    }
+
+    .title { font-size:34px; font-weight:700; letter-spacing:0.6px; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; color:var(--accent); }
+    .subtitle{font-size:12px; color:rgba(0,0,0,0.45);}
+
+    .entries{ margin-top:4px; }
+
+    .entry{
+      display:block; position:relative; padding:22px 18px; margin:18px 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.0) 0%, rgba(255,255,255,0.95) 100%);
+      border-radius:6px; border:1px solid rgba(0,0,0,0.03);
+      box-shadow: 0 2px 8px rgba(20,20,20,0.03);
+    }
+
+    .entry:before{
+      content:''; position:absolute; left:12px; right:12px; top:0; bottom:0; pointer-events:none;
+      background-image: linear-gradient(to bottom, transparent 0, transparent 23px, var(--ruled) 24px);
+      opacity:0.9; border-radius:6px;
+    }
+
+    .entry .meta{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px}
+    .entry .date{font-size:12px; color:rgba(0,0,0,0.45);}
+    .entry .entry-title{font-size:18px; font-weight:600; color:var(--accent);}
+
+    .entry p{margin:0; white-space:pre-wrap; line-height:1.55;}
+
+    .page-footer{margin-top:28px; border-top:1px dashed var(--paper-edge); padding-top:14px; font-size:13px; color:rgba(0,0,0,0.5); display:flex; justify-content:space-between}
+
+    @media print{ body{background:white; padding:0} .book-wrap{box-shadow:none; border:none; margin:0; padding:18mm} header.journal-header, .page-footer{display:block} .entry{page-break-inside:avoid} }
+    @media (max-width:640px){ .book-wrap{padding:20px} .title{font-size:26px} }
+
+    .empty{padding:36px; text-align:center; color:rgba(0,0,0,0.45)}
+    .controls{display:flex; gap:8px; align-items:center}
+    .btn{border:1px solid var(--paper-edge); background:transparent;padding:8px 10px;border-radius:6px;cursor:pointer;font-size:13px}
+    .btn.primary{background:var(--accent); color:white; border-color:transparent}
+  </style>
+</head>
+<body>
+  <div class="book-wrap" id="book">
+    <header class="journal-header">
+      <div>
+        <div class="title">Journal of Elder Brogmar</div>
+        <div class="subtitle">Keeper of the Marsh-Lens — Collected entries in uneven pond-ink</div>
+      </div>
+    </header>
+
+    <main class="entries" id="entries"></main>
+
+    <div class="page-footer">
+      <div>Recorded observations • Personal journal</div>
+      <div id="pageInfo">Created: <span id="createdDate"></span></div>
+    </div>
+  </div>
+
+  <script>
+    let entries = [
+      {date:'2025-11-29', title:'Excitable', body:'Used the Marsh-Lens tonight for the first time in far too long. The sky was clear, and the familiar constellations comforted my old eyes. While scanning the northern arc, I spotted an anomaly—small, oddly shaped, and not listed in any of my charts. It held steady no matter how I adjusted the focus. Strange, but exciting. I sketched it twice.'},
+      {date:'2025-11-30', title:'Anomaly Grows', body:'Checked again tonight. The anomaly has shifted slightly since yesterday and now covers more of the northern arc. One of the stars behind it vanished entirely. Cleaned the lens top to bottom; everything is working properly. Whatever this object is, it’s moving.'},
+      {date:'2025-12-01', title:'Something Very Bad', body:'Measured its movement. The anomaly has grown enough to hide whole constellations I’ve relied on for navigation all my life. Its outline is too stable for drifting debris, and its path is a straight line toward our system. The way it removes the light behind it is unsettling—no fade, no flicker, just absence.'},
+      {date:'2025-12-02', title:'Attempt to Escape', body:'The council agrees the escape craft must be completed. We still lack skysteel fragments, vine-wire, and glowstone sap. Every day the anomaly takes more of the northern sky, and every day we realize how little time remains.'},
+      {date:'2025-12-03', title:'Too Late', body:'The northern horizon has gone pale, stretched thin as though the light itself is being drained away. The escape craft remains grounded—unfinished. The anomaly has reached our world. The Marsh-Lens cracked the moment I tried to focus it.\n\nIf these pages survive, let them record this:\nWe saw it coming.\nWe tried to escape.\nBut Eater of Worlds has arrived.'}
+    ];
+
+    const entriesEl = document.getElementById('entries');
+    document.getElementById('createdDate').textContent = new Date().toLocaleDateString();
+
+    function render(){
+      entriesEl.innerHTML = '';
+      const sorted = entries.slice().sort((a,b)=> new Date(b.date) - new Date(a.date));
+      for(const e of sorted){
+        const node = document.createElement('article');
+        node.className = 'entry';
+        node.innerHTML = `<div class="meta"><div class="entry-title">${escapeHtml(e.title)}</div><div class="date">${formatDate(e.date)}</div></div><div class="content"><p>${escapeHtml(e.body)}</p></div>`;
+        entriesEl.appendChild(node);
+      }
+    }
+
+    function formatDate(d){
+      const dt = new Date(d); if(isNaN(dt)) return d; return dt.toLocaleDateString(undefined, {month:'short', day:'numeric', year:'numeric'});
+    }
+    function escapeHtml(text){return String(text).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>');}
+
+    render();
+  </script>
+</body>
+</html>
