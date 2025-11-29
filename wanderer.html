@@ -1,76 +1,124 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>The Wanderer</title>
   <style>
-    body {
-      font-family: 'Comic Sans MS', cursive, sans-serif;
-      background: #FFFAE5;
-      margin: 0;
-      padding: 0;
-      color: #333;
+    :root{
+      --paper-bg: #dfffe0;
+      --paper-edge: #a3d1a2;
+      --ink: #0b2d0b;
+      --accent:#2a5e2a;
+      --max-width:900px;
+      --gutter:36px;
+      --ruled: rgba(0,0,0,0.1);
     }
-    header {
-      background: #FFD966;
-      padding: 2rem;
-      text-align: center;
-      font-size: 2.2rem;
-      font-weight: bold;
-      color: #6B4226;
+    html,body{height:100%;}
+    body{
+      margin:0; padding:48px 24px; 
+      font-family: Georgia, 'Times New Roman', serif;
+      background: linear-gradient(0deg, #c1e1c1 0%, #dfffe0 40%);
+      color:var(--ink);
+      -webkit-font-smoothing:antialiased;
     }
-    section {
-      max-width: 800px;
-      margin: 2rem auto;
-      padding: 1.5rem;
-      background: #FFF2CC;
-      border-radius: 15px;
-      box-shadow: 3px 3px 10px rgba(0,0,0,0.1);
+
+    .book-wrap{
+      max-width:var(--max-width);
+      margin:0 auto;
+      background: var(--paper-bg);
+      border:1px solid var(--paper-edge);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      padding: 40px;
+      position:relative;
+      overflow:hidden;
+      border-radius:12px;
+      background-image: radial-gradient(circle at top left, #e0ffe1 0%, #b8f0b8 100%);
     }
-    h2 {
-      color: #D35400;
-      text-align: center;
+
+    header.journal-header{
+      display:flex; align-items:baseline; justify-content:space-between;
+      border-bottom:1px solid var(--paper-edge);
+      padding-bottom:12px; margin-bottom:18px;
     }
-    p {
-      line-height: 1.6;
-      font-size: 1.1rem;
+
+    .title { font-size:34px; font-weight:700; letter-spacing:0.6px; font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif; color:var(--accent); }
+    .subtitle{font-size:12px; color:rgba(0,50,0,0.7);}
+
+    .entries{ margin-top:4px; }
+
+    .entry{
+      display:block; position:relative; padding:22px 18px; margin:18px 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(223,255,224,0.95) 100%);
+      border-radius:12px; border:1px solid rgba(0,50,0,0.1);
+      box-shadow: 0 2px 8px rgba(0,30,0,0.05);
     }
-    .story-image {
-      display: block;
-      max-width: 100%;
-      margin: 1rem auto;
-      border-radius: 10px;
+
+    .entry:before{
+      content:''; position:absolute; left:12px; right:12px; top:0; bottom:0; pointer-events:none;
+      background-image: linear-gradient(to bottom, transparent 0, transparent 23px, var(--ruled) 24px);
+      opacity:0.9; border-radius:12px;
     }
+
+    .entry .meta{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px}
+    .entry .date{font-size:12px; color:rgba(0,50,0,0.6);}
+    .entry .entry-title{font-size:18px; font-weight:600; color:var(--accent);}
+
+    .entry p{margin:0; white-space:pre-wrap; line-height:1.55;}
+
+    .page-footer{margin-top:28px; border-top:1px dashed var(--paper-edge); padding-top:14px; font-size:13px; color:rgba(0,50,0,0.5); display:flex; justify-content:space-between}
+
+    @media print{ body{background:white; padding:0} .book-wrap{box-shadow:none; border:none; margin:0; padding:18mm} header.journal-header, .page-footer{display:block} .entry{page-break-inside:avoid} }
+    @media (max-width:640px){ .book-wrap{padding:20px} .title{font-size:26px} }
+
+    .empty{padding:36px; text-align:center; color:rgba(0,50,0,0.45)}
   </style>
 </head>
 <body>
+  <div class="book-wrap" id="book">
+    <header class="journal-header">
+      <div>
+        <div class="title">The Wanderer</div>
+        <div class="subtitle">By George — a dedication to an old friend</div>
+      </div>
+    </header>
 
-  <header>The Wanderer</header>
+    <main class="entries" id="entries"></main>
 
-  <section>
-    <h2>Finding a Home</h2>
-    <img src="https://via.placeholder.com/400x200.png?text=Sleeves+Finding+Home" alt="Sleeves the Kobold" class="story-image">
-    <p>Sleeves the kobold had wandered through valleys, forests, and hills, looking for a place to call his own. Every burrow seemed too dark, every cave too damp, and every little hut too crowded. He tried three different homes, but each one had its problems—mudslides, noisy neighbors, or too many spiders.</p>
-    <p>One crisp morning, Sleeves climbed a small hill and saw a hidden grove filled with sunlight and soft moss. The trees formed a natural roof, and the little stream nearby sparkled like silver. It felt warm, safe, and perfect.</p>
-    <p>With a happy squeak, Sleeves unpacked his tiny knapsack and settled down. At last, he had found a place to rest his head and dream of new adventures. The grove was his, and he promised to care for it every day.</p>
-  </section>
+    <div class="page-footer">
+      <div>Recorded observations • Personal journal</div>
+    </div>
+  </div>
 
-  <section>
-    <h2>Saving the Town with Kindness</h2>
-    <img src="https://via.placeholder.com/400x200.png?text=Sleeves+Helping+Town" alt="Sleeves the Kobold helping the town" class="story-image">
-    <p>One day, Sleeves wandered into a small village in trouble. The townsfolk were worried—their crops were wilting, and the watermill had stopped turning. While other heroes might have rushed in with swords or magic, Sleeves decided to try something different: kindness.</p>
-    <p>He helped carry baskets, cleaned the river, and shared jokes that made the villagers laugh. Every act of help seemed small, but slowly the town came back to life. The crops perked up, the mill spun again, and the villagers’ smiles returned.</p>
-    <p>By evening, the villagers gathered around Sleeves, cheering. “Your kindness saved us,” they said. Sleeves only smiled and wiggled his tail. Sometimes, he thought, a gentle heart was the strongest magic of all.</p>
-  </section>
+  <script>
+    let entries = [
+      {date:'3rd of Leavesfall, 128 post Lillypad Flood', title:'Excitable', body:'Used the Marsh-Lens tonight for the first time in far too long. The sky was clear, and the familiar constellations comforted my old eyes. While scanning the northern arc, I spotted an anomaly—small, oddly shaped, and not listed in any of my charts. It held steady no matter how I adjusted the focus. Strange, but exciting. I sketched it twice.'},
+      {date:'28th of Frozenwater, 128 post Lillypad Flood', title:'Anomaly Grows', body:'Checked again tonight. The anomaly has shifted slightly since Leavesfall and now covers more of the northern arc. One of the stars behind it vanished entirely. Cleaned the lens top to bottom; everything is working properly. Whatever this object is, it’s moving.'},
+      {date:'14th of Greatheat, 129 post Lillypad Flood', title:'Something Very Bad', body:'Measured its movement. The anomaly has grown enough to hide whole constellations I’ve relied on for navigation all my life. Its outline is too stable for drifting debris, and its path is a straight line toward our system. The way it removes the light behind it is unsettling—no fade, no flicker, just absence.'},
+      {date:'7th of Flowertine, 129 post Lillypad Flood', title:'Attempt to Escape', body:'The council agrees the escape craft must be completed. We still lack skysteel fragments, vine-wire, and glowstone sap. Every day the anomaly takes more of the northern sky, and every day we realize how little time remains.'},
+      {date:'19th of Frozenwater, 130 post Lillypad Flood', title:'Too Late', body:'The northern horizon has gone pale, stretched thin as though the light itself is being drained away. The escape craft remains grounded—unfinished. The anomaly has reached our world. The Marsh-Lens cracked the moment I tried to focus it.\n\nIf these pages survive, let them record this:\nWe saw it coming.\nWe tried to escape.\nBut the eater of light has arrived.'}
+    ];
 
-  <section>
-    <h2>The Little Library</h2>
-    <img src="https://via.placeholder.com/400x200.png?text=Sleeves+Library" alt="Sleeves the Kobold with Library" class="story-image">
-    <p>Sleeves had always loved stories, and one day he dreamed of having his very own library. He found a quiet nook in his grove, collected old scrolls, colorful books, and even a few enchanted maps, and stacked them carefully on tiny shelves.</p>
-    <p>Every morning, he would curl up in a soft mossy chair and read aloud to the birds, the squirrels, and even the shy rabbits. Sometimes he would write his own tiny adventures on scraps of parchment and tuck them between the pages.</p>
-    <p>Soon, animals from nearby forests came to listen to his stories, and travelers paused to read. Sleeves’ little library became a place of magic, learning, and friendship—a perfect ending for a wandering kobold who loved adventures and stories more than anything.</p>
-  </section>
+    const entriesEl = document.getElementById('entries');
 
+    function render(){
+      entriesEl.innerHTML = '';
+      for(const e of entries){
+        const node = document.createElement('article');
+        node.className = 'entry';
+        node.innerHTML = `<div class="meta"><div class="entry-title">${escapeHtml(e.title)}</div><div class="date">${escapeHtml(e.date)}</div></div><div class="content"><p>${escapeHtml(e.body)}</p></div>`;
+        entriesEl.appendChild(node);
+      }
+    }
+
+    function escapeHtml(text){
+      return String(text).replace(/&/g,'&amp;')
+                         .replace(/</g,'&lt;')
+                         .replace(/>/g,'&gt;')
+                         .replace(/\n/g,'<br>');
+    }
+
+    render();
+  </script>
 </body>
 </html>
