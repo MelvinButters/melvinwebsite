@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Grimoire — Old World Noticeboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+Great+Primer:ital@0;1&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --paper:#f3e6c9;
+      --ink:#2b1f15;
+      --accent:#7b4b2b;
+      --paper-dark:#e6d7b1;
+      --shadow: rgba(0,0,0,0.18);
+      --sep: 1px solid rgba(43,31,21,0.08);
+    }
+    html,body{height:100%;}
+    body{
+      margin:0;
+      font-family: 'IM Fell Great Primer', Georgia, serif;
+      background: linear-gradient(180deg,#7b614b 0%, #3f2b20 120%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:40px;
+      color:var(--ink);
+    }
+
+    /* parchment card */
+    .parchment{
+      width:min(980px,94%);
+      max-width:1100px;
+      background: var(--paper);
+      padding:48px 56px;
+      border-radius:10px;
+      box-shadow: 0 20px 50px var(--shadow), inset 0 2px 0 rgba(255,255,255,0.7);
+      position:relative;
+      border: 6px solid rgba(95,68,45,0.12);
+      line-height:1.55;
+      background-image:
+        radial-gradient(circle at 10% 10%, rgba(0,0,0,0.02), transparent 6%),
+        linear-gradient(180deg, rgba(255,255,255,0.03), transparent 60%);
+    }
+
+    /* burnt edges */
+    .parchment::before, .parchment::after{
+      content:'';
+      position:absolute;
+      left:-18px; right:-18px;
+      height:18px;
+      background: repeating-linear-gradient(90deg, rgba(0,0,0,0.04) 0 2px, transparent 2px 6px);
+      transform:rotate(-1deg);
+      border-radius:6px;
+    }
+    .parchment::before{top:-18px}
+    .parchment::after{bottom:-18px; transform:rotate(1deg)}
+
+    header{
+      display:flex;
+      align-items:center;
+      gap:18px;
+      margin-bottom:18px;
+    }
+    .sigil{
+      width:84px; height:84px; border-radius:8px;
+      background: linear-gradient(135deg,#7b4b2b,#a06844);
+      display:grid; place-items:center;
+      color:rgba(255,255,255,0.9);
+      font-weight:700;
+      font-family: 'Cinzel', serif;
+      font-size:28px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25) inset, 0 8px 30px rgba(0,0,0,0.25);
+    }
+    h1{font-family:'Cinzel', serif; margin:0; font-size:34px; letter-spacing:1px; color:var(--accent)}
+    p.lead{margin:6px 0 0 0; font-size:14px; color: #4b3526}
+
+    main{display:grid; grid-template-columns: 1fr 320px; gap:28px; margin-top:20px}
+
+    /* content */
+    .block{background:transparent; padding:14px 0}
+    .section-title{font-family:'Cinzel', serif; color:var(--accent); font-size:18px; margin-bottom:8px}
+
+    /* dot point style the user likes */
+    .dotlist{list-style:none; padding:0; margin:0}
+    .dotlist li{position:relative; padding-left:18px; margin:8px 0; font-size:15px}
+    .dotlist li::before{content:'•'; position:absolute; left:0; top:0; color:var(--accent); font-weight:700}
+
+    aside{
+      border-left:var(--sep); padding-left:18px; color:#3c2d23; font-size:14px
+    }
+
+    .map{height:180px; border-radius:6px; background:
+      linear-gradient(135deg, rgba(123,75,43,0.06), rgba(0,0,0,0.02)),
+      repeating-linear-gradient(45deg, rgba(0,0,0,0.02) 0 2px, transparent 2px 14px);
+      display:flex; align-items:center; justify-content:center; color:#6b4f36; font-size:13px; text-transform:uppercase; letter-spacing:1px;
+    }
+
+    footer{margin-top:22px; border-top:var(--sep); padding-top:12px; font-size:13px; color:#5a422f}
+
+    /* responsive */
+    @media (max-width:880px){
+      main{grid-template-columns:1fr}
+      .parchment{padding:28px}
+      .sigil{width:68px;height:68px;font-size:22px}
+    }
+  </style>
+</head>
+<body>
+  <article class="parchment" role="document">
+    <header>
+      <div class="sigil">GR</div>
+      <div>
+        <h1>Noticeboard of the Old Ways</h1>
+        <p class="lead">A small hand-stitched page for your campaign — keep notes, hooks and quick locations here.</p>
+      </div>
+    </header>
+
+    <main>
+      <section>
+        <div class="block">
+          <div class="section-title">Adventure Hooks</div>
+          <ul class="dotlist">
+            <li>Strange lanterns float over the marsh at moonrise.</li>
+            <li>A scholar trades an old map for a lost family crest.</li>
+            <li>Livestock vanish; footprints lead to a collapsed hill shrine.</li>
+            <li>A tavern bard whispers a half-remembered prophecy in rhyme.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <div class="section-title">Quick NPC Notes</div>
+          <ul class="dotlist">
+            <li>Maela, herbwoman — soft voice, scar on left hand, owes coin to a caravan.</li>
+            <li>Sergeant Durn — strict, missing an eye, secretly keeps a child's locket.</li>
+            <li>Old Crow — rumors stick to him like tar; trades information for trinkets.</li>
+          </ul>
+        </div>
+
+        <div class="block">
+          <div class="section-title">Treasure & Rumours</div>
+          <ul class="dotlist">
+            <li>Cartographer's ink glows faintly under starlight.</li>
+            <li>A broken dagger hums when near iron-bound doors.</li>
+            <li>Witch-smoke sells in pouches; buyers become forgetful.</li>
+          </ul>
+        </div>
+      </section>
+
+      <aside>
+        <div class="section-title">Local Map</div>
+        <div class="map">[sketch your map here]</div>
+
+        <div style="height:16px"></div>
+
+        <div class="section-title">Places of Interest</div>
+        <ul class="dotlist">
+          <li>Broken bell tower where wind sounds like names.</li>
+          <li>Wet market that only opens at dusk.</li>
+          <li>Moonlit quay lined with carved seals.</li>
+        </ul>
+
+        <div style="height:18px"></div>
+        <div class="section-title">Usage</div>
+        <p style="margin:6px 0 0 0">Save this file as <code>index.html</code> and drop into a GitHub Pages repo. Edit phrases directly — fonts and layout are included via Google Fonts.</p>
+      </aside>
+    </main>
+
+    <footer>
+      Copied inked from the old grimoire — adapt freely for your table. — Crafted for your campaign.
+    </footer>
+  </article>
+</body>
+</html>
