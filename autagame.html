@@ -29,56 +29,66 @@
 </head>
 <body>
   <canvas id="game" width="400" height="400"></canvas>
-  <div class="hint">Arrow keys to move · Reach the top</div>
+  <div class="hint">Arrow keys to move · Go as far as you can</div>
 
   <script>
     const canvas = document.getElementById('game');
     const ctx = canvas.getContext('2d');
 
     const TILE = 40;
-    const ROWS = 10;
     const COLS = 10;
+    const VIEW_ROWS = 10;
+
+    let cameraOffset = 0;
+    let score = 0;
+    let bestY = 0;
 
     const robot = {
       x: 4,
-      y: 9,
+      y: 0,
     };
 
     const cars = [];
 
-    function spawnCars() {
-      cars.length = 0;
-      for (let row = 2; row <= 7; row += 2) {
-        for (let i = 0; i < 3; i++) {
-          cars.push({
-            row,
-            x: Math.random() * COLS,
-            speed: (Math.random() * 0.03 + 0.02) * (row % 4 === 0 ? 1 : -1),
-          });
-        }
+    function spawnCars(rowY) {
+      for (let i = 0; i < 3; i++) {
+        cars.push({
+          y: rowY,
+          x: Math.random() * COLS,
+          speed: (Math.random() * 0.03 + 0.02) * (rowY % 2 === 0 ? 1 : -1),
+        });
       }
     }
 
-    spawnCars();
-
-    function resetRobot() {
+    function resetGame() {
       robot.x = 4;
-      robot.y = 9;
+      robot.y = 0;
+      cameraOffset = 0;
+      score = 0;
+      bestY = 0;
+      cars.length = 0;
+      for (let i = 1; i < 20; i += 2) spawnCars(i);
     }
+
+    resetGame();
 
     function drawRobot() {
       ctx.fillStyle = '#22d3ee';
-      ctx.fillRect(robot.x * TILE + 8, robot.y * TILE + 8, 24, 24);
+      const drawY = canvas.height - (robot.y - cameraOffset + 1) * TILE;
+      ctx.fillRect(robot.x * TILE + 8, drawY + 8, 24, 24);
 
       ctx.fillStyle = '#0f172a';
-      ctx.fillRect(robot.x * TILE + 14, robot.y * TILE + 14, 4, 4);
-      ctx.fillRect(robot.x * TILE + 22, robot.y * TILE + 14, 4, 4);
+      ctx.fillRect(robot.x * TILE + 14, drawY + 14, 4, 4);
+      ctx.fillRect(robot.x * TILE + 22, drawY + 14, 4, 4);
     }
 
     function drawCars() {
       ctx.fillStyle = '#ef4444';
       cars.forEach(car => {
-        ctx.fillRect(car.x * TILE, car.row * TILE + 6, TILE, TILE - 12);
+        const drawY = canvas.height - (car.y - cameraOffset + 1) * TILE;
+        if (drawY > -TILE && drawY < canvas.height) {
+          ctx.fillRect(car.x * TILE, drawY + 6, TILE, TILE - 12);
+        }
       });
     }
 
@@ -92,43 +102,48 @@
 
     function checkCollision() {
       return cars.some(car => (
-        Math.floor(car.x) === robot.x && car.row === robot.y
+        Math.floor(car.x) === robot.x && car.y === robot.y
       ));
     }
 
+    function updateCamera() {
+      if (robot.y - cameraOffset > VIEW_ROWS - 3) {
+        cameraOffset++;
+        score++;
+        spawnCars(cameraOffset + VIEW_ROWS + 1);
+      }
+    }
+
     function drawGrid() {
-      for (let y = 0; y < ROWS; y++) {
+      ctx.strokeStyle = '#1f2933';
+      for (let y = 0; y < VIEW_ROWS; y++) {
         for (let x = 0; x < COLS; x++) {
-          ctx.strokeStyle = '#1f2933';
-          ctx.strokeRect(x * TILE, y * TILE, TILE, TILE);
+          ctx.strokeRect(x * TILE, canvas.height - (y + 1) * TILE, TILE, TILE);
         }
       }
     }
 
-    function drawGoal() {
-      ctx.fillStyle = '#16a34a';
-      ctx.fillRect(0, 0, canvas.width, TILE);
+    function drawHUD() {
+      ctx.fillStyle = '#e5e7eb';
+      ctx.font = '14px system-ui';
+      ctx.fillText(`Score: ${score}`, 10, 20);
     }
 
     function update() {
       updateCars();
+      updateCamera();
 
       if (checkCollision()) {
-        resetRobot();
-      }
-
-      if (robot.y === 0) {
-        resetRobot();
-        spawnCars();
+        resetGame();
       }
     }
 
     function draw() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawGoal();
       drawGrid();
       drawCars();
       drawRobot();
+      drawHUD();
     }
 
     function loop() {
@@ -138,8 +153,8 @@
     }
 
     document.addEventListener('keydown', e => {
-      if (e.key === 'ArrowUp' && robot.y > 0) robot.y--;
-      if (e.key === 'ArrowDown' && robot.y < ROWS - 1) robot.y++;
+      if (e.key === 'ArrowUp') robot.y++;
+      if (e.key === 'ArrowDown' && robot.y > 0) robot.y--;
       if (e.key === 'ArrowLeft' && robot.x > 0) robot.x--;
       if (e.key === 'ArrowRight' && robot.x < COLS - 1) robot.x++;
     });
