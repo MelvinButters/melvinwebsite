@@ -81,8 +81,10 @@
 
     function drawRobotAt(x, y, scale=1) {
       ctx.save(); ctx.translate(x, y); ctx.scale(scale, scale);
-      ctx.fillStyle='#facc15'; ctx.fillRect(-12,-16,24,24); // entire robot fits in one square
-      ctx.fillStyle='#0f172a'; ctx.fillRect(-6,-6,4,4); ctx.fillRect(2,-6,4,4); // eyes
+      ctx.fillStyle='#facc15'; ctx.fillRect(-12,-16,24,12); // head yellow
+      ctx.fillStyle='#ff0000'; ctx.fillRect(-2,-16,4,4); // red spot on head
+      ctx.fillStyle='#c0c0c0'; ctx.fillRect(-12,-4,24,28); // body silver
+      ctx.fillStyle='#0f172a'; ctx.fillRect(-6,-12,4,4); ctx.fillRect(2,-12,4,4); // eyes
       ctx.restore();
     }
 
@@ -101,9 +103,10 @@
     }
 
     function drawRobot() {
-      ctx.fillStyle='#facc15'; ctx.fillRect(robot.x*TILE, robot.y*TILE, TILE, TILE); // fits in one square
-      ctx.fillStyle='#c0c0c0'; ctx.fillRect(robot.x*TILE, robot.y*TILE, TILE, TILE); // body color
-      ctx.fillStyle='#0f172a'; ctx.fillRect(robot.x*TILE+10, robot.y*TILE+10,4,4); ctx.fillRect(robot.x*TILE+26, robot.y*TILE+10,4,4); // eyes
+      // main game robot: yellow top, silver bottom, red spot, fits one square
+      ctx.fillStyle='#facc15'; ctx.fillRect(robot.x*TILE, robot.y*TILE, TILE, TILE/2); // yellow top
+      ctx.fillStyle='#ff0000'; ctx.fillRect(robot.x*TILE+TILE/2-2, robot.y*TILE+2, 4, 4); // red spot
+      ctx.fillStyle='#c0c0c0'; ctx.fillRect(robot.x*TILE, robot.y*TILE+TILE/2, TILE, TILE/2); // silver bottom
     }
 
     function drawCars() { ctx.fillStyle=theme().car; cars.forEach(car=>{ctx.fillRect(car.x*TILE,car.row*TILE+6,TILE,TILE-12);}); }
