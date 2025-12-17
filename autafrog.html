@@ -88,27 +88,50 @@
       ctx.restore();
     }
 
-    function drawGnomeAt(x,y,scale=1,sad=false){
-      ctx.save(); ctx.translate(x,y); ctx.scale(scale,scale);
-      ctx.fillStyle='#ef4444'; ctx.beginPath(); ctx.moveTo(0,-22); ctx.lineTo(-14,4); ctx.lineTo(14,4); ctx.closePath(); ctx.fill(); // hat
-      ctx.fillStyle='#3b82f6'; ctx.fillRect(-10,4,20,16); // body blue
-      ctx.fillStyle='#22c55e'; ctx.fillRect(-8,20,6,10); ctx.fillRect(2,20,6,10); // shoes green
-      ctx.fillStyle='#e5e7eb';
-      ctx.beginPath(); ctx.arc(0,10,6,0,Math.PI);
-      ctx.fill();
-      ctx.fillStyle='#0f172a';
-      ctx.beginPath();
-      ctx.arc(-3,8,1,0,Math.PI*2); ctx.arc(3,8,1,0,Math.PI*2); ctx.fill(); // eyes
+    // --- FIXED GNOME FUNCTION ---
+    function drawGnomeAt(x, y, scale = 1, sad = false) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(scale, scale);
 
-      // --- MOUTH CHANGE ONLY ---
-      if(sad){
-        // small straight black line
-        ctx.fillStyle = '#000000';
-        ctx.fillRect(-4,14,8,2);
+      // Hat
+      ctx.fillStyle = '#ef4444';
+      ctx.beginPath();
+      ctx.moveTo(0, -22);
+      ctx.lineTo(-14, 4);
+      ctx.lineTo(14, 4);
+      ctx.closePath();
+      ctx.fill();
+
+      // Body
+      ctx.fillStyle = '#3b82f6';
+      ctx.fillRect(-10, 4, 20, 16);
+
+      // Shoes
+      ctx.fillStyle = '#22c55e';
+      ctx.fillRect(-8, 20, 6, 10);
+      ctx.fillRect(2, 20, 6, 10);
+
+      // Eyes
+      ctx.fillStyle = '#0f172a';
+      ctx.beginPath();
+      ctx.arc(-3, 8, 1, 0, Math.PI * 2);
+      ctx.arc(3, 8, 1, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Mouth
+      ctx.beginPath();
+      if (sad) {
+        ctx.strokeStyle = '#000000'; // thin black line
+        ctx.lineWidth = 2;
+        ctx.moveTo(-4, 14);
+        ctx.lineTo(4, 14);
+        ctx.stroke();
       } else {
-        ctx.beginPath();
-        ctx.arc(0,10,4,0,Math.PI);
-        ctx.fill();
+        ctx.strokeStyle = '#ffffff'; // white semicircle
+        ctx.lineWidth = 2;
+        ctx.arc(0, 14, 4, 0, Math.PI, false);
+        ctx.stroke();
       }
 
       ctx.restore();
@@ -173,7 +196,7 @@
       ctx.fillStyle='#fecaca'; ctx.font='20px system-ui'; ctx.fillText('GAME OVER',135,80);
       ctx.font='14px system-ui'; ctx.fillText('You have disappointed Fizzlebang!',70,110);
       drawRobotAt(150,230,1.3);
-      drawGnomeAt(250,230,1.3,true); // <- mouth is now small black line
+      drawGnomeAt(250,230,1.3,true); // sad gnome now just a thin black line
     }
 
     function update(){ if(state!=='play') return; updateCars(); if(checkCollision()) loseLife(); if(robot.y===0) completeLevel(); }
