@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Robot Crosser</title>
+  <title>Robot Crosser - Test Mode</title>
   <style>
     body {
       margin: 0;
@@ -46,9 +46,7 @@
       { road: '#0f172a', car: '#38bdf8', goal: '#a3e635' },
     ];
 
-    function theme() {
-      return levelThemes[(level - 1) % levelThemes.length];
-    }
+    function theme() { return levelThemes[(level - 1) % levelThemes.length]; }
 
     function spawnCars() {
       cars.length = 0;
@@ -63,30 +61,15 @@
       }
     }
 
-    function resetRobot() {
-      robot.x = 4;
-      robot.y = 9;
-    }
+    function resetRobot() { robot.x = 4; robot.y = 9; }
 
-    function loseLife() {
-      lives--;
-      resetRobot();
-      if (lives <= 0) {
-        state = 'gameover';
-      }
-    }
+    function loseLife() { lives--; resetRobot(); if (lives <= 0) state = 'gameover'; }
 
     function completeLevel() {
       state = 'transition';
       setTimeout(() => {
-        if (level < MAX_LEVEL) {
-          level++;
-          spawnCars();
-          resetRobot();
-          state = 'play';
-        } else {
-          state = 'celebrate';
-        }
+        if (level < MAX_LEVEL) { level++; spawnCars(); resetRobot(); state = 'play'; }
+        else state = 'celebrate';
       }, 1000);
     }
 
@@ -94,161 +77,86 @@
 
     // ===== Drawing helpers =====
 
-    function drawRobotAt(x, y, scale = 1) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.scale(scale, scale);
-      ctx.fillStyle = '#22d3ee';
-      ctx.fillRect(-12, -16, 24, 24);
-      ctx.fillStyle = '#0f172a';
-      ctx.fillRect(-6, -10, 4, 4);
-      ctx.fillRect(2, -10, 4, 4);
-      ctx.fillStyle = '#334155';
-      ctx.fillRect(-8, 8, 6, 12);
-      ctx.fillRect(2, 8, 6, 12);
+    function drawRobotAt(x, y, scale=1) {
+      ctx.save(); ctx.translate(x, y); ctx.scale(scale, scale);
+      ctx.fillStyle='#22d3ee'; ctx.fillRect(-12,-16,24,24);
+      ctx.fillStyle='#0f172a'; ctx.fillRect(-6,-10,4,4); ctx.fillRect(2,-10,4,4);
+      ctx.fillStyle='#334155'; ctx.fillRect(-8,8,6,12); ctx.fillRect(2,8,6,12);
       ctx.restore();
     }
 
-    function drawGnomeAt(x, y, scale = 1) {
-      ctx.save();
-      ctx.translate(x, y);
-      ctx.scale(scale, scale);
-      ctx.fillStyle = '#ef4444';
-      ctx.beginPath();
-      ctx.moveTo(0, -22);
-      ctx.lineTo(-14, 4);
-      ctx.lineTo(14, 4);
-      ctx.closePath();
-      ctx.fill();
-      ctx.fillStyle = '#facc15';
-      ctx.fillRect(-10, 4, 20, 16);
-      ctx.fillStyle = '#e5e7eb';
-      ctx.beginPath();
-      ctx.arc(0, 10, 6, 0, Math.PI);
-      ctx.fill();
-      ctx.fillStyle = '#92400e';
-      ctx.fillRect(-8, 20, 6, 10);
-      ctx.fillRect(2, 20, 6, 10);
+    function drawGnomeAt(x,y,scale=1){
+      ctx.save(); ctx.translate(x,y); ctx.scale(scale,scale);
+      ctx.fillStyle='#ef4444'; ctx.beginPath(); ctx.moveTo(0,-22); ctx.lineTo(-14,4); ctx.lineTo(14,4); ctx.closePath(); ctx.fill();
+      ctx.fillStyle='#facc15'; ctx.fillRect(-10,4,20,16);
+      ctx.fillStyle='#e5e7eb'; ctx.beginPath(); ctx.arc(0,10,6,0,Math.PI); ctx.fill();
+      ctx.fillStyle='#92400e'; ctx.fillRect(-8,20,6,10); ctx.fillRect(2,20,6,10);
       ctx.restore();
     }
 
     function drawRobot() {
-      ctx.fillStyle = '#22d3ee';
-      ctx.fillRect(robot.x * TILE + 8, robot.y * TILE + 8, 24, 24);
-      ctx.fillStyle = '#0f172a';
-      ctx.fillRect(robot.x * TILE + 14, robot.y * TILE + 14, 4, 4);
-      ctx.fillRect(robot.x * TILE + 22, robot.y * TILE + 14, 4, 4);
+      ctx.fillStyle='#22d3ee'; ctx.fillRect(robot.x*TILE+8, robot.y*TILE+8,24,24);
+      ctx.fillStyle='#0f172a'; ctx.fillRect(robot.x*TILE+14,robot.y*TILE+14,4,4);
+      ctx.fillRect(robot.x*TILE+22,robot.y*TILE+14,4,4);
     }
 
     function drawCars() {
-      ctx.fillStyle = theme().car;
-      cars.forEach(car => {
-        ctx.fillRect(car.x * TILE, car.row * TILE + 6, TILE, TILE - 12);
-      });
+      ctx.fillStyle=theme().car; cars.forEach(car=>{ctx.fillRect(car.x*TILE,car.row*TILE+6,TILE,TILE-12);});
     }
 
-    function updateCars() {
-      cars.forEach(car => {
-        car.x += car.speed * (1 + (level - 1) * 0.6);
-        if (car.speed > 0 && car.x > COLS) car.x = -1;
-        if (car.speed < 0 && car.x < -1) car.x = COLS;
-      });
+    function updateCars(){
+      cars.forEach(car=>{car.x += car.speed*(1+(level-1)*0.6); if(car.speed>0 && car.x>COLS) car.x=-1; if(car.speed<0 && car.x<-1) car.x=COLS;});
     }
 
-    function checkCollision() {
-      return cars.some(car => (
-        Math.floor(car.x) === robot.x && car.row === robot.y
-      ));
+    function checkCollision(){ return cars.some(car=>Math.floor(car.x)===robot.x && car.row===robot.y); }
+
+    function drawGrid(){ ctx.strokeStyle=theme().road; for(let y=0;y<ROWS;y++){for(let x=0;x<COLS;x++){ctx.strokeRect(x*TILE,y*TILE,TILE,TILE);}}}
+
+    function drawGoal(){ ctx.fillStyle=theme().goal; ctx.fillRect(0,0,canvas.width,TILE); }
+
+    function drawHUD(){ ctx.fillStyle='#e5e7eb'; ctx.font='14px system-ui'; ctx.fillText(`Level ${level} / ${MAX_LEVEL}`,10,18); ctx.fillText(`Lives: ${lives}`,300,18); if(state==='transition') ctx.fillText('Level Complete!',145,220); }
+
+    function drawCelebration(){
+      ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle='#0b1220'; ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle='#e5e7eb'; ctx.font='20px system-ui'; ctx.fillText('YOU DID IT!',135,80);
+      ctx.font='14px system-ui'; ctx.fillText('Fizzlebang is proud of you!',95,110);
+      drawRobotAt(150,220,1.4); drawGnomeAt(250,220,1.4);
+      for(let i=0;i<40;i++){ctx.fillStyle=['#22d3ee','#facc15','#ef4444','#a3e635'][i%4]; ctx.fillRect(Math.random()*canvas.width,Math.random()*canvas.height,3,3);}
     }
 
-    function drawGrid() {
-      ctx.strokeStyle = theme().road;
-      for (let y = 0; y < ROWS; y++) {
-        for (let x = 0; x < COLS; x++) {
-          ctx.strokeRect(x * TILE, y * TILE, TILE, TILE);
-        }
-      }
+    function drawGameOver(){
+      ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle='#020617'; ctx.fillRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle='#fecaca'; ctx.font='20px system-ui'; ctx.fillText('GAME OVER',135,80);
+      ctx.font='14px system-ui'; ctx.fillText('You have disappointed Fizzlebang!',70,110);
+      drawRobotAt(150,230,1.3); ctx.fillStyle='#0f172a'; ctx.fillRect(144,214,12,3);
+      drawGnomeAt(250,230,1.3); ctx.fillStyle='#1f2937'; ctx.fillRect(242,242,16,3);
     }
 
-    function drawGoal() {
-      ctx.fillStyle = theme().goal;
-      ctx.fillRect(0, 0, canvas.width, TILE);
-    }
+    // ===== TEST MODE =====
+    state = 'play'; lives=3; level=1;
 
-    function drawHUD() {
-      ctx.fillStyle = '#e5e7eb';
-      ctx.font = '14px system-ui';
-      ctx.fillText(`Level ${level} / ${MAX_LEVEL}`, 10, 18);
-      ctx.fillText(`Lives: ${lives}`, 300, 18);
-      if (state === 'transition') ctx.fillText('Level Complete!', 145, 220);
-    }
-
-    function drawCelebration() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#0b1220';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#e5e7eb';
-      ctx.font = '20px system-ui';
-      ctx.fillText('YOU DID IT!', 135, 80);
-      ctx.font = '14px system-ui';
-      ctx.fillText('Fizzlebang is proud of you!', 95, 110);
-      drawRobotAt(150, 220, 1.4);
-      drawGnomeAt(250, 220, 1.4);
-      for (let i = 0; i < 40; i++) {
-        ctx.fillStyle = ['#22d3ee', '#facc15', '#ef4444', '#a3e635'][i % 4];
-        ctx.fillRect(Math.random() * canvas.width, Math.random() * canvas.height, 3, 3);
-      }
-    }
-
-    function drawGameOver() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#020617';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = '#fecaca';
-      ctx.font = '20px system-ui';
-      ctx.fillText('GAME OVER', 135, 80);
-      ctx.font = '14px system-ui';
-      ctx.fillText('You have disappointed Fizzlebang!', 70, 110);
-      drawRobotAt(150, 230, 1.3);
-      ctx.fillStyle = '#0f172a';
-      ctx.fillRect(144, 214, 12, 3);
-      drawGnomeAt(250, 230, 1.3);
-      ctx.fillStyle = '#1f2937';
-      ctx.fillRect(242, 242, 16, 3);
-    }
-
-    function update() {
-      if (state !== 'play') return;
-      updateCars();
-      if (checkCollision()) loseLife();
-      if (robot.y === 0) completeLevel();
-    }
-
-    function draw() {
-      if (state === 'celebrate') { drawCelebration(); return; }
-      if (state === 'gameover') { drawGameOver(); return; }
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      drawGoal();
-      drawGrid();
-      drawCars();
-      drawRobot();
-      drawHUD();
-    }
-
-    function loop() {
-      update();
-      draw();
-      requestAnimationFrame(loop);
-    }
-
-    document.addEventListener('keydown', e => {
-      if (state !== 'play') return;
-      if (e.key === 'ArrowUp' && robot.y > 0) robot.y--;
-      if (e.key === 'ArrowDown' && robot.y < ROWS - 1) robot.y++;
-      if (e.key === 'ArrowLeft' && robot.x > 0) robot.x--;
-      if (e.key === 'ArrowRight' && robot.x < COLS - 1) robot.x++;
+    // Press L to lose a life immediately (test game over)
+    // Press W to complete level immediately (test celebration)
+    document.addEventListener('keydown', e=>{
+      if(e.key==='L'){loseLife();}
+      if(e.key==='W'){robot.y=0; update();}
     });
 
+    function update(){
+      if(state!=='play') return;
+      updateCars();
+      if(checkCollision()) loseLife();
+      if(robot.y===0) completeLevel();
+    }
+
+    function draw(){
+      if(state==='celebrate'){drawCelebration(); return;}
+      if(state==='gameover'){drawGameOver(); return;}
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      drawGoal(); drawGrid(); drawCars(); drawRobot(); drawHUD();
+    }
+
+    function loop(){update(); draw(); requestAnimationFrame(loop);}
     loop();
   </script>
 </body>
