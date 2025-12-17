@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pac-Man</title>
+<style>
+  body {
+    margin: 0;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-family: sans-serif;
+  }
+
+  canvas {
+    background: black;
+    display: block;
+  }
+</style>
+</head>
+<body>
+<canvas id="gameCanvas" width="560" height="620"></canvas>
+<script>
+// --- Game Setup ---
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+const tileSize = 20;
+const rows = 31;
+const cols = 28;
+
+let score = 0;
+
+// --- Simple Map Legend ---
+// 0 = empty, 1 = wall, 2 = dot
+const map = [
+  // 28 columns per row, 31 rows
+  // Simple map snippet, repeat/adjust as needed
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  [1,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
+  [1,2,1,1,1,1,2,1,1,1,1,2,1,1,2,1,1,1,1,2,1,1,1,1,2,1,2,1],
+  [1,2,1,0,0,1,2,1,0,0,1,2,1,1,2,1,0,0,1,2,1,0,0,1,2,1,2,1],
+  [1,2,1,0,0,1,2,1,0,0,1,2,2,2,2,2,0,0,1,2,1,0,0,1,2,1,2,1],
+  [1,2,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,2,1,2,1],
+  [1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1],
+  [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
+  // ... fill in remaining rows (or simplify for small demo)
+];
+
+// --- Player ---
+const player = {
+  x: 13 * tileSize,
+  y: 23 * tileSize,
+  radius: tileSize/2 - 2,
+  dir: { x:0, y:0 },
+  nextDir: { x:0, y:0 },
+  speed: 2
+};
+
+// --- Key Controls ---
+document.addEventListener('keydown', e => {
+  switch(e.key) {
+    case 'ArrowUp': player.nextDir = {x:0, y:-1}; break;
+    case 'ArrowDown': player.nextDir = {x:0, y:1}; break;
+    case 'ArrowLeft': player.nextDir = {x:-1, y:0}; break;
+    case 'ArrowRight': player.nextDir = {x:1, y:0}; break;
+  }
+});
+
+// --- Game Loop ---
+function gameLoop() {
+  update();
+  draw();
+  requestAnimationFrame(gameLoop);
+}
+
+// --- Update ---
+function update() {
+  // Check if we can turn
+  const nextTileX = player.x + player.nextDir.x * player.speed;
+  const nextTileY = player.y + player.nextDir.y * player.speed;
+  if (!hitWall(nextTileX, nextTileY)) {
+    player.dir = player.nextDir;
+  }
+
+  // Move player
+  const newX = player.x + player.dir.x * player.speed;
+  const newY = player.y + player.dir.y * player.speed;
+  if (!hitWall(newX, newY)) {
+    player.x = newX;
+    player.y = newY;
+  }
+
+  // Eat dot
+  const col = Math.floor((player.x + tileSize/2) / tileSize);
+  const row = Math.floor((player.y + tileSize/2) / tileSize);
+  if (map[row] && map[row][col] === 2) {
+    map[row][col] = 0;
+    score += 10;
+  }
+}
+
+// --- Check collision ---
+function hitWall(x, y) {
+  const col = Math.floor((x + tileSize/2) / tileSize);
+  const row = Math.floor((y + tileSize/2) / tileSize);
+  return map[row] && map[row][col] === 1;
+}
+
+// --- Draw ---
+function draw() {
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  // Draw map
+  for (let r=0; r<map.length; r++) {
+    for (let c=0; c<map[r].length; c++) {
+      if (map[r][c] === 1) {
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(c*tileSize, r*tileSize, tileSize, tileSize);
+      }
+      if (map[r][c] === 2) {
+        ctx.fillStyle = 'white';
+        ctx.beginPath();
+        ctx.arc(c*tileSize+tileSize/2, r*tileSize+tileSize/2, 4, 0, Math.PI*2);
+        ctx.fill();
+      }
+    }
+  }
+
+  // Draw player
+  ctx.fillStyle = 'yellow';
+  ctx.beginPath();
+  ctx.arc(player.x + tileSize/2, player.y + tileSize/2, player.radius, 0, Math.PI*2);
+  ctx.fill();
+
+  // Draw score
+  ctx.fillStyle = 'white';
+  ctx.font = '20px sans-serif';
+  ctx.fillText(`Score: ${score}`, 10, canvas.height - 10);
+}
+
+// --- Start Game ---
+gameLoop();
+</script>
+</body>
+</html>
