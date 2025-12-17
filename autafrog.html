@@ -75,34 +75,40 @@
 
     function drawRobotAt(x, y, scale=1) {
       ctx.save(); ctx.translate(x, y); ctx.scale(scale, scale);
-      ctx.fillStyle='#22d3ee'; ctx.fillRect(-12,-16,24,24);
-      ctx.fillStyle='#0f172a'; ctx.fillRect(-6,-10,4,4); ctx.fillRect(2,-10,4,4);
-      ctx.fillStyle='#334155'; ctx.fillRect(-8,8,6,12); ctx.fillRect(2,8,6,12);
+      // Head yellow
+      ctx.fillStyle='#facc15'; ctx.fillRect(-12,-16,24,12);
+      // Body silver
+      ctx.fillStyle='#c0c0c0'; ctx.fillRect(-12,-4,24,28);
+      // Eyes
+      ctx.fillStyle='#0f172a'; ctx.fillRect(-6,-12,4,4); ctx.fillRect(2,-12,4,4);
+      // Legs
+      ctx.fillStyle='#334155'; ctx.fillRect(-8,12,6,12); ctx.fillRect(2,12,6,12);
       ctx.restore();
     }
 
     function drawGnomeAt(x,y,scale=1){
       ctx.save(); ctx.translate(x,y); ctx.scale(scale,scale);
+      // Hat red
       ctx.fillStyle='#ef4444'; ctx.beginPath(); ctx.moveTo(0,-22); ctx.lineTo(-14,4); ctx.lineTo(14,4); ctx.closePath(); ctx.fill();
-      ctx.fillStyle='#facc15'; ctx.fillRect(-10,4,20,16);
+      // Body blue
+      ctx.fillStyle='#3b82f6'; ctx.fillRect(-10,4,20,16);
+      // Beard
       ctx.fillStyle='#e5e7eb'; ctx.beginPath(); ctx.arc(0,10,6,0,Math.PI); ctx.fill();
-      ctx.fillStyle='#92400e'; ctx.fillRect(-8,20,6,10); ctx.fillRect(2,20,6,10);
+      // Shoes green
+      ctx.fillStyle='#22c55e'; ctx.fillRect(-8,20,6,10); ctx.fillRect(2,20,6,10);
       ctx.restore();
     }
 
     function drawRobot() {
-      ctx.fillStyle='#22d3ee'; ctx.fillRect(robot.x*TILE+8, robot.y*TILE+8,24,24);
-      ctx.fillStyle='#0f172a'; ctx.fillRect(robot.x*TILE+14,robot.y*TILE+14,4,4);
-      ctx.fillRect(robot.x*TILE+22,robot.y*TILE+14,4,4);
+      ctx.fillStyle='#facc15'; ctx.fillRect(robot.x*TILE+8, robot.y*TILE+8,24,12); // head
+      ctx.fillStyle='#c0c0c0'; ctx.fillRect(robot.x*TILE+8, robot.y*TILE+20,24,24); // body
+      ctx.fillStyle='#0f172a'; ctx.fillRect(robot.x*TILE+14, robot.y*TILE+10,4,4); ctx.fillRect(robot.x*TILE+22, robot.y*TILE+10,4,4); // eyes
+      ctx.fillStyle='#334155'; ctx.fillRect(robot.x*TILE+12, robot.y*TILE+44,6,12); ctx.fillRect(robot.x*TILE+22, robot.y*TILE+44,6,12); // legs
     }
 
-    function drawCars() {
-      ctx.fillStyle=theme().car; cars.forEach(car=>{ctx.fillRect(car.x*TILE,car.row*TILE+6,TILE,TILE-12);});
-    }
+    function drawCars() { ctx.fillStyle=theme().car; cars.forEach(car=>{ctx.fillRect(car.x*TILE,car.row*TILE+6,TILE,TILE-12);}); }
 
-    function updateCars(){
-      cars.forEach(car=>{car.x += car.speed*(1+(level-1)*0.6); if(car.speed>0 && car.x>COLS) car.x=-1; if(car.speed<0 && car.x<-1) car.x=COLS;});
-    }
+    function updateCars(){ cars.forEach(car=>{car.x += car.speed*(1+(level-1)*0.6); if(car.speed>0 && car.x>COLS) car.x=-1; if(car.speed<0 && car.x<-1) car.x=COLS;}); }
 
     function checkCollision(){ return cars.some(car=>Math.floor(car.x)===robot.x && car.row===robot.y); }
 
@@ -117,34 +123,22 @@
       ctx.fillStyle='#e5e7eb'; ctx.font='20px system-ui'; ctx.fillText('YOU DID IT!',135,80);
       ctx.font='14px system-ui'; ctx.fillText('Fizzlebang is proud of you!',95,110);
       drawRobotAt(150,220,1.4); drawGnomeAt(250,220,1.4);
-      for(let i=0;i<40;i++){ctx.fillStyle=['#22d3ee','#facc15','#ef4444','#a3e635'][i%4]; ctx.fillRect(Math.random()*canvas.width,Math.random()*canvas.height,3,3);}
+      for(let i=0;i<40;i++){ctx.fillStyle=['#facc15','#c0c0c0','#ef4444','#22c55e'][i%4]; ctx.fillRect(Math.random()*canvas.width,Math.random()*canvas.height,3,3);}
     }
 
     function drawGameOver(){
       ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle='#020617'; ctx.fillRect(0,0,canvas.width,canvas.height);
       ctx.fillStyle='#fecaca'; ctx.font='20px system-ui'; ctx.fillText('GAME OVER',135,80);
       ctx.font='14px system-ui'; ctx.fillText('You have disappointed Fizzlebang!',70,110);
-      drawRobotAt(150,230,1.3); ctx.fillStyle='#0f172a'; ctx.fillRect(144,214,12,3);
-      drawGnomeAt(250,230,1.3); ctx.fillStyle='#1f2937'; ctx.fillRect(242,242,16,3);
+      drawRobotAt(150,230,1.3); drawGnomeAt(250,230,1.3);
     }
 
-    function update(){
-      if(state!=='play') return;
-      updateCars();
-      if(checkCollision()) loseLife();
-      if(robot.y===0) completeLevel();
-    }
+    function update(){ if(state!=='play') return; updateCars(); if(checkCollision()) loseLife(); if(robot.y===0) completeLevel(); }
 
-    function draw(){
-      if(state==='celebrate'){drawCelebration(); return;}
-      if(state==='gameover'){drawGameOver(); return;}
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      drawGoal(); drawGrid(); drawCars(); drawRobot(); drawHUD();
-    }
+    function draw(){ if(state==='celebrate'){drawCelebration(); return;} if(state==='gameover'){drawGameOver(); return;} ctx.clearRect(0,0,canvas.width,canvas.height); drawGoal(); drawGrid(); drawCars(); drawRobot(); drawHUD(); }
 
     function loop(){update(); draw(); requestAnimationFrame(loop);}
 
-    // ===== Key Handling =====
     document.addEventListener('keydown', e => {
       if(state==='play'){
         if(e.key==='ArrowUp' && robot.y>0) robot.y--;
