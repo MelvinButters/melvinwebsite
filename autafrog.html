@@ -96,11 +96,21 @@
       ctx.save();
       ctx.translate(x, y);
       ctx.scale(scale, scale);
+
+      // Body
       ctx.fillStyle = '#22d3ee';
-      ctx.fillRect(-12, -12, 24, 24);
+      ctx.fillRect(-12, -16, 24, 24);
+
+      // Eyes
       ctx.fillStyle = '#0f172a';
-      ctx.fillRect(-6, -4, 4, 4);
-      ctx.fillRect(2, -4, 4, 4);
+      ctx.fillRect(-6, -10, 4, 4);
+      ctx.fillRect(2, -10, 4, 4);
+
+      // Legs
+      ctx.fillStyle = '#334155';
+      ctx.fillRect(-8, 8, 6, 12);
+      ctx.fillRect(2, 8, 6, 12);
+
       ctx.restore();
     }
 
@@ -112,21 +122,26 @@
       // Hat
       ctx.fillStyle = '#ef4444';
       ctx.beginPath();
-      ctx.moveTo(0, -18);
-      ctx.lineTo(-14, 6);
-      ctx.lineTo(14, 6);
+      ctx.moveTo(0, -22);
+      ctx.lineTo(-14, 4);
+      ctx.lineTo(14, 4);
       ctx.closePath();
       ctx.fill();
 
       // Body
       ctx.fillStyle = '#facc15';
-      ctx.fillRect(-10, 6, 20, 14);
+      ctx.fillRect(-10, 4, 20, 16);
 
       // Beard
       ctx.fillStyle = '#e5e7eb';
       ctx.beginPath();
       ctx.arc(0, 10, 6, 0, Math.PI);
       ctx.fill();
+
+      // Legs
+      ctx.fillStyle = '#92400e';
+      ctx.fillRect(-8, 20, 6, 10);
+      ctx.fillRect(2, 20, 6, 10);
 
       ctx.restore();
     }
@@ -192,7 +207,7 @@
       ctx.font = '20px system-ui';
       ctx.fillText('YOU DID IT!', 135, 80);
       ctx.font = '14px system-ui';
-      ctx.fillText('Robot and Gnome celebrate your victory', 70, 110);
+      ctx.fillText('Fizzlebang is proud of you!', 95, 110);
 
       drawRobotAt(150, 220, 1.4);
       drawGnomeAt(250, 220, 1.4);
