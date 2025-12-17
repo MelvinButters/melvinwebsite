@@ -94,11 +94,11 @@
       ctx.fillStyle='#3b82f6'; ctx.fillRect(-10,4,20,16); // body blue
       ctx.fillStyle='#22c55e'; ctx.fillRect(-8,20,6,10); ctx.fillRect(2,20,6,10); // shoes green
       ctx.fillStyle='#e5e7eb';
-      ctx.beginPath(); ctx.arc(0,10,6,0,Math.PI);
-      ctx.fill();
+      ctx.beginPath(); ctx.arc(0,10,6,0,Math.PI); ctx.fill(); // face background
       ctx.fillStyle='#0f172a';
       ctx.beginPath();
-      if(sad){ ctx.arc(0,14,4,0,Math.PI,true); ctx.stroke(); } else { ctx.arc(0,10,4,0,Math.PI); ctx.fill(); }
+      if(sad){ ctx.arc(0,14,4,Math.PI,0,true); ctx.strokeStyle='#ffffff'; ctx.lineWidth=2; ctx.stroke(); } // sad mouth
+      else { ctx.arc(0,10,4,0,Math.PI); ctx.fill(); } // smile
       ctx.restore();
     }
 
@@ -161,7 +161,7 @@
       ctx.fillStyle='#fecaca'; ctx.font='20px system-ui'; ctx.fillText('GAME OVER',135,80);
       ctx.font='14px system-ui'; ctx.fillText('You have disappointed Fizzlebang!',70,110);
       drawRobotAt(150,230,1.3);
-      drawGnomeAt(250,230,1.3,true);
+      drawGnomeAt(250,230,1.3,true); // sad gnome with upside-down mouth
     }
 
     function update(){ if(state!=='play') return; updateCars(); if(checkCollision()) loseLife(); if(robot.y===0) completeLevel(); }
