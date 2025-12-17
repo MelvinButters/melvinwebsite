@@ -102,15 +102,9 @@
 
       // --- MOUTH CHANGE ONLY ---
       if(sad){
-        // Straight line at bottom
-        ctx.fillStyle = '#ffffff';
+        // small straight black line
+        ctx.fillStyle = '#000000';
         ctx.fillRect(-4,14,8,2);
-        // Semicircle on top
-        ctx.beginPath();
-        ctx.arc(0,14,4,Math.PI,0,false);
-        ctx.strokeStyle = '#ffffff';
-        ctx.lineWidth = 2;
-        ctx.stroke();
       } else {
         ctx.beginPath();
         ctx.arc(0,10,4,0,Math.PI);
@@ -179,7 +173,7 @@
       ctx.fillStyle='#fecaca'; ctx.font='20px system-ui'; ctx.fillText('GAME OVER',135,80);
       ctx.font='14px system-ui'; ctx.fillText('You have disappointed Fizzlebang!',70,110);
       drawRobotAt(150,230,1.3);
-      drawGnomeAt(250,230,1.3,true); // <- sad mouth now correct
+      drawGnomeAt(250,230,1.3,true); // <- mouth is now small black line
     }
 
     function update(){ if(state!=='play') return; updateCars(); if(checkCollision()) loseLife(); if(robot.y===0) completeLevel(); }
