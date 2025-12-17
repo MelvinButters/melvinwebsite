@@ -92,6 +92,8 @@
 
     spawnCars();
 
+    // ===== Drawing helpers =====
+
     function drawRobotAt(x, y, scale = 1) {
       ctx.save();
       ctx.translate(x, y);
@@ -178,9 +180,7 @@
       ctx.font = '14px system-ui';
       ctx.fillText(`Level ${level} / ${MAX_LEVEL}`, 10, 18);
       ctx.fillText(`Lives: ${lives}`, 300, 18);
-      if (state === 'transition') {
-        ctx.fillText('Level Complete!', 145, 220);
-      }
+      if (state === 'transition') ctx.fillText('Level Complete!', 145, 220);
     }
 
     function drawCelebration() {
