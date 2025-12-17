@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Robot Crosser</title>
+  <style>
+    body {
+      margin: 0;
+      background: #0b0f1a;
+      color: #fff;
+      font-family: system-ui, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    canvas {
+      background: #111827;
+      border: 2px solid #3b82f6;
+      image-rendering: pixelated;
+    }
+    .hint {
+      position: fixed;
+      bottom: 12px;
+      font-size: 14px;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="game" width="400" height="400"></canvas>
+  <div class="hint">Arrow keys to move · Reach the top</div>
+
+  <script>
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+
+    const TILE = 40;
+    const ROWS = 10;
+    const COLS = 10;
+
+    const robot = {
+      x: 4,
+      y: 9,
+    };
+
+    const cars = [];
+
+    function spawnCars() {
+      cars.length = 0;
+      for (let row = 2; row <= 7; row += 2) {
+        for (let i = 0; i < 3; i++) {
+          cars.push({
+            row,
+            x: Math.random() * COLS,
+            speed: (Math.random() * 0.03 + 0.02) * (row % 4 === 0 ? 1 : -1),
+          });
+        }
+      }
+    }
+
+    spawnCars();
+
+    function resetRobot() {
+      robot.x = 4;
+      robot.y = 9;
+    }
+
+    function drawRobot() {
+      ctx.fillStyle = '#22d3ee';
+      ctx.fillRect(robot.x * TILE + 8, robot.y * TILE + 8, 24, 24);
+
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(robot.x * TILE + 14, robot.y * TILE + 14, 4, 4);
+      ctx.fillRect(robot.x * TILE + 22, robot.y * TILE + 14, 4, 4);
+    }
+
+    function drawCars() {
+      ctx.fillStyle = '#ef4444';
+      cars.forEach(car => {
+        ctx.fillRect(car.x * TILE, car.row * TILE + 6, TILE, TILE - 12);
+      });
+    }
+
+    function updateCars() {
+      cars.forEach(car => {
+        car.x += car.speed;
+        if (car.speed > 0 && car.x > COLS) car.x = -1;
+        if (car.speed < 0 && car.x < -1) car.x = COLS;
+      });
+    }
+
+    function checkCollision() {
+      return cars.some(car => (
+        Math.floor(car.x) === robot.x && car.row === robot.y
+      ));
+    }
+
+    function drawGrid() {
+      for (let y = 0; y < ROWS; y++) {
+        for (let x = 0; x < COLS; x++) {
+          ctx.strokeStyle = '#1f2933';
+          ctx.strokeRect(x * TILE, y * TILE, TILE, TILE);
+        }
+      }
+    }
+
+    function drawGoal() {
+      ctx.fillStyle = '#16a34a';
+      ctx.fillRect(0, 0, canvas.width, TILE);
+    }
+
+    function update() {
+      updateCars();
+
+      if (checkCollision()) {
+        resetRobot();
+      }
+
+      if (robot.y === 0) {
+        resetRobot();
+        spawnCars();
+      }
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawGoal();
+      drawGrid();
+      drawCars();
+      drawRobot();
+    }
+
+    function loop() {
+      update();
+      draw();
+      requestAnimationFrame(loop);
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowUp' && robot.y > 0) robot.y--;
+      if (e.key === 'ArrowDown' && robot.y < ROWS - 1) robot.y++;
+      if (e.key === 'ArrowLeft' && robot.x > 0) robot.x--;
+      if (e.key === 'ArrowRight' && robot.x < COLS - 1) robot.x++;
+    });
+
+    loop();
+  </script>
+</body>
+</html>
