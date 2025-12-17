@@ -98,12 +98,11 @@
       ctx.fill();
       ctx.fillStyle='#0f172a';
       ctx.beginPath();
-      if(sad){ ctx.arc(0,10,4,Math.PI,2*Math.PI); ctx.stroke(); } else { ctx.arc(0,10,4,0,Math.PI); ctx.fill(); }
+      if(sad){ ctx.arc(0,14,4,0,Math.PI,true); ctx.stroke(); } else { ctx.arc(0,10,4,0,Math.PI); ctx.fill(); }
       ctx.restore();
     }
 
     function drawRobot() {
-      // main game robot: yellow top, silver bottom, red spot, fits one square, with eyes
       ctx.fillStyle='#facc15'; ctx.fillRect(robot.x*TILE, robot.y*TILE, TILE, TILE/2); // yellow top
       ctx.fillStyle='#ff0000'; ctx.fillRect(robot.x*TILE+TILE/2-2, robot.y*TILE+2, 4, 4); // red spot
       ctx.fillStyle='#c0c0c0'; ctx.fillRect(robot.x*TILE, robot.y*TILE+TILE/2, TILE, TILE/2); // silver bottom
@@ -114,7 +113,13 @@
 
     function updateCars(){ cars.forEach(car=>{car.x += car.speed*(1+(level-1)*0.6); if(car.speed>0 && car.x>COLS) car.x=-1; if(car.speed<0 && car.x<-1) car.x=COLS;}); }
 
-    function checkCollision(){ return cars.some(car=>Math.floor(car.x)===robot.x && car.row===robot.y); }
+    function checkCollision(){
+      return cars.some(car => (
+        car.row === robot.y &&
+        robot.x*TILE < (car.x+1)*TILE &&
+        (robot.x+1)*TILE > car.x*TILE
+      ));
+    }
 
     function drawGrid(){ ctx.strokeStyle=theme().road; for(let y=0;y<ROWS;y++){for(let x=0;x<COLS;x++){ctx.strokeRect(x*TILE,y*TILE,TILE,TILE);}}}
 
