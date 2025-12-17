@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Robot Crosser - Test Mode</title>
+  <title>Robot Crosser</title>
   <style>
     body {
       margin: 0;
@@ -60,10 +60,14 @@
 
     function resetRobot() { robot.x = 4; robot.y = 9; }
 
-    function loseLife() { lives--; resetRobot(); if (lives <= 0) {
-      state = 'gameover';
-      spawnRain();
-    }}
+    function loseLife() {
+      lives--;
+      resetRobot();
+      if (lives <= 0) {
+        state = 'gameover';
+        spawnRain();
+      }
+    }
 
     function completeLevel() {
       state = 'transition';
@@ -77,9 +81,8 @@
 
     function drawRobotAt(x, y, scale=1) {
       ctx.save(); ctx.translate(x, y); ctx.scale(scale, scale);
-      ctx.fillStyle='#facc15'; ctx.fillRect(-12,-16,24,12); // head
-      ctx.fillStyle='#c0c0c0'; ctx.fillRect(-12,-4,24,28); // body
-      ctx.fillStyle='#0f172a'; ctx.fillRect(-6,-12,4,4); ctx.fillRect(2,-12,4,4); // eyes
+      ctx.fillStyle='#facc15'; ctx.fillRect(-12,-16,24,24); // entire robot fits in one square
+      ctx.fillStyle='#0f172a'; ctx.fillRect(-6,-6,4,4); ctx.fillRect(2,-6,4,4); // eyes
       ctx.restore();
     }
 
@@ -89,10 +92,8 @@
       ctx.fillStyle='#3b82f6'; ctx.fillRect(-10,4,20,16); // body blue
       ctx.fillStyle='#22c55e'; ctx.fillRect(-8,20,6,10); ctx.fillRect(2,20,6,10); // shoes green
       ctx.fillStyle='#e5e7eb';
-      ctx.beginPath();
-      ctx.arc(0,10,6,0,Math.PI);
+      ctx.beginPath(); ctx.arc(0,10,6,0,Math.PI);
       ctx.fill();
-      // Face
       ctx.fillStyle='#0f172a';
       ctx.beginPath();
       if(sad){ ctx.arc(0,10,4,Math.PI,2*Math.PI); ctx.stroke(); } else { ctx.arc(0,10,4,0,Math.PI); ctx.fill(); }
@@ -100,10 +101,9 @@
     }
 
     function drawRobot() {
-      // main game robot with legs
-      ctx.fillStyle='#facc15'; ctx.fillRect(robot.x*TILE+8, robot.y*TILE+8,24,12); // head
-      ctx.fillStyle='#c0c0c0'; ctx.fillRect(robot.x*TILE+8, robot.y*TILE+20,24,24); // body
-      ctx.fillStyle='#0f172a'; ctx.fillRect(robot.x*TILE+14, robot.y*TILE+10,4,4); ctx.fillRect(robot.x*TILE+22, robot.y*TILE+10,4,4); // eyes
+      ctx.fillStyle='#facc15'; ctx.fillRect(robot.x*TILE, robot.y*TILE, TILE, TILE); // fits in one square
+      ctx.fillStyle='#c0c0c0'; ctx.fillRect(robot.x*TILE, robot.y*TILE, TILE, TILE); // body color
+      ctx.fillStyle='#0f172a'; ctx.fillRect(robot.x*TILE+10, robot.y*TILE+10,4,4); ctx.fillRect(robot.x*TILE+26, robot.y*TILE+10,4,4); // eyes
     }
 
     function drawCars() { ctx.fillStyle=theme().car; cars.forEach(car=>{ctx.fillRect(car.x*TILE,car.row*TILE+6,TILE,TILE-12);}); }
@@ -126,8 +126,7 @@
     }
 
     function drawRain(){
-      ctx.strokeStyle='#3b82f6';
-      ctx.lineWidth=1;
+      ctx.strokeStyle='#3b82f6'; ctx.lineWidth=1;
       rainDrops.forEach(drop=>{
         ctx.beginPath();
         ctx.moveTo(drop.x,drop.y);
