@@ -37,6 +37,9 @@
     let lives = 3;
     let state = 'play'; // play | transition | celebrate | gameover
 
+    let lifeMessageTimer = 0;
+    const LIFE_MESSAGE_DURATION = 60; // ~1 second
+
     const robot = { x: 4, y: 9 };
     const cars = [];
     const rainDrops = [];
@@ -47,22 +50,33 @@
       { road: '#0f172a', car: '#38bdf8', goal: '#a3e635' },
     ];
 
-    function theme() { return levelThemes[(level - 1) % levelThemes.length]; }
+    function theme() {
+      return levelThemes[(level - 1) % levelThemes.length];
+    }
 
     function spawnCars() {
       cars.length = 0;
       for (let row = 2; row <= 7; row += 2) {
         for (let i = 0; i < 3; i++) {
-          cars.push({ row, x: Math.random() * COLS, speed: (Math.random() * 0.03 + 0.02) * (row % 4 === 0 ? 1 : -1) });
+          cars.push({
+            row,
+            x: Math.random() * COLS,
+            speed: (Math.random() * 0.03 + 0.02) * (row % 4 === 0 ? 1 : -1)
+          });
         }
       }
     }
 
-    function resetRobot() { robot.x = 4; robot.y = 9; }
+    function resetRobot() {
+      robot.x = 4;
+      robot.y = 9;
+    }
 
     function loseLife() {
       lives--;
       resetRobot();
+      lifeMessageTimer = LIFE_MESSAGE_DURATION;
+
       if (lives <= 0) {
         state = 'gameover';
         spawnRain();
@@ -72,29 +86,40 @@
     function completeLevel() {
       state = 'transition';
       setTimeout(() => {
-        if (level < MAX_LEVEL) { level++; spawnCars(); resetRobot(); state = 'play'; }
-        else state = 'celebrate';
+        if (level < MAX_LEVEL) {
+          level++;
+          spawnCars();
+          resetRobot();
+          state = 'play';
+        } else {
+          state = 'celebrate';
+        }
       }, 1000);
     }
 
     spawnCars();
 
-    function drawRobotAt(x, y, scale=1) {
-      ctx.save(); ctx.translate(x, y); ctx.scale(scale, scale);
-      ctx.fillStyle='#facc15'; ctx.fillRect(-12,-16,24,24); // head yellow
-      ctx.fillStyle='#ff0000'; ctx.fillRect(-2,-16,4,4); // red spot
-      ctx.fillStyle='#c0c0c0'; ctx.fillRect(-12,-4,24,28); // body silver
-      ctx.fillStyle='#0f172a'; ctx.fillRect(-6,-6,4,4); ctx.fillRect(2,-6,4,4); // eyes
+    function drawRobotAt(x, y, scale = 1) {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.scale(scale, scale);
+      ctx.fillStyle = '#facc15';
+      ctx.fillRect(-12, -16, 24, 24);
+      ctx.fillStyle = '#ff0000';
+      ctx.fillRect(-2, -16, 4, 4);
+      ctx.fillStyle = '#c0c0c0';
+      ctx.fillRect(-12, -4, 24, 28);
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(-6, -6, 4, 4);
+      ctx.fillRect(2, -6, 4, 4);
       ctx.restore();
     }
 
-    // --- FIXED GNOME FUNCTION ---
     function drawGnomeAt(x, y, scale = 1, sad = false) {
       ctx.save();
       ctx.translate(x, y);
       ctx.scale(scale, scale);
 
-      // Hat
       ctx.fillStyle = '#ef4444';
       ctx.beginPath();
       ctx.moveTo(0, -22);
@@ -103,32 +128,28 @@
       ctx.closePath();
       ctx.fill();
 
-      // Body
       ctx.fillStyle = '#3b82f6';
       ctx.fillRect(-10, 4, 20, 16);
 
-      // Shoes
       ctx.fillStyle = '#22c55e';
       ctx.fillRect(-8, 20, 6, 10);
       ctx.fillRect(2, 20, 6, 10);
 
-      // Eyes
       ctx.fillStyle = '#0f172a';
       ctx.beginPath();
       ctx.arc(-3, 8, 1, 0, Math.PI * 2);
       ctx.arc(3, 8, 1, 0, Math.PI * 2);
       ctx.fill();
 
-      // Mouth
       ctx.beginPath();
       if (sad) {
-        ctx.strokeStyle = '#000000'; // thin black line
+        ctx.strokeStyle = '#000000';
         ctx.lineWidth = 2;
         ctx.moveTo(-4, 14);
         ctx.lineTo(4, 14);
         ctx.stroke();
       } else {
-        ctx.strokeStyle = '#ffffff'; // white semicircle
+        ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 2;
         ctx.arc(0, 14, 4, 0, Math.PI, false);
         ctx.stroke();
@@ -138,82 +159,170 @@
     }
 
     function drawRobot() {
-      ctx.fillStyle='#facc15'; ctx.fillRect(robot.x*TILE, robot.y*TILE, TILE, TILE/2); // yellow top
-      ctx.fillStyle='#ff0000'; ctx.fillRect(robot.x*TILE+TILE/2-2, robot.y*TILE+2, 4, 4); // red spot
-      ctx.fillStyle='#c0c0c0'; ctx.fillRect(robot.x*TILE, robot.y*TILE+TILE/2, TILE, TILE/2); // silver bottom
-      ctx.fillStyle='#0f172a'; ctx.fillRect(robot.x*TILE+10, robot.y*TILE+10,4,4); ctx.fillRect(robot.x*TILE+26, robot.y*TILE+10,4,4); // eyes
+      ctx.fillStyle = '#facc15';
+      ctx.fillRect(robot.x * TILE, robot.y * TILE, TILE, TILE / 2);
+      ctx.fillStyle = '#ff0000';
+      ctx.fillRect(robot.x * TILE + TILE / 2 - 2, robot.y * TILE + 2, 4, 4);
+      ctx.fillStyle = '#c0c0c0';
+      ctx.fillRect(robot.x * TILE, robot.y * TILE + TILE / 2, TILE, TILE / 2);
+      ctx.fillStyle = '#0f172a';
+      ctx.fillRect(robot.x * TILE + 10, robot.y * TILE + 10, 4, 4);
+      ctx.fillRect(robot.x * TILE + 26, robot.y * TILE + 10, 4, 4);
     }
 
-    function drawCars() { ctx.fillStyle=theme().car; cars.forEach(car=>{ctx.fillRect(car.x*TILE,car.row*TILE+6,TILE,TILE-12);}); }
-
-    function updateCars(){ cars.forEach(car=>{car.x += car.speed*(1+(level-1)*0.6); if(car.speed>0 && car.x>COLS) car.x=-1; if(car.speed<0 && car.x<-1) car.x=COLS;}); }
-
-    function checkCollision(){
-      return cars.some(car => (
-        car.row === robot.y &&
-        robot.x*TILE < (car.x+1)*TILE &&
-        (robot.x+1)*TILE > car.x*TILE
-      ));
-    }
-
-    function drawGrid(){ ctx.strokeStyle=theme().road; for(let y=0;y<ROWS;y++){for(let x=0;x<COLS;x++){ctx.strokeRect(x*TILE,y*TILE,TILE,TILE);}}}
-
-    function drawGoal(){ ctx.fillStyle=theme().goal; ctx.fillRect(0,0,canvas.width,TILE); }
-
-    function drawHUD(){ ctx.fillStyle='#e5e7eb'; ctx.font='14px system-ui'; ctx.fillText(`Level ${level} / ${MAX_LEVEL}`,10,18); ctx.fillText(`Lives: ${lives}`,300,18); if(state==='transition') ctx.fillText('Level Complete!',145,220); }
-
-    function spawnRain(){
-      rainDrops.length = 0;
-      for(let i=0;i<100;i++){
-        rainDrops.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, length:2+Math.random()*3, speed:1+Math.random()*1.5, angle: Math.random()*0.2-0.1});
-      }
-    }
-
-    function drawRain(){
-      ctx.strokeStyle='#3b82f6'; ctx.lineWidth=1;
-      rainDrops.forEach(drop=>{
-        ctx.beginPath();
-        ctx.moveTo(drop.x,drop.y);
-        ctx.lineTo(drop.x + drop.angle*drop.length, drop.y + drop.length);
-        ctx.stroke();
-        drop.y += drop.speed;
-        drop.x += drop.angle;
-        if(drop.y>canvas.height){ drop.y=0; drop.x=Math.random()*canvas.width; }
+    function drawCars() {
+      ctx.fillStyle = theme().car;
+      cars.forEach(car => {
+        ctx.fillRect(car.x * TILE, car.row * TILE + 6, TILE, TILE - 12);
       });
     }
 
-    function drawCelebration(){
-      ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle='#0b1220'; ctx.fillRect(0,0,canvas.width,canvas.height);
-      ctx.fillStyle='#e5e7eb'; ctx.font='20px system-ui'; ctx.fillText('YOU DID IT!',135,80);
-      ctx.font='14px system-ui'; ctx.fillText('Fizzlebang is proud of you!',95,110);
-      drawRobotAt(150,220,1.4); drawGnomeAt(250,220,1.4,false);
-      for(let i=0;i<40;i++){ctx.fillStyle=['#facc15','#c0c0c0','#ef4444','#22c55e'][i%4]; ctx.fillRect(Math.random()*canvas.width,Math.random()*canvas.height,3,3);}
+    function updateCars() {
+      cars.forEach(car => {
+        car.x += car.speed * (1 + (level - 1) * 0.6);
+        if (car.speed > 0 && car.x > COLS) car.x = -1;
+        if (car.speed < 0 && car.x < -1) car.x = COLS;
+      });
     }
 
-    function drawGameOver(){
-      ctx.clearRect(0,0,canvas.width,canvas.height); ctx.fillStyle='#020617'; ctx.fillRect(0,0,canvas.width,canvas.height);
+    function checkCollision() {
+      return cars.some(car =>
+        car.row === robot.y &&
+        robot.x * TILE < (car.x + 1) * TILE &&
+        (robot.x + 1) * TILE > car.x * TILE
+      );
+    }
+
+    function drawGrid() {
+      ctx.strokeStyle = theme().road;
+      for (let y = 0; y < ROWS; y++) {
+        for (let x = 0; x < COLS; x++) {
+          ctx.strokeRect(x * TILE, y * TILE, TILE, TILE);
+        }
+      }
+    }
+
+    function drawGoal() {
+      ctx.fillStyle = theme().goal;
+      ctx.fillRect(0, 0, canvas.width, TILE);
+    }
+
+    function drawHUD() {
+      ctx.fillStyle = '#e5e7eb';
+      ctx.font = '14px system-ui';
+      ctx.fillText(`Level ${level} / ${MAX_LEVEL}`, 10, 18);
+      ctx.fillText(`Lives: ${lives}`, 300, 18);
+
+      if (state === 'transition') {
+        ctx.fillText('Level Complete!', 145, 220);
+      }
+
+      if (lifeMessageTimer > 0) {
+        ctx.fillStyle = '#fde68a';
+        ctx.font = '16px system-ui';
+        ctx.fillText('Oops! You lost a life!', 115, 240);
+      }
+    }
+
+    function spawnRain() {
+      rainDrops.length = 0;
+      for (let i = 0; i < 100; i++) {
+        rainDrops.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          length: 2 + Math.random() * 3,
+          speed: 1 + Math.random() * 1.5,
+          angle: Math.random() * 0.2 - 0.1
+        });
+      }
+    }
+
+    function drawRain() {
+      ctx.strokeStyle = '#3b82f6';
+      ctx.lineWidth = 1;
+      rainDrops.forEach(drop => {
+        ctx.beginPath();
+        ctx.moveTo(drop.x, drop.y);
+        ctx.lineTo(drop.x + drop.angle * drop.length, drop.y + drop.length);
+        ctx.stroke();
+        drop.y += drop.speed;
+        drop.x += drop.angle;
+        if (drop.y > canvas.height) {
+          drop.y = 0;
+          drop.x = Math.random() * canvas.width;
+        }
+      });
+    }
+
+    function drawCelebration() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#0b1220';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#e5e7eb';
+      ctx.font = '20px system-ui';
+      ctx.fillText('YOU DID IT!', 135, 80);
+      ctx.font = '14px system-ui';
+      ctx.fillText('Fizzlebang is proud of you!', 95, 110);
+      drawRobotAt(150, 220, 1.4);
+      drawGnomeAt(250, 220, 1.4, false);
+    }
+
+    function drawGameOver() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = '#020617';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
       drawRain();
-      ctx.fillStyle='#fecaca'; ctx.font='20px system-ui'; ctx.fillText('GAME OVER',135,80);
-      ctx.font='14px system-ui'; ctx.fillText('You have disappointed Fizzlebang!',70,110);
-      drawRobotAt(150,230,1.3);
-      drawGnomeAt(250,230,1.3,true); // sad gnome now just a thin black line
+      ctx.fillStyle = '#fecaca';
+      ctx.font = '20px system-ui';
+      ctx.fillText('GAME OVER', 135, 80);
+      ctx.font = '14px system-ui';
+      ctx.fillText('You have disappointed Fizzlebang!', 70, 110);
+      drawRobotAt(150, 230, 1.3);
+      drawGnomeAt(250, 230, 1.3, true);
     }
 
-    function update(){ if(state!=='play') return; updateCars(); if(checkCollision()) loseLife(); if(robot.y===0) completeLevel(); }
+    function update() {
+      if (state !== 'play') return;
 
-    function draw(){ if(state==='celebrate'){drawCelebration(); return;} if(state==='gameover'){drawGameOver(); return;} ctx.clearRect(0,0,canvas.width,canvas.height); drawGoal(); drawGrid(); drawCars(); drawRobot(); drawHUD(); }
+      updateCars();
 
-    function loop(){update(); draw(); requestAnimationFrame(loop);}
+      if (checkCollision()) loseLife();
+
+      if (robot.y === 0) completeLevel();
+
+      if (lifeMessageTimer > 0) lifeMessageTimer--;
+    }
+
+    function draw() {
+      if (state === 'celebrate') return drawCelebration();
+      if (state === 'gameover') return drawGameOver();
+
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawGoal();
+      drawGrid();
+      drawCars();
+      drawRobot();
+      drawHUD();
+    }
+
+    function loop() {
+      update();
+      draw();
+      requestAnimationFrame(loop);
+    }
 
     document.addEventListener('keydown', e => {
-      if(state==='play'){
-        if(e.key==='ArrowUp' && robot.y>0) robot.y--;
-        if(e.key==='ArrowDown' && robot.y<ROWS-1) robot.y++;
-        if(e.key==='ArrowLeft' && robot.x>0) robot.x--;
-        if(e.key==='ArrowRight' && robot.x<COLS-1) robot.x++;
+      if (state === 'play') {
+        if (e.key === 'ArrowUp' && robot.y > 0) robot.y--;
+        if (e.key === 'ArrowDown' && robot.y < ROWS - 1) robot.y++;
+        if (e.key === 'ArrowLeft' && robot.x > 0) robot.x--;
+        if (e.key === 'ArrowRight' && robot.x < COLS - 1) robot.x++;
       }
-      if(e.key==='L') loseLife();
-      if(e.key==='W'){ robot.y=0; update(); }
+      if (e.key === 'L') loseLife();
+      if (e.key === 'W') {
+        robot.y = 0;
+        update();
+      }
     });
 
     loop();
