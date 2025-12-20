@@ -93,6 +93,7 @@
           state = 'play';
         } else {
           state = 'celebrate';
+          spawnRain(); // ✅ CONFETTI STARTS HERE
         }
       }, 1000);
     }
@@ -224,7 +225,6 @@
       }
     }
 
-    /* ===== ONLY CHANGE IS HERE ===== */
     function spawnRain() {
       rainDrops.length = 0;
       const colors = ['#facc15', '#22c55e', '#38bdf8', '#f472b6', '#fb7185'];
@@ -261,6 +261,7 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = '#0b1220';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
+      drawRain(); // ✅ CONFETTI DRAWS HERE
       ctx.fillStyle = '#e5e7eb';
       ctx.font = '20px system-ui';
       ctx.fillText('YOU DID IT!', 135, 80);
