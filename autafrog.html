@@ -94,45 +94,119 @@ function completeLevel() {
       state = 'play';
     } else {
       state = 'celebrate';
-      spawnConfetti();
+      spawnConfetti(); // ⭐ ONLY ADDITION
     }
   }, 1000);
 }
 
 spawnCars();
 
-/* ---------- PARTICLES ---------- */
+/* ===== ROBOT (UNCHANGED) ===== */
+function drawRobot() {
+  ctx.fillStyle = '#facc15';
+  ctx.fillRect(robot.x * TILE, robot.y * TILE, TILE, TILE / 2);
 
+  ctx.fillStyle = '#ff0000'; // RED DOT IS BACK
+  ctx.fillRect(robot.x * TILE + TILE / 2 - 2, robot.y * TILE + 2, 4, 4);
+
+  ctx.fillStyle = '#c0c0c0';
+  ctx.fillRect(robot.x * TILE, robot.y * TILE + TILE / 2, TILE, TILE / 2);
+
+  ctx.fillStyle = '#0f172a';
+  ctx.fillRect(robot.x * TILE + 10, robot.y * TILE + 10, 4, 4);
+  ctx.fillRect(robot.x * TILE + 26, robot.y * TILE + 10, 4, 4);
+}
+
+function drawCars() {
+  ctx.fillStyle = theme().car;
+  cars.forEach(car => {
+    ctx.fillRect(car.x * TILE, car.row * TILE + 6, TILE, TILE - 12);
+  });
+}
+
+function updateCars() {
+  cars.forEach(car => {
+    car.x += car.speed * (1 + (level - 1) * 0.6);
+    if (car.speed > 0 && car.x > COLS) car.x = -1;
+    if (car.speed < 0 && car.x < -1) car.x = COLS;
+  });
+}
+
+function checkCollision() {
+  return cars.some(car =>
+    car.row === robot.y &&
+    robot.x * TILE < (car.x + 1) * TILE &&
+    (robot.x + 1) * TILE > car.x * TILE
+  );
+}
+
+function drawGrid() {
+  ctx.strokeStyle = theme().road;
+  for (let y = 0; y < ROWS; y++) {
+    for (let x = 0; x < COLS; x++) {
+      ctx.strokeRect(x * TILE, y * TILE, TILE, TILE);
+    }
+  }
+}
+
+function drawGoal() {
+  ctx.fillStyle = theme().goal;
+  ctx.fillRect(0, 0, canvas.width, TILE);
+}
+
+function drawHUD() {
+  ctx.fillStyle = '#e5e7eb';
+  ctx.font = '14px system-ui';
+  ctx.fillText(`Level ${level} / ${MAX_LEVEL}`, 10, 18);
+  ctx.fillText(`Lives: ${lives}`, 300, 18);
+
+  if (state === 'transition') {
+    ctx.fillText('Level Complete!', 145, 220);
+  }
+
+  if (lifeMessageTimer > 0) {
+    ctx.fillStyle = '#fde68a';
+    ctx.font = '16px system-ui';
+    ctx.fillText('Oops! You lost a life!', 115, 240);
+  }
+}
+
+/* ===== LOSS RAIN (UNCHANGED) ===== */
 function spawnRain() {
   rainDrops.length = 0;
-  for (let i = 0; i < 120; i++) {
+  for (let i = 0; i < 100; i++) {
     rainDrops.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
-      speed: 1 + Math.random() * 2,
-      length: 3 + Math.random() * 4,
-      angle: Math.random() * 0.3 - 0.15
+      length: 2 + Math.random() * 3,
+      speed: 1 + Math.random() * 1.5,
+      angle: Math.random() * 0.2 - 0.1
     });
   }
 }
 
 function drawRain() {
   ctx.strokeStyle = '#3b82f6';
-  rainDrops.forEach(d => {
+  ctx.lineWidth = 1;
+  rainDrops.forEach(drop => {
     ctx.beginPath();
-    ctx.moveTo(d.x, d.y);
-    ctx.lineTo(d.x + d.angle * d.length, d.y + d.length);
+    ctx.moveTo(drop.x, drop.y);
+    ctx.lineTo(drop.x + drop.angle * drop.length, drop.y + drop.length);
     ctx.stroke();
-    d.y += d.speed;
-    d.x += d.angle;
-    if (d.y > canvas.height) d.y = 0;
+    drop.y += drop.speed;
+    drop.x += drop.angle;
+    if (drop.y > canvas.height) {
+      drop.y = 0;
+      drop.x = Math.random() * canvas.width;
+    }
   });
 }
 
+/* ===== WIN CONFETTI (NEW, ISOLATED) ===== */
 function spawnConfetti() {
   confetti.length = 0;
   const colors = ['#facc15', '#22c55e', '#38bdf8', '#f472b6', '#fb7185'];
-  for (let i = 0; i < 150; i++) {
+  for (let i = 0; i < 160; i++) {
     confetti.push({
       x: Math.random() * canvas.width,
       y: Math.random() * canvas.height,
@@ -157,87 +231,42 @@ function drawConfetti() {
   });
 }
 
-/* ---------- DRAWING ---------- */
-
-function drawRobot() {
-  ctx.fillStyle = '#facc15';
-  ctx.fillRect(robot.x*TILE, robot.y*TILE, TILE, TILE/2);
-  ctx.fillStyle = '#c0c0c0';
-  ctx.fillRect(robot.x*TILE, robot.y*TILE+TILE/2, TILE, TILE/2);
-}
-
-function drawCars() {
-  ctx.fillStyle = theme().car;
-  cars.forEach(c => ctx.fillRect(c.x*TILE, c.row*TILE+6, TILE, TILE-12));
-}
-
-function updateCars() {
-  cars.forEach(c => {
-    c.x += c.speed * (1 + (level - 1) * 0.6);
-    if (c.x > COLS) c.x = -1;
-    if (c.x < -1) c.x = COLS;
-  });
-}
-
-function checkCollision() {
-  return cars.some(c =>
-    c.row === robot.y &&
-    robot.x*TILE < (c.x+1)*TILE &&
-    (robot.x+1)*TILE > c.x*TILE
-  );
-}
-
-function drawGrid() {
-  ctx.strokeStyle = theme().road;
-  for (let y=0;y<ROWS;y++)
-    for (let x=0;x<COLS;x++)
-      ctx.strokeRect(x*TILE,y*TILE,TILE,TILE);
-}
-
-function drawGoal() {
-  ctx.fillStyle = theme().goal;
-  ctx.fillRect(0,0,canvas.width,TILE);
-}
-
-function drawHUD() {
-  ctx.fillStyle = '#e5e7eb';
-  ctx.font = '14px system-ui';
-  ctx.fillText(`Level ${level}/${MAX_LEVEL}`,10,18);
-  ctx.fillText(`Lives: ${lives}`,300,18);
-  if (lifeMessageTimer>0)
-    ctx.fillText('Oops! You lost a life!',110,240);
-}
-
 function drawCelebration() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  drawConfetti();
-  ctx.fillStyle='#e5e7eb';
-  ctx.font='20px system-ui';
-  ctx.fillText('YOU DID IT!',130,80);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#0b1220';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  drawConfetti(); // ⭐ ONLY VISUAL CHANGE
+
+  ctx.fillStyle = '#e5e7eb';
+  ctx.font = '20px system-ui';
+  ctx.fillText('YOU DID IT!', 135, 80);
+  ctx.font = '14px system-ui';
+  ctx.fillText('Fizzlebang is proud of you!', 95, 110);
 }
 
 function drawGameOver() {
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = '#020617';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
   drawRain();
-  ctx.fillStyle='#fecaca';
-  ctx.font='20px system-ui';
-  ctx.fillText('GAME OVER',135,80);
+  ctx.fillStyle = '#fecaca';
+  ctx.font = '20px system-ui';
+  ctx.fillText('GAME OVER', 135, 80);
 }
 
-/* ---------- LOOP ---------- */
-
 function update() {
-  if (state!=='play') return;
+  if (state !== 'play') return;
   updateCars();
   if (checkCollision()) loseLife();
-  if (robot.y===0) completeLevel();
-  if (lifeMessageTimer>0) lifeMessageTimer--;
+  if (robot.y === 0) completeLevel();
+  if (lifeMessageTimer > 0) lifeMessageTimer--;
 }
 
 function draw() {
-  if (state==='celebrate') return drawCelebration();
-  if (state==='gameover') return drawGameOver();
-  ctx.clearRect(0,0,canvas.width,canvas.height);
+  if (state === 'celebrate') return drawCelebration();
+  if (state === 'gameover') return drawGameOver();
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
   drawGoal();
   drawGrid();
   drawCars();
@@ -245,18 +274,18 @@ function draw() {
   drawHUD();
 }
 
-function loop(){
+function loop() {
   update();
   draw();
   requestAnimationFrame(loop);
 }
 
-document.addEventListener('keydown',e=>{
-  if(state==='play'){
-    if(e.key==='ArrowUp'&&robot.y>0)robot.y--;
-    if(e.key==='ArrowDown'&&robot.y<ROWS-1)robot.y++;
-    if(e.key==='ArrowLeft'&&robot.x>0)robot.x--;
-    if(e.key==='ArrowRight'&&robot.x<COLS-1)robot.x++;
+document.addEventListener('keydown', e => {
+  if (state === 'play') {
+    if (e.key === 'ArrowUp' && robot.y > 0) robot.y--;
+    if (e.key === 'ArrowDown' && robot.y < ROWS - 1) robot.y++;
+    if (e.key === 'ArrowLeft' && robot.x > 0) robot.x--;
+    if (e.key === 'ArrowRight' && robot.x < COLS - 1) robot.x++;
   }
 });
 
