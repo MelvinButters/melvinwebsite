@@ -79,7 +79,7 @@
 
       if (lives <= 0) {
         state = 'gameover';
-        spawnRain();
+        spawnRain(['#38bdf8']); // 🔵 blue rain only
       }
     }
 
@@ -93,7 +93,7 @@
           state = 'play';
         } else {
           state = 'celebrate';
-          spawnRain(); // ✅ CONFETTI STARTS HERE
+          spawnRain(['#facc15', '#22c55e', '#38bdf8', '#f472b6', '#fb7185']); // 🎉 confetti
         }
       }, 1000);
     }
@@ -225,9 +225,8 @@
       }
     }
 
-    function spawnRain() {
+    function spawnRain(colors) {
       rainDrops.length = 0;
-      const colors = ['#facc15', '#22c55e', '#38bdf8', '#f472b6', '#fb7185'];
       for (let i = 0; i < 100; i++) {
         rainDrops.push({
           x: Math.random() * canvas.width,
@@ -261,7 +260,7 @@
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.fillStyle = '#0b1220';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-      drawRain(); // ✅ CONFETTI DRAWS HERE
+      drawRain();
       ctx.fillStyle = '#e5e7eb';
       ctx.font = '20px system-ui';
       ctx.fillText('YOU DID IT!', 135, 80);
