@@ -1,92 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>A Message for Auta</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>Enter Password</title>
   <style>
     body {
-      margin: 0;
-      min-height: 100vh;
-      background: radial-gradient(circle at top, #111827, #020617);
-      color: #e5e7eb;
-      font-family: "Georgia", serif;
+      background: #0b0f1a;
+      color: #fff;
+      font-family: system-ui, sans-serif;
       display: flex;
       align-items: center;
       justify-content: center;
+      height: 100vh;
+      margin: 0;
     }
 
-    .container {
-      max-width: 700px;
-      padding: 3rem;
-      background: rgba(2, 6, 23, 0.85);
-      border-radius: 14px;
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
-    }
-
-    h1 {
-      font-weight: normal;
-      letter-spacing: 0.05em;
+    .box {
+      background: #151a2e;
+      padding: 2rem;
+      border-radius: 10px;
       text-align: center;
-      margin-bottom: 2rem;
+      width: 320px;
+    }
+
+    .message {
+      font-size: 0.9rem;
       color: #c7d2fe;
-    }
-
-    p {
-      font-size: 1.05rem;
-      line-height: 1.7;
-      margin-bottom: 1.4rem;
-    }
-
-    .signature {
-      margin-top: 2.5rem;
-      text-align: right;
+      margin-bottom: 1.2rem;
+      line-height: 1.4;
       font-style: italic;
-      color: #a5b4fc;
     }
 
-    .divider {
-      height: 1px;
-      background: linear-gradient(to right, transparent, #6366f1, transparent);
-      margin: 2.5rem 0;
+    input {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 1rem;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background: #4cc9f0;
+      color: #000;
+    }
+
+    .error {
+      color: #ff6b6b;
+      margin-top: 0.8rem;
+      display: none;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>For Auta</h1>
+  <div class="box">
+    <h2>Enter Password</h2>
 
-    <p>
-      If you are reading this, then the moment has already passed — or is closer than either of us would like to admit.
-      I have never been good at saying the important things aloud, so I leave them here instead, where the words cannot
-      tremble or be interrupted.
-    </p>
-
-    <p>
-      The world will always demand pieces of you. Time, courage, certainty. Sometimes it will ask for more than is fair.
-      When that happens, remember this: the things you hold dear are not weaknesses. They are the reason you endure at all.
-    </p>
-
-    <p>
-      Protect them. Protect the people, the ideals, the quiet hopes you carry when no one is watching. Not because the
-      world deserves them — but because <em>you</em> do.
-    </p>
-
-    <p>
-      Say what must be said while breath and chance still allow it. Regret is a heavier burden than fear, and silence
-      has ended more stories than any blade ever has.
-    </p>
-
-    <div class="divider"></div>
-
-    <p>
-      Whatever comes next, know that I believed in you — not because you were flawless, but because you chose to care
-      in a world that makes that choice difficult.
-    </p>
-
-    <div class="signature">
+    <div class="message">
+      Auta — if you are reading this, then you are close to something important.  
+      Protect all that you hold dear.  
+      Say what must be said while there is still time.  
+      Some chances do not return.
+      <br><br>
       — Fizzlebang
     </div>
+
+    <input type="password" id="password" placeholder="Password">
+    <button onclick="checkPassword()">Submit</button>
+    <div class="error" id="error">Wrong password</div>
   </div>
+
+  <script>
+    const CORRECT_PASSWORD = "banxi";
+
+    function checkPassword() {
+      const input = document.getElementById("password").value.trim().toLowerCase();
+
+      if (input === CORRECT_PASSWORD) {
+        window.location.href = "reckless.html";
+      } else {
+        document.getElementById("error").style.display = "block";
+      }
+    }
+  </script>
 </body>
 </html>
