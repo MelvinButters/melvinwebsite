@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Deck by Suit</title>
+<style>
+  body {
+    background: #0b0f1a;
+    color: #fff;
+    font-family: system-ui, sans-serif;
+    padding: 20px;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .stack {
+    background: #151a2e;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+  }
+
+  .stack h2 {
+    text-align: center;
+    margin: 0 0 8px;
+  }
+
+  button {
+    margin-bottom: 8px;
+    padding: 6px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    background: #2c6cff;
+    color: #fff;
+  }
+
+  button:hover {
+    background: #4c82ff;
+  }
+
+  .cards {
+    flex: 1;
+    overflow-y: auto;
+    background: #0b0f1a;
+    border-radius: 4px;
+    padding: 6px;
+    font-size: 14px;
+  }
+
+  .remaining {
+    font-size: 12px;
+    opacity: 0.7;
+    text-align: center;
+    margin-top: 6px;
+  }
+</style>
+</head>
+<body>
+
+<h1>Deck Separated by Suit</h1>
+
+<div class="board" id="board"></div>
+
+<script>
+const suits = [
+  { name: "Hearts", symbol: "♥" },
+  { name: "Diamonds", symbol: "♦" },
+  { name: "Clubs", symbol: "♣" },
+  { name: "Spades", symbol: "♠" }
+];
+
+const values = ["A","2","3","4","5","6","7","8","9","10","J","Q","K"];
+const stacks = {};
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
+function buildDeck() {
+  suits.forEach(suit => {
+    stacks[suit.name] = values.map(v => `${v}${suit.symbol}`);
+    shuffle(stacks[suit.name]);
+  });
+}
+
+function drawCard(suitName, cardList, remainingLabel) {
+  const stack = stacks[suitName];
+  if (!stack.length) return;
+
+  const card = stack.pop();
+  const div = document.createElement("div");
+  div.textContent = card;
+  cardList.prepend(div);
+
+  remainingLabel.textContent = `${stack.length} cards remaining`;
+}
+
+function render() {
+  const board = document.getElementById("board");
+  board.innerHTML = "";
+
+  suits.forEach(suit => {
+    const stackDiv = document.createElement("div");
+    stackDiv.className = "stack";
+
+    const title = document.createElement("h2");
+    title.textContent = suit.name;
+
+    const button = document.createElement("button");
+    button.textContent = "Draw";
+
+    const cards = document.createElement("div");
+    cards.className = "cards";
+
+    const remaining = document.createElement("div");
+    remaining.className = "remaining";
+    remaining.textContent = `${stacks[suit.name].length} cards remaining`;
+
+    button.onclick = () => drawCard(suit.name, cards, remaining);
+
+    stackDiv.append(title, button, cards, remaining);
+    board.appendChild(stackDiv);
+  });
+}
+
+buildDeck();
+render();
+</script>
+
+</body>
+</html>
