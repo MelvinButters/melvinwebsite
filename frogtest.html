@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Autafrog Game</title>
+<style>
+  body { background: #0b0c10; color: #c5c6c7; font-family: Arial, sans-serif; text-align: center; }
+  #win-screen { margin-top: 50px; }
+  #next-level a {
+    display: inline-block;
+    padding: 12px 24px;
+    background: #28a;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 6px;
+    margin-top: 20px;
+  }
+  #next-level a:hover { background: #159; }
+</style>
+</head>
+<body>
+
+<!-- Your existing game HTML -->
+<div id="game-container">
+  <!-- ... existing game content ... -->
+</div>
+
+<!-- Win screen -->
+<div id="win-screen" style="display:none;">
+  <h1>You Win!</h1>
+  <p>Congratulations, you completed the level!</p>
+
+  <!-- NEW: Next level button -->
+  <div id="next-level">
+    <a href="nextpage.html">Click here for the next level</a>
+  </div>
+</div>
+
+<script>
+  // Example: call this when the player wins
+  function showWinScreen() {
+    document.getElementById("win-screen").style.display = "block";
+  }
+
+  // For demonstration, auto-show win screen after 2s
+  // Remove or replace this with your actual win condition
+  setTimeout(showWinScreen, 2000);
+</script>
+
+</body>
+</html>
