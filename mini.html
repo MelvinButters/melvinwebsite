@@ -7,12 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Uncial+Antiqua&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #f3efe3; /* parchment-like */
+            background-color: #f3efe3; /* parchment style */
             color: #3b2f2f;
             font-family: 'Uncial Antiqua', serif;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
             align-items: center;
             padding: 20px;
         }
@@ -27,23 +26,14 @@
         .crossword-container {
             width: 90vw;
             max-width: 800px;
-            height: 0;
-            padding-bottom: 90%; /* keep square ratio */
-            position: relative;
-            overflow: hidden;
             border: 4px solid #8c5e2c;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(140,94,44,0.5);
         }
         .crossword-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 120%; /* zoom in */
-            height: 120%;
+            width: 100%;
+            height: 800px; /* large enough for full crossword */
             border: 0;
-            transform: scale(1.2); /* scale content to fill container */
-            transform-origin: top left;
         }
         .footer {
             margin-top: 30px;
