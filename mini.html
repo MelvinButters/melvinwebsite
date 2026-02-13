@@ -7,41 +7,57 @@
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Uncial+Antiqua&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #1a1a1a;
-            color: #f5f0e1;
+            background-color: #f3efe3; /* parchment-like */
+            color: #3b2f2f;
             font-family: 'Uncial Antiqua', serif;
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             align-items: center;
             padding: 20px;
-            min-height: 100vh;
         }
         h1 {
             font-family: 'MedievalSharp', cursive;
             font-size: 3em;
-            color: gold;
-            text-shadow: 2px 2px 4px #000;
-            margin-bottom: 40px;
+            color: #6b4500;
+            text-shadow: 1px 1px 2px #bba26d;
+            margin-bottom: 30px;
+            text-align: center;
         }
-        iframe {
-            border: 4px solid #c9a95d;
+        .crossword-container {
+            width: 90vw;
+            max-width: 800px;
+            height: 0;
+            padding-bottom: 90%; /* keep square ratio */
+            position: relative;
+            overflow: hidden;
+            border: 4px solid #8c5e2c;
             border-radius: 10px;
-            box-shadow: 0 0 20px #c9a95d;
+            box-shadow: 0 0 20px rgba(140,94,44,0.5);
+        }
+        .crossword-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 120%; /* zoom in */
+            height: 120%;
+            border: 0;
+            transform: scale(1.2); /* scale content to fill container */
+            transform-origin: top left;
         }
         .footer {
-            margin-top: 40px;
-            font-size: 0.9em;
-            color: #aaa;
+            margin-top: 30px;
+            font-size: 1em;
+            color: #5a4b3c;
+            text-align: center;
         }
     </style>
 </head>
 <body>
     <h1>New Luxmoria Times Crossword</h1>
-    <iframe width="500" height="500" 
-        src="https://crosswordlabs.com/embed/clank-12" 
-        frameborder="0">
-    </iframe>
-    <div class="footer">A fantasy puzzle for brave adventurers</div>
+    <div class="crossword-container">
+        <iframe src="https://crosswordlabs.com/embed/clank-12" frameborder="0"></iframe>
+    </div>
+    <div class="footer">A puzzle for brave adventurers of Luxmoria</div>
 </body>
 </html>
