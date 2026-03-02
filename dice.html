@@ -3,162 +3,166 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>3D D20 Dice Roller</title>
+  <title>Eldritch D20 Dice Roller</title>
+
+  <!-- Three.js + Physics -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cannon-es@0.20.0/dist/cannon-es.js"></script>
+
   <style>
     body {
       margin: 0;
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: radial-gradient(circle at top, #1b2735, #090a0f);
-      color: #fff;
-      font-family: system-ui, sans-serif;
       overflow: hidden;
+      background: radial-gradient(circle at top, #0b132b, #02040f);
+      font-family: system-ui, sans-serif;
+      color: #e0e6ff;
     }
 
-    .container {
+    #ui {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       text-align: center;
     }
 
-    h1 {
-      letter-spacing: 0.15em;
-      margin-bottom: 1rem;
-    }
-
-    .scene {
-      width: 300px;
-      height: 300px;
-      margin: 2rem auto;
-      perspective: 900px;
-    }
-
-    .d20 {
-      position: relative;
-      width: 160px;
-      height: 160px;
-      margin: auto;
-      transform-style: preserve-3d;
-      animation: idle 6s infinite linear;
-    }
-
-    .rolling {
-      animation: roll 1.2s cubic-bezier(.25,.8,.25,1) forwards;
-    }
-
-    .face {
-      position: absolute;
-      width: 0;
-      height: 0;
-      border-left: 80px solid transparent;
-      border-right: 80px solid transparent;
-      border-bottom: 138px solid #2d8cf0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-weight: bold;
-      font-size: 1.2rem;
-      text-shadow: 0 2px 4px rgba(0,0,0,0.6);
-      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
-    }
-
-    .face span {
-      position: absolute;
-      top: 50px;
-    }
-
-    /* 20 triangular faces positioned roughly like a real d20 */
-    .f1  { transform: rotateY(0deg) translateZ(75px) rotateX(54deg); }
-    .f2  { transform: rotateY(72deg) translateZ(75px) rotateX(54deg); }
-    .f3  { transform: rotateY(144deg) translateZ(75px) rotateX(54deg); }
-    .f4  { transform: rotateY(216deg) translateZ(75px) rotateX(54deg); }
-    .f5  { transform: rotateY(288deg) translateZ(75px) rotateX(54deg); }
-
-    .f6  { transform: rotateY(36deg) translateZ(75px) rotateX(-54deg); }
-    .f7  { transform: rotateY(108deg) translateZ(75px) rotateX(-54deg); }
-    .f8  { transform: rotateY(180deg) translateZ(75px) rotateX(-54deg); }
-    .f9  { transform: rotateY(252deg) translateZ(75px) rotateX(-54deg); }
-    .f10 { transform: rotateY(324deg) translateZ(75px) rotateX(-54deg); }
-
-    @keyframes roll {
-      0% {
-        transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-      }
-      100% {
-        transform: rotateX(1080deg) rotateY(900deg) rotateZ(720deg);
-      }
-    }
-
-    @keyframes idle {
-      from { transform: rotateX(0deg) rotateY(0deg); }
-      to   { transform: rotateX(360deg) rotateY(360deg); }
-    }
-
     button {
-      padding: 0.75rem 1.5rem;
-      font-size: 1rem;
-      border: none;
+      padding: 0.8rem 2rem;
+      font-size: 1.1rem;
       border-radius: 999px;
-      background: #e63946;
+      border: none;
+      background: linear-gradient(135deg, #6d28d9, #1e3a8a);
       color: white;
       cursor: pointer;
-      box-shadow: 0 6px 20px rgba(230,57,70,0.4);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      box-shadow: 0 0 25px rgba(109,40,217,0.7);
     }
 
     button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 10px 30px rgba(230,57,70,0.6);
+      box-shadow: 0 0 40px rgba(109,40,217,1);
     }
 
-    .result {
-      margin-top: 1rem;
-      font-size: 1.3rem;
+    #result {
+      margin-top: 0.75rem;
+      font-size: 1.2rem;
       opacity: 0.9;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🎲 3D D20</h1>
-
-    <div class="scene">
-      <div id="d20" class="d20">
-        <div class="face f1"><span>1</span></div>
-        <div class="face f2"><span>2</span></div>
-        <div class="face f3"><span>3</span></div>
-        <div class="face f4"><span>4</span></div>
-        <div class="face f5"><span>5</span></div>
-        <div class="face f6"><span>6</span></div>
-        <div class="face f7"><span>7</span></div>
-        <div class="face f8"><span>8</span></div>
-        <div class="face f9"><span>9</span></div>
-        <div class="face f10"><span>10</span></div>
-      </div>
-    </div>
-
-    <button onclick="roll()">Roll</button>
-    <div id="result" class="result"></div>
+  <div id="ui">
+    <button onclick="roll()">🎲 Cast the Die</button>
+    <div id="result"></div>
   </div>
 
+  <audio id="clack" src="https://cdn.jsdelivr.net/gh/joshua19881228/sound-effects/dice.wav"></audio>
+
   <script>
-    const d20 = document.getElementById('d20');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 1000);
+    camera.position.set(0, 6, 10);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    // Lighting
+    scene.add(new THREE.AmbientLight(0x6b7cff, 0.4));
+    const light = new THREE.DirectionalLight(0xa78bfa, 1.2);
+    light.position.set(5, 10, 7);
+    scene.add(light);
+
+    // Physics world
+    const world = new CANNON.World({ gravity: new CANNON.Vec3(0, -9.82, 0) });
+
+    // Floor
+    const floorBody = new CANNON.Body({ mass: 0, shape: new CANNON.Plane() });
+    floorBody.quaternion.setFromEuler(-Math.PI/2, 0, 0);
+    world.addBody(floorBody);
+
+    const floorMesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(50, 50),
+      new THREE.MeshStandardMaterial({ color: 0x020617 })
+    );
+    floorMesh.rotation.x = -Math.PI / 2;
+    scene.add(floorMesh);
+
+    // D20 geometry
+    const geometry = new THREE.IcosahedronGeometry(1.5, 0);
+    const material = new THREE.MeshStandardMaterial({
+      color: 0x4f46e5,
+      metalness: 0.6,
+      roughness: 0.25,
+      emissive: 0x1e1b4b,
+      emissiveIntensity: 0.4
+    });
+
+    const dieMesh = new THREE.Mesh(geometry, material);
+    scene.add(dieMesh);
+
+    const dieBody = new CANNON.Body({
+      mass: 3,
+      shape: new CANNON.Sphere(1.5),
+      angularDamping: 0.1
+    });
+
+    dieBody.position.set(0, 5, 0);
+    world.addBody(dieBody);
+
+    const clack = document.getElementById('clack');
     const result = document.getElementById('result');
 
     function roll() {
-      const value = Math.floor(Math.random() * 20) + 1;
+      dieBody.velocity.set(0, 0, 0);
+      dieBody.angularVelocity.set(0, 0, 0);
 
-      d20.classList.remove('rolling');
-      void d20.offsetWidth;
-      d20.classList.add('rolling');
+      dieBody.position.set(0, 6, 0);
+      dieBody.applyImpulse(
+        new CANNON.Vec3((Math.random()-0.5)*8, 10, (Math.random()-0.5)*8),
+        dieBody.position
+      );
 
-      result.textContent = '';
+      clack.currentTime = 0;
+      clack.play();
 
-      setTimeout(() => {
-        result.textContent = `You rolled a ${value}`;
-      }, 1200);
+      result.textContent = 'Rolling...';
+
+      setTimeout(determineResult, 1800);
     }
+
+    function determineResult() {
+      const up = new THREE.Vector3(0,1,0);
+      let maxDot = -Infinity;
+      let face = 1;
+
+      geometry.faces?.forEach((f, i) => {
+        const normal = f.normal.clone().applyQuaternion(dieMesh.quaternion);
+        const dot = normal.dot(up);
+        if (dot > maxDot) {
+          maxDot = dot;
+          face = i + 1;
+        }
+      });
+
+      result.textContent = `Result: ${face}`;
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      world.step(1/60);
+
+      dieMesh.position.copy(dieBody.position);
+      dieMesh.quaternion.copy(dieBody.quaternion);
+
+      renderer.render(scene, camera);
+    }
+
+    animate();
+
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
   </script>
 </body>
 </html>
