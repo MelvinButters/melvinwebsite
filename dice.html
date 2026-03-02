@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>D&D Dice Roller</title>
+  <title>3D D20 Dice Roller</title>
   <style>
     body {
       margin: 0;
@@ -22,50 +22,77 @@
     }
 
     h1 {
+      letter-spacing: 0.15em;
       margin-bottom: 1rem;
-      letter-spacing: 0.1em;
     }
 
-    .dice-area {
-      position: relative;
+    .scene {
       width: 300px;
       height: 300px;
       margin: 2rem auto;
-      perspective: 800px;
+      perspective: 900px;
     }
 
-    .die {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, #6dd5fa, #2980b9);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      font-weight: bold;
+    .d20 {
+      position: relative;
+      width: 160px;
+      height: 160px;
+      margin: auto;
       transform-style: preserve-3d;
-      transform: translate(-50%, -50%);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      animation: idle 6s infinite linear;
     }
 
     .rolling {
-      animation: roll 1s ease-out forwards;
+      animation: roll 1.2s cubic-bezier(.25,.8,.25,1) forwards;
     }
+
+    .face {
+      position: absolute;
+      width: 0;
+      height: 0;
+      border-left: 80px solid transparent;
+      border-right: 80px solid transparent;
+      border-bottom: 138px solid #2d8cf0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.6);
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
+    }
+
+    .face span {
+      position: absolute;
+      top: 50px;
+    }
+
+    /* 20 triangular faces positioned roughly like a real d20 */
+    .f1  { transform: rotateY(0deg) translateZ(75px) rotateX(54deg); }
+    .f2  { transform: rotateY(72deg) translateZ(75px) rotateX(54deg); }
+    .f3  { transform: rotateY(144deg) translateZ(75px) rotateX(54deg); }
+    .f4  { transform: rotateY(216deg) translateZ(75px) rotateX(54deg); }
+    .f5  { transform: rotateY(288deg) translateZ(75px) rotateX(54deg); }
+
+    .f6  { transform: rotateY(36deg) translateZ(75px) rotateX(-54deg); }
+    .f7  { transform: rotateY(108deg) translateZ(75px) rotateX(-54deg); }
+    .f8  { transform: rotateY(180deg) translateZ(75px) rotateX(-54deg); }
+    .f9  { transform: rotateY(252deg) translateZ(75px) rotateX(-54deg); }
+    .f10 { transform: rotateY(324deg) translateZ(75px) rotateX(-54deg); }
 
     @keyframes roll {
       0% {
-        transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg) scale(1);
-      }
-      50% {
-        transform: translate(-50%, -50%) rotateX(360deg) rotateY(360deg) scale(1.2);
+        transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
       }
       100% {
-        transform: translate(-50%, -50%) rotateX(720deg) rotateY(720deg) scale(1);
+        transform: rotateX(1080deg) rotateY(900deg) rotateZ(720deg);
       }
+    }
+
+    @keyframes idle {
+      from { transform: rotateX(0deg) rotateY(0deg); }
+      to   { transform: rotateX(360deg) rotateY(360deg); }
     }
 
     button {
@@ -76,8 +103,8 @@
       background: #e63946;
       color: white;
       cursor: pointer;
-      transition: transform 0.1s ease, box-shadow 0.1s ease;
       box-shadow: 0 6px 20px rgba(230,57,70,0.4);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
     }
 
     button:hover {
@@ -87,42 +114,50 @@
 
     .result {
       margin-top: 1rem;
-      font-size: 1.25rem;
-      opacity: 0.85;
+      font-size: 1.3rem;
+      opacity: 0.9;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🎲 D&D Dice Roller</h1>
+    <h1>🎲 3D D20</h1>
 
-    <div class="dice-area">
-      <div id="die" class="die">?</div>
+    <div class="scene">
+      <div id="d20" class="d20">
+        <div class="face f1"><span>1</span></div>
+        <div class="face f2"><span>2</span></div>
+        <div class="face f3"><span>3</span></div>
+        <div class="face f4"><span>4</span></div>
+        <div class="face f5"><span>5</span></div>
+        <div class="face f6"><span>6</span></div>
+        <div class="face f7"><span>7</span></div>
+        <div class="face f8"><span>8</span></div>
+        <div class="face f9"><span>9</span></div>
+        <div class="face f10"><span>10</span></div>
+      </div>
     </div>
 
-    <button onclick="rollDie()">Roll d20</button>
-
+    <button onclick="roll()">Roll</button>
     <div id="result" class="result"></div>
   </div>
 
   <script>
-    const die = document.getElementById('die');
+    const d20 = document.getElementById('d20');
     const result = document.getElementById('result');
 
-    function rollDie() {
+    function roll() {
       const value = Math.floor(Math.random() * 20) + 1;
 
-      die.classList.remove('rolling');
-      void die.offsetWidth; // reset animation
-      die.classList.add('rolling');
+      d20.classList.remove('rolling');
+      void d20.offsetWidth;
+      d20.classList.add('rolling');
 
       result.textContent = '';
-      die.textContent = '?';
 
       setTimeout(() => {
-        die.textContent = value;
         result.textContent = `You rolled a ${value}`;
-      }, 900);
+      }, 1200);
     }
   </script>
 </body>
