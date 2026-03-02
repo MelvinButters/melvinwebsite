@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>D&D Dice Roller</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top, #1b2735, #090a0f);
+      color: #fff;
+      font-family: system-ui, sans-serif;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      letter-spacing: 0.1em;
+    }
+
+    .dice-area {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 2rem auto;
+      perspective: 800px;
+    }
+
+    .die {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #6dd5fa, #2980b9);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+      transform-style: preserve-3d;
+      transform: translate(-50%, -50%);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .rolling {
+      animation: roll 1s ease-out forwards;
+    }
+
+    @keyframes roll {
+      0% {
+        transform: translate(-50%, -50%) rotateX(0deg) rotateY(0deg) scale(1);
+      }
+      50% {
+        transform: translate(-50%, -50%) rotateX(360deg) rotateY(360deg) scale(1.2);
+      }
+      100% {
+        transform: translate(-50%, -50%) rotateX(720deg) rotateY(720deg) scale(1);
+      }
+    }
+
+    button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 999px;
+      background: #e63946;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.1s ease, box-shadow 0.1s ease;
+      box-shadow: 0 6px 20px rgba(230,57,70,0.4);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(230,57,70,0.6);
+    }
+
+    .result {
+      margin-top: 1rem;
+      font-size: 1.25rem;
+      opacity: 0.85;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎲 D&D Dice Roller</h1>
+
+    <div class="dice-area">
+      <div id="die" class="die">?</div>
+    </div>
+
+    <button onclick="rollDie()">Roll d20</button>
+
+    <div id="result" class="result"></div>
+  </div>
+
+  <script>
+    const die = document.getElementById('die');
+    const result = document.getElementById('result');
+
+    function rollDie() {
+      const value = Math.floor(Math.random() * 20) + 1;
+
+      die.classList.remove('rolling');
+      void die.offsetWidth; // reset animation
+      die.classList.add('rolling');
+
+      result.textContent = '';
+      die.textContent = '?';
+
+      setTimeout(() => {
+        die.textContent = value;
+        result.textContent = `You rolled a ${value}`;
+      }, 900);
+    }
+  </script>
+</body>
+</html>
