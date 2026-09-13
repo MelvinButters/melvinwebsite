@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>maze</title>
+<style>
+  *{ box-sizing: border-box; }
+
+  body{
+    margin:0;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background: #000;
+    font-family: monospace, sans-serif;
+    color: #999;
+    padding: 20px 10px;
+  }
+
+  h1{
+    font-size: 1rem;
+    font-weight: normal;
+    color: #888;
+    margin: 0 0 14px;
+    letter-spacing: 1px;
+  }
+
+  canvas{
+    display:block;
+    background: #050505;
+    border: 1px solid #333;
+  }
+
+  #status{
+    margin-top: 12px;
+    min-height: 1.2em;
+    color: #777;
+    text-align:center;
+    font-size: 0.9rem;
+  }
+
+  #status.won{
+    color: #fff;
+    font-size: 2.4rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+  }
+
+  .hint{
+    margin-top: 4px;
+    font-size: 0.75rem;
+    color: #555;
+  }
+
+  #restart{
+    margin-top: 12px;
+    background: #000;
+    border: 1px solid #333;
+    color: #666;
+    font-family: inherit;
+    padding: 5px 14px;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  #restart.visible{
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  #restart:hover{
+    color: #ccc;
+  }
+</style>
+</head>
+<body>
+
+  <canvas id="game"></canvas>
+
+  <div id="status"></div>
+
+  <button id="restart">restart</button>
+
+<script>
+(function(){
+  // '#' wall, '.' path, 'H' hidden wall (looks like a wall, but passable)
+  const maze = [
+    "#######################",
+    "#.#.....#.............#",
+    "#.###.#.#####.#####.###",
+    "#.....#.....#...#.#...#",
+    "###########.###.#.###.#",
+    "#...#.......#.#...#...#",
+    "#.###.#####H#.###.#.###",
+    "#.....#.#...#.#...#...#",
+    "#.#####.#.#.###.#####.#",
+    "#.#.......#...#...#...#",
+    "#.#####.###H#.#.###.#.#",
+    "#.....#.#...#...#...#.#",
+    "#####.###.#.#####.###.#",
+    "#...#.....#.......#...#",
+    "#.#.#######H#######.###",
+    "#.#...................#",
+    "#######################"
+  ];
+
+  const rows = maze.length;
+  const cols = maze[0].length;
+  const cell = 26;
+
+  const start = { r: 1, c: 1 };
+  const exit  = { r: 15, c: 21 };
+
+  const canvas = document.getElementById('game');
+  const ctx = canvas.getContext('2d');
+  canvas.width = cols * cell;
+  canvas.height = rows * cell;
+
+  const statusEl = document.getElementById('status');
+  const restartBtn = document.getElementById('restart');
+
+  let player = { r: start.r, c: start.c };
+  let won = false;
+
+  const sprite = new Image();
+  sprite.src = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAC20lEQVR4AeyYMXIbMQxF6fRJkTqlq9z/LKlyhaRIDiAvCs6sLS7GwhLk5+p5BrMSuQTB9wRZ0pfCnxQBhEjpKAUhCBEjIFYOHYIQMQJi5dAhCBEjIFYOHYIQMQJi5eR0iNghVyoHIWK2EIIQMQJi5dAhCBEjIFYOHYIQMQJi5dAhCBEjIFbOSh0ihi6nHITkcA1nRUgYXc5ChORwDWdFSBhdzkKE5HANZ0VIGF3OQoTkcA1nRUgYXc5ChORwDWdFSBhdzkKE5HANZ0VIGF3OQoTkcA1nRUgYXc5ChORwDWdFSBhdzkKE5HANZ0VIGF3OQoTkcA1nlRZy+1duR/Hnx+vtYxzd2xoPE/vcwvBd0kJevpWX/cn+/nwtNWz8+6/fZR82tnpIC9nDNRH2/GoC7Ez7WELIXsa++Cs+lhZi7/0VunVGfdzjus/dI1+vHNJC7JC1O+zxM4SskP0r+K47vt5KqXFkqc7b9egewXFZIYKshpSEkCGYP7/JmkL+b19Pahydtc7b9egewXFZIR+/FAqySynJFZKy4wNJn+0TlqGRFmIF3n3CssELh7yQC7NvHg0hTSzzBhEyj31zZ4Q0scwbRMg89s2dlxSyfUcpj0bz9IKD0kKOPvJuPzyWR0OQfbMkaSHNii8+OEHIxYmePN7TCtn+B22/UJ6kl7D8aYUksOySEiFdMPZLIi1E9W2lH/77TNJC7svtM6IsWl6IMrw+L4/3WeSFvC/3/DN1wUsIMYgWZ3TYeoszOUasXUJIBWFAo1FzqF+XEuLBvMocQsRMIgQhYgTEyqFDECJGQKwcOgQhYgTEyqFDECJGQKwcOsQVMn4SIeOZuzsixMUzfhIh45m7OyLExTN+EiHjmbs7IsTFM34SIeOZuzsixMUzfhIh45m7OyLExZMz6WVFiEdnwhxCJkD3tkSIR2fCHEImQPe2RIhHZ8IcQiZA97ZEiEdnwhxCJkD3tnwDAAD//0CFJEYAAAAGSURBVAMAJx+OydtF13UAAAAASUVORK5CYII=";
+
+  function isWall(r, c){
+    if (r < 0 || r >= rows || c < 0 || c >= cols) return true;
+    return maze[r][c] === '#';
+  }
+
+  function tryMove(dr, dc){
+    if (won) return;
+    const nr = player.r + dr;
+    const nc = player.c + dc;
+    if (!isWall(nr, nc)){
+      player.r = nr;
+      player.c = nc;
+      if (player.r === exit.r && player.c === exit.c){
+        won = true;
+        statusEl.textContent = 'LEVEL UP!';
+        statusEl.classList.add('won');
+        restartBtn.classList.add('visible');
+      }
+    }
+  }
+
+  function reset(){
+    player = { r: start.r, c: start.c };
+    won = false;
+    statusEl.textContent = '';
+    statusEl.classList.remove('won');
+    restartBtn.classList.remove('visible');
+    draw();
+  }
+
+  window.addEventListener('keydown', (e) => {
+    const k = e.key.toLowerCase();
+    if (['arrowup','w'].includes(k)) { tryMove(-1, 0); e.preventDefault(); draw(); }
+    else if (['arrowdown','s'].includes(k)) { tryMove(1, 0); e.preventDefault(); draw(); }
+    else if (['arrowleft','a'].includes(k)) { tryMove(0, -1); e.preventDefault(); draw(); }
+    else if (['arrowright','d'].includes(k)) { tryMove(0, 1); e.preventDefault(); draw(); }
+  });
+
+  restartBtn.addEventListener('click', reset);
+
+  function draw(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#050505';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let r = 0; r < rows; r++){
+      for (let c = 0; c < cols; c++){
+        const x = c * cell, y = r * cell;
+        const ch = maze[r][c];
+        if (ch === '#' || ch === 'H'){
+          // hidden walls look identical to regular walls
+          ctx.fillStyle = '#1a1a1a';
+          ctx.fillRect(x, y, cell, cell);
+          ctx.strokeStyle = '#0d0d0d';
+          ctx.strokeRect(x + 0.5, y + 0.5, cell - 1, cell - 1);
+        }
+      }
+    }
+
+    // exit marker: blue square with a red triangle "hat"
+    const ex = exit.c * cell, ey = exit.r * cell;
+    const sx = ex + 4, sy = ey + 4, ssize = cell - 8;
+    ctx.fillStyle = '#3366e0';
+    ctx.fillRect(sx, sy, ssize, ssize);
+
+    const hatHeight = cell * 0.5;
+    ctx.fillStyle = '#e02626';
+    ctx.beginPath();
+    ctx.moveTo(sx, sy);
+    ctx.lineTo(sx + ssize, sy);
+    ctx.lineTo(sx + ssize / 2, sy - hatHeight);
+    ctx.closePath();
+    ctx.fill();
+
+    // player sprite (drawn larger than one cell, centered on the player)
+    const spriteSize = cell * 1.8;
+    const cx = player.c * cell + cell / 2;
+    const cy = player.r * cell + cell / 2;
+    if (sprite.complete && sprite.naturalWidth){
+      ctx.drawImage(sprite, cx - spriteSize / 2, cy - spriteSize / 2, spriteSize, spriteSize);
+    } else {
+      ctx.fillStyle = '#ccc';
+      ctx.fillRect(cx - spriteSize / 2, cy - spriteSize / 2, spriteSize, spriteSize);
+    }
+  }
+
+  sprite.onload = draw;
+  draw();
+})();
+</script>
+
+</body>
+</html>
