@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<!--
+  HOW TO EDIT THIS LETTER
+  -----------------------
+  Everything you'll want to change is wrapped in double brackets, like [[THIS]].
+  Search for them below and replace with your own words:
+
+    [[RECIPIENT]]   - who the letter is addressed to
+    [[BODY]]        - the main message (can be multiple paragraphs)
+
+  You can also just delete the placeholder text in the HTML below and type
+  directly between the tags — whatever you find easiest.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Letter From the Chest</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=IM+Fell+English:ital@0;1&family=Spectral:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --ink-black:#0b0812;
+    --gold:#c9a44c;
+    --gold-bright:#f0cf7d;
+    --violet:#8b5fbf;
+    --violet-glow:#b489f0;
+    --teal-glow:#5ce0c6;
+    --parchment:#ece2c6;
+    --parchment-shadow:#c8b98f;
+    --ink:#3a2c1e;
+    --wax:#8f2c2c;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html,body{
+    height:100%;
+    margin:0;
+    background:
+      radial-gradient(ellipse at 50% 10%, rgba(180,137,240,0.20), transparent 60%),
+      var(--ink-black);
+    font-family:'Spectral', Georgia, serif;
+  }
+
+  body{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:6vh 18px;
+  }
+
+  .stage{
+    width:100%;
+    max-width:560px;
+    margin-top:20px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  /* --- letter parchment --- */
+  .letter{
+    position:relative;
+    width:100%;
+    background:
+      radial-gradient(ellipse at 20% 10%, rgba(255,255,255,0.25), transparent 40%),
+      radial-gradient(ellipse at 85% 90%, rgba(0,0,0,0.12), transparent 45%),
+      linear-gradient(160deg, var(--parchment), #e4d6ae 60%, var(--parchment-shadow));
+    color:var(--ink);
+    padding:52px 44px 44px;
+    border-radius:2px;
+    box-shadow:
+      0 30px 70px rgba(0,0,0,0.55),
+      inset 0 0 0 1px rgba(58,44,30,0.15),
+      inset 0 0 60px rgba(58,44,30,0.08);
+  }
+
+  .letter::before{
+    content:"";
+    position:absolute;
+    inset:14px;
+    border:1px solid rgba(58,44,30,0.25);
+    pointer-events:none;
+  }
+
+  .torn-edge{
+    position:absolute;
+    left:0; right:0;
+    height:14px;
+    background:var(--ink-black);
+    -webkit-mask-image: linear-gradient(90deg, black 50%, black 50%);
+  }
+
+  .seal{
+    position:absolute;
+    top:-30px;
+    left:50%;
+    transform:translateX(-50%);
+    width:64px; height:64px;
+  }
+
+  .seal-glow{
+    animation:seal-pulse 3.2s ease-in-out infinite;
+    transform-origin:center;
+  }
+  @keyframes seal-pulse{
+    0%,100%{ filter:drop-shadow(0 0 4px rgba(201,164,76,0.4)); }
+    50%{ filter:drop-shadow(0 0 12px rgba(201,164,76,0.7)); }
+  }
+
+  .salutation{
+    font-family:'IM Fell English', 'Spectral', serif;
+    font-size:1.35rem;
+    margin:0 0 20px;
+    color:#2c2115;
+  }
+
+  .body-text{
+    font-family:'IM Fell English', 'Spectral', serif;
+    font-size:1.14rem;
+    line-height:1.85;
+    color:#332617;
+  }
+
+  .body-text p{ margin:0 0 18px; }
+  .body-text p:last-child{ margin-bottom:0; }
+
+  .rune-corner{
+    position:absolute;
+    font-family:serif;
+    color:var(--violet);
+    opacity:0.35;
+    font-size:0.95rem;
+  }
+  .rune-corner.tl{ top:20px; left:22px; }
+  .rune-corner.tr{ top:20px; right:22px; }
+  .rune-corner.bl{ bottom:20px; left:22px; }
+  .rune-corner.br{ bottom:20px; right:22px; }
+
+  a.back{
+    display:inline-block;
+    margin-top:32px;
+    color:var(--violet-glow);
+    text-decoration:none;
+    font-size:0.9rem;
+    border-bottom:1px solid transparent;
+    transition:border-color 0.2s ease;
+  }
+  a.back:hover{ border-color:var(--violet-glow); }
+
+  @media (prefers-reduced-motion: reduce){
+    .seal-glow{ animation:none; }
+  }
+
+  @media (max-width:480px){
+    .letter{ padding:46px 26px 34px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="stage">
+  <div class="letter">
+    <span class="rune-corner tl">ᛟ</span>
+    <span class="rune-corner tr">ᚱ</span>
+    <span class="rune-corner bl">ᚨ</span>
+    <span class="rune-corner br">ᚠ</span>
+
+    <svg class="seal" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <g class="seal-glow">
+        <circle cx="32" cy="32" r="28" fill="#8f2c2c" stroke="#c9a44c" stroke-width="2"/>
+        <circle cx="32" cy="32" r="20" fill="none" stroke="#e6c877" stroke-width="1" opacity="0.7"/>
+        <text x="32" y="39" text-anchor="middle" font-family="'Cinzel Decorative', serif" font-size="20" fill="#e6c877">✦</text>
+      </g>
+    </svg>
+
+    <!-- [[RECIPIENT]] -->
+    <p class="salutation">To [[RECIPIENT]],</p>
+
+    <!-- [[BODY]] — add as many paragraphs as you like -->
+    <div class="body-text">
+      <p>[[Write your message here. This is the main body of the letter — tell them what the chest was guarding, why you sealed it away, or whatever the moment calls for.]]</p>
+      <p>[[You can add a second paragraph here, or delete this line entirely if one is enough.]]</p>
+    </div>
+  </div>
+
+  <a class="back" href="index.html">&larr; Seal it again</a>
+</div>
+
+</body>
+</html>
