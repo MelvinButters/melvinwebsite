@@ -4,6 +4,13 @@
   "cover": "cover.jpg",
   "thumb": "thumb.jpg",
   "pages": [
-    { "image": "1.jpg", "text": "Sleeves the Kobold never knew where he came from. So one day, he decided to go for a wander." }
+    { "image": "1.jpg", "text": "Sleeves wandered the countryside for many weeks, meeting many new friends along the way. He asked his new friends where he might find a home, but nobody was able to tell him. They did whisper, however, of the Shrine of Wisdom, in a forest past the horizon, where all your questions might be answered."},
+    { "image": "2.jpg", "text": "But past the horizon was a long way! Luckily, Sleeves was able to hitch a ride with the Kazoku family! The Kazoku's were a family of Melon farmers, and Sleeves was able to try six different flavours of melon!"},
+    { "image": "3.jpg", "text": "The Kazoku family dropped Sleeves off in the fields near their farm. Unsure where to go, a giant Field Spirit named Caru told pointed Sleeves in the direction of the Shrine of Wisdom. Caru once went there himself, to learn the meaning of courage."},
+    { "image": "4.jpg", "text": "Into the forest Sleeves travelled! Through butterfly gardens, across stream bridges made of fallen logs, and underneath canopies of magical flowers! Until finally he saw his destination ahead!"},
+    { "image": "5.jpg", "text": "A beautiful shrine underneath a waterfall. Sleeves asked the shrine where he could find his home, but it didn't respond. All Sleeves could hear was rushing water, the buzzing bees, and the leaves slowly swaying in the breeze."},
+    { "image": "6.jpg", "text": " Just then, a wise old man named Mako stepped out of the trees! Mako came here every Sunday, to speak to his wifes spirit, for she gone to where the wildflowers grow. 'Sleeves my little friend, home isn't a just a place you find, it's the people you make a home with. I visit my home here every Sunday. I know that if you keep searching with an open heart, you'll find your home too.'"},
+    { "image": "7.jpg", "text": "Sleeves said goobye to his new friend Mako, and set out of the forest to continue his search for a home. He spend some time looking at the sunset, on a swing that somebody had just left there! He wondered if Layla and Grumby and Crumbs were looking at the sunset too."}
+
   ]
 }
