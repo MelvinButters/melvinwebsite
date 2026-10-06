@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Story</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Andika&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<header class="bar">
+  <a class="btn" href="index.html" aria-label="Back to library">&#8962; Library</a>
+  <div class="t" id="bt"></div>
+  <span style="width:96px"></span>
+</header>
+<main>
+  <div class="stage" id="stage" aria-live="polite"></div>
+  <div class="nav">
+    <button class="btn round" id="prev" aria-label="Previous page">&#8592;</button>
+    <div class="count" id="count"></div>
+    <button class="btn round" id="next" aria-label="Next page">&#8594;</button>
+  </div>
+</main>
+<script>
+const slug=new URLSearchParams(location.search).get('book');
+const base=`books/${slug}/`;
+const stage=document.getElementById('stage'),prev=document.getElementById('prev'),next=document.getElementById('next'),count=document.getElementById('count');
+let book,pages=[],i=0,busy=false;
+const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+const DUR=reduce?1:650;
+
+function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text)e.textContent=text;return e}
+function pic(src,label){
+  const im=el('img','pic');im.alt='';im.draggable=false;im.src=base+src;
+  im.onerror=()=>{const d=el('div','pic noimg',`Add picture: ${label}`);im.replaceWith(d)};
+  return im;
+}
+function build(n){
+  const p=pages[n],d=el('div','page');
+  if(p.type==='title'){
+    d.classList.add('title');d.append(pic(p.image,p.image),el('h2','',book.title));
+    if(book.author)d.append(el('p','',`by ${book.author}`));
+  }else if(p.type==='end'){
+    d.classList.add('end');d.append(el('h2','','The End'));
+    const a=el('a','btn','Back to library');a.href='index.html';d.append(a);
+  }else{
+    d.append(pic(p.image,p.image),el('p','txt',p.text));
+  }
+  return d;
+}
+function ui(){
+  count.textContent=`${i+1} / ${pages.length}`;
+  prev.disabled=i===0;next.disabled=i===pages.length-1;
+}
+function go(dir){
+  const t=i+dir;
+  if(busy||t<0||t>=pages.length)return;
+  busy=true;
+  const from=stage.lastElementChild,to=build(t);
+  const turn=[{transform:'rotateY(0deg)',opacity:1,filter:'brightness(1)'},
+              {transform:'rotateY(-100deg)',opacity:0,filter:'brightness(.7)',offset:1}];
+  const opts={duration:DUR,easing:'cubic-bezier(.45,.05,.3,1)',fill:'forwards'};
+  if(dir>0){
+    to.style.zIndex=1;from.style.zIndex=2;stage.prepend(to);
+    from.animate(turn,opts).onfinish=()=>{from.remove();to.style.zIndex='';busy=false};
+  }else{
+    to.style.zIndex=3;stage.append(to);
+    to.animate([...turn].reverse(),opts).onfinish=()=>{from.remove();to.style.zIndex='';busy=false};
+  }
+  i=t;ui();
+}
+next.onclick=()=>go(1);prev.onclick=()=>go(-1);
+addEventListener('keydown',e=>{if(e.key==='ArrowRight')go(1);if(e.key==='ArrowLeft')go(-1)});
+let sx=null;
+stage.addEventListener('touchstart',e=>{sx=e.touches[0].clientX},{passive:true});
+stage.addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)go(dx<0?1:-1);sx=null});
+(async()=>{
+  try{
+    book=await (await fetch(base+'book.json')).json();
+    document.title=book.title;document.getElementById('bt').textContent=book.title;
+    pages=[{type:'title',image:book.cover||book.pages[0].image},...book.pages,{type:'end'}];
+    stage.append(build(0));ui();
+  }catch(e){stage.innerHTML='<div class="page"><p class="txt">Could not find this book. Check the link and book.json.</p></div>'}
+})();
+</script></body></html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Story Library</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Andika&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head><body>
+<div class="lib">
+  <h1>Story Library</h1>
+  <p>Pick a book to read.</p>
+  <div class="shelf" id="shelf"></div>
+</div>
+<script>
+(async()=>{
+  const shelf=document.getElementById('shelf');
+  try{
+    const slugs=await (await fetch('library.json')).json();
+    for(const s of slugs){
+      const b=await (await fetch(`books/${s}/book.json`)).json();
+      const img=b.cover||(b.pages[0]&&b.pages[0].image);
+      const a=document.createElement('a');
+      a.className='cover-link';a.href=`reader.html?book=${encodeURIComponent(s)}`;
+      a.innerHTML=`<div class="cover" ${img?`style="background-image:url('books/${s}/${img}')"`:''}></div><b></b><span></span>`;
+      a.querySelector('b').textContent=b.title;
+      a.querySelector('span').textContent=b.author?`by ${b.author}`:'';
+      shelf.appendChild(a);
+    }
+  }catch(e){shelf.textContent='Could not load the library. Check library.json.';}
+})();
+</script></body></html>
