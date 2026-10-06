@@ -18,7 +18,7 @@
     const slugs=await (await fetch('library.json')).json();
     for(const s of slugs){
       const b=await (await fetch(`books/${s}/book.json`)).json();
-      const img=b.cover||(b.pages[0]&&b.pages[0].image);
+      const img=b.thumb||b.cover||(b.pages[0]&&b.pages[0].image);
       const a=document.createElement('a');
       a.className='cover-link';a.href=`reader.html?book=${encodeURIComponent(s)}`;
       a.innerHTML=`<div class="cover" ${img?`style="background-image:url('books/${s}/${img}')"`:''}></div><b></b><span></span>`;
