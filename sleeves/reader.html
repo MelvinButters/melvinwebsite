@@ -39,7 +39,7 @@ function build(n){
     d.classList.add('title');d.append(pic(p.image,p.image),el('h2','',book.title));
     if(book.author)d.append(el('p','',`by ${book.author}`));
   }else if(p.type==='end'){
-    d.classList.add('end');d.append(el('h2','','The End'));
+    d.classList.add('end');d.append(el('h2','','See you next time, wanderer!'));
     const a=el('a','btn','Back to library');a.href='index.html';d.append(a);
   }else{
     const t=el('div','txt');t.append(el('span','',p.text));d.append(pic(p.image,p.image),t);
