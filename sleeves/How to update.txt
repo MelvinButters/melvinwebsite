@@ -1,0 +1,27 @@
+Part 1: Making a picture in Photopea
+
+Every page picture is a 1600 × 1200 pixel image.
+
+File → New. Type 1600 for width and 1200 for height, with the units on Pixels, then click Create.
+File → Open & Place and pick your landscape. Hold Shift and drag a corner until it fills the whole canvas with no checkerboard showing. Press Enter.
+File → Open & Place again and pick your character PNG. Shift-drag a corner to resize it, drag it where you want it, and press Enter.
+Fix the handles if they vanish. Click the layer in the Layers panel, then press Ctrl+T (Cmd+T on Mac). Untick Auto-Select at the top so you don't grab the wrong layer.
+Zoom out with Ctrl+0 to check there's no checkerboard left and nothing important sits at the edges.
+File → Export As → JPG, quality 80-85%. Name it 1.jpg, 2.jpg and so on, and cover.jpg for the cover.
+
+Optional shelf picture: make a tall picture at 800 × 1000 and name it thumb.jpg. If you skip it, the shelf uses your cover.
+
+Part 2: Adding a book
+Open storybooks/books/ and make a new folder with a lowercase name and no spaces, like the-sleepy-bear.
+Put your exported pictures in that folder.
+Copy book.json from another book into the new folder.
+Open that book.json and change the title, the author, and each page's picture name and story text.
+Open storybooks/library.json and add the folder name to the list: ["the-lost-kite", "the-sleepy-bear"]
+Commit to GitHub. Wait a minute or two, then hard refresh the site (Ctrl+Shift+R).
+
+Page order in a book follows the order of the pages in its book.json. Book order on the shelf follows the order of names in library.json.
+
+Part 3: Removing a book
+Open library.json and delete the book's name from the list.
+Delete the book's folder from storybooks/books/.
+Commit.
