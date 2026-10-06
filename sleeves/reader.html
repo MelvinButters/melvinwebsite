@@ -25,7 +25,7 @@ const base=`books/${slug}/`;
 const stage=document.getElementById('stage'),prev=document.getElementById('prev'),next=document.getElementById('next'),count=document.getElementById('count');
 let book,pages=[],i=0,busy=false;
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const DUR=reduce?1:1200;
+const DUR=reduce?1:650;
 
 function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text)e.textContent=text;return e}
 function pic(src,label){
@@ -39,13 +39,20 @@ function build(n){
     d.classList.add('title');d.append(pic(p.image,p.image),el('h2','',book.title));
     if(book.author)d.append(el('p','',`by ${book.author}`));
   }else if(p.type==='end'){
-    d.classList.add('end');d.append(el('h2','','Until next time!'));
+    d.classList.add('end');d.append(el('h2','','The End'));
     const a=el('a','btn','Back to library');a.href='index.html';d.append(a);
   }else{
-    d.append(pic(p.image,p.image),el('p','txt',p.text));
+    const t=el('div','txt');t.append(el('span','',p.text));d.append(pic(p.image,p.image),t);
   }
   return d;
 }
+function fit(p,reset){
+  const t=p&&p.querySelector('.txt');if(!t)return;
+  if(reset)t.style.fontSize='';
+  let s=parseFloat(getComputedStyle(t).fontSize);
+  while(t.scrollHeight>t.clientHeight+1&&s>14){s-=1;t.style.fontSize=s+'px'}
+}
+addEventListener('resize',()=>fit(stage.lastElementChild,true));
 function ui(){
   count.textContent=`${i+1} / ${pages.length}`;
   prev.disabled=i===0;next.disabled=i===pages.length-1;
@@ -63,10 +70,10 @@ function go(dir){
               {transform:'rotateY(-70deg)',opacity:1,filter:'brightness(.8)',offset:.4},
               {transform:'rotateY(0deg)',opacity:1,filter:'brightness(1)'}];
   if(dir>0){
-    to.style.zIndex=1;from.style.zIndex=2;stage.prepend(to);
+    to.style.zIndex=1;from.style.zIndex=2;stage.prepend(to);fit(to);
     from.animate(away,opts).onfinish=()=>{from.remove();to.style.zIndex='';busy=false};
   }else{
-    to.style.zIndex=3;stage.append(to);
+    to.style.zIndex=3;stage.append(to);fit(to);
     to.animate(back,opts).onfinish=()=>{from.remove();to.style.zIndex='';busy=false};
   }
   i=t;ui();
@@ -81,7 +88,7 @@ stage.addEventListener('touchend',e=>{if(sx===null)return;const dx=e.changedTouc
     book=await (await fetch(base+'book.json')).json();
     document.title=book.title;document.getElementById('bt').textContent=book.title;
     pages=[{type:'title',image:book.cover||book.pages[0].image},...book.pages,{type:'end'}];
-    stage.append(build(0));ui();
-  }catch(e){stage.innerHTML='<div class="page"><p class="txt">Could not find this book. Check the link and book.json.</p></div>'}
+    stage.append(build(0));ui();if(document.fonts)document.fonts.ready.then(()=>fit(stage.lastElementChild,true));
+  }catch(e){stage.innerHTML='<div class="page"><div class="txt"><span>Could not find this book. Check the link and book.json.</span></div></div>'}
 })();
 </script></body></html>
