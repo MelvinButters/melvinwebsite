@@ -5,7 +5,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Andika&family=Fredoka:wght@500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-</head><body>
+</head><body class="reader">
 <header class="bar">
   <a class="btn" href="index.html" aria-label="Back to library">&#8962; Library</a>
   <div class="t" id="bt"></div>
@@ -55,15 +55,19 @@ function go(dir){
   if(busy||t<0||t>=pages.length)return;
   busy=true;
   const from=stage.lastElementChild,to=build(t);
-  const turn=[{transform:'rotateY(0deg)',opacity:1,filter:'brightness(1)'},
-              {transform:'rotateY(-100deg)',opacity:0,filter:'brightness(.7)',offset:1}];
   const opts={duration:DUR,easing:'cubic-bezier(.45,.05,.3,1)',fill:'forwards'};
+  const away=[{transform:'rotateY(0deg)',opacity:1,filter:'brightness(1)'},
+              {transform:'rotateY(-70deg)',opacity:1,filter:'brightness(.8)',offset:.6},
+              {transform:'rotateY(-100deg)',opacity:0,filter:'brightness(.7)'}];
+  const back=[{transform:'rotateY(-100deg)',opacity:0,filter:'brightness(.7)'},
+              {transform:'rotateY(-70deg)',opacity:1,filter:'brightness(.8)',offset:.4},
+              {transform:'rotateY(0deg)',opacity:1,filter:'brightness(1)'}];
   if(dir>0){
     to.style.zIndex=1;from.style.zIndex=2;stage.prepend(to);
-    from.animate(turn,opts).onfinish=()=>{from.remove();to.style.zIndex='';busy=false};
+    from.animate(away,opts).onfinish=()=>{from.remove();to.style.zIndex='';busy=false};
   }else{
     to.style.zIndex=3;stage.append(to);
-    to.animate([...turn].reverse(),opts).onfinish=()=>{from.remove();to.style.zIndex='';busy=false};
+    to.animate(back,opts).onfinish=()=>{from.remove();to.style.zIndex='';busy=false};
   }
   i=t;ui();
 }
