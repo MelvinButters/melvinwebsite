@@ -25,7 +25,7 @@ const base=`books/${slug}/`;
 const stage=document.getElementById('stage'),prev=document.getElementById('prev'),next=document.getElementById('next'),count=document.getElementById('count');
 let book,pages=[],i=0,busy=false;
 const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-const DUR=reduce?1:650;
+const DUR=reduce?1:1200;
 
 function el(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text)e.textContent=text;return e}
 function pic(src,label){
