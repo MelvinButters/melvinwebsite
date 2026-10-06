@@ -50,7 +50,7 @@ function fit(p,reset){
   const t=p&&p.querySelector('.txt');if(!t)return;
   if(reset)t.style.fontSize='';
   let s=parseFloat(getComputedStyle(t).fontSize);
-  while(t.scrollHeight>t.clientHeight+1&&s>14){s-=1;t.style.fontSize=s+'px'}
+  while(t.scrollHeight>t.clientHeight+1&&s>13){s-=1;t.style.fontSize=s+'px'}
 }
 addEventListener('resize',()=>fit(stage.lastElementChild,true));
 function ui(){
@@ -60,7 +60,7 @@ function ui(){
 function go(dir){
   const t=i+dir;
   if(busy||t<0||t>=pages.length)return;
-  busy=true;
+  busy=true;stage.classList.add('turning');
   const from=stage.lastElementChild,to=build(t);
   const opts={duration:DUR,easing:'cubic-bezier(.45,.05,.3,1)',fill:'forwards'};
   const away=[{transform:'rotateY(0deg)',opacity:1,filter:'brightness(1)'},
@@ -71,10 +71,10 @@ function go(dir){
               {transform:'rotateY(0deg)',opacity:1,filter:'brightness(1)'}];
   if(dir>0){
     to.style.zIndex=1;from.style.zIndex=2;stage.prepend(to);fit(to);
-    from.animate(away,opts).onfinish=()=>{from.remove();to.style.zIndex='';busy=false};
+    from.animate(away,opts).onfinish=()=>{from.remove();to.style.zIndex='';busy=false;stage.classList.remove('turning')};
   }else{
     to.style.zIndex=3;stage.append(to);fit(to);
-    to.animate(back,opts).onfinish=()=>{from.remove();to.style.zIndex='';busy=false};
+    const an=to.animate(back,opts);an.onfinish=()=>{an.cancel();from.remove();to.style.zIndex='';busy=false;stage.classList.remove('turning')};
   }
   i=t;ui();
 }
