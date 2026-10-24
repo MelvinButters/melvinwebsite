@@ -322,10 +322,10 @@
   // This check happens in the visitor's browser, so it is NOT secure —
   // anyone who views the page source can read it. Fine for a fun puzzle,
   // not for protecting anything sensitive.
-  const CORRECT_PASSWORD = "babyyaga";
+  const CORRECT_PASSWORD = "babayaga";
 
   // Where a correct password sends the visitor.
-  const DESTINATION_PAGE = "success.html";
+  const DESTINATION_PAGE = "feytales.html";
 
   const scene = document.getElementById('scene');
   const form = document.getElementById('chest-form');
